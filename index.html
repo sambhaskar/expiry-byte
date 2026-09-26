@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aivora Labs | Websites, Animated Experiences, Web Apps & AI</title>
+<meta name="description" content="Aivora Labs designs and builds fast, SEO-ready websites, scroll-animated experiences, web applications and AI-powered products for startups and growing businesses.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0d12;--card:#141821;--line:#232937;--txt:#e8ebf2;--mut:#9aa3b5;--acc:#7c5cff;--acc2:#22d3ee;--r:18px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;overflow-x:hidden}
+h1,h2,h3{font-family:'Space Grotesk',sans-serif;line-height:1.15}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1140px;margin:0 auto;padding:0 22px}
+section{padding:96px 0}
+.tag{display:inline-block;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acc2);margin-bottom:12px}
+.h2{font-size:clamp(1.9rem,4vw,2.8rem);margin-bottom:14px}
+.lead{color:var(--mut);max-width:640px}
+.btn{display:inline-block;padding:14px 26px;border-radius:999px;font-weight:600;transition:.25s;border:1px solid transparent;cursor:pointer;font-size:1rem;text-align:center}
+.btn-p{background:linear-gradient(135deg,var(--acc),#a855f7);color:#fff;box-shadow:0 10px 30px -10px var(--acc)}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 16px 40px -10px var(--acc)}
+.btn-g{border-color:var(--line);color:var(--txt)}
+.btn-g:hover{border-color:var(--acc)}
+/* scroll progress */
+#bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));z-index:60}
+nav{position:fixed;inset:0 0 auto;z-index:50;backdrop-filter:blur(14px);background:rgba(11,13,18,.7);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font-family:'Space Grotesk';font-weight:700;font-size:1.3rem}
+.logo span{color:var(--acc)}
+.links{display:flex;gap:26px;font-size:.95rem;color:var(--mut)}
+.links a:hover{color:var(--txt)}
+.menu{display:none;background:none;border:0;color:var(--txt);font-size:1.6rem;cursor:pointer}
+/* hero */
+.hero{padding:170px 0 110px;position:relative;overflow:hidden;min-height:92vh}
+.blob{position:absolute;border-radius:50%;pointer-events:none;will-change:transform}
+.b1{width:620px;height:620px;background:radial-gradient(circle,rgba(124,92,255,.35),transparent 65%);top:-160px;right:-160px}
+.b2{width:420px;height:420px;background:radial-gradient(circle,rgba(34,211,238,.2),transparent 65%);bottom:-160px;left:-120px}
+.hero h1{font-size:clamp(2.4rem,6vw,4.4rem);max-width:900px;position:relative;z-index:1}
+.hero h1 .w{display:inline-block;opacity:0;transform:translateY(40px) rotate(4deg);animation:up .8s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes up{to{opacity:1;transform:none}}
+.grad{background:linear-gradient(90deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.grad .w{background:linear-gradient(90deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-size:1.15rem;color:var(--mut);max-width:620px;margin:22px 0 34px;position:relative;z-index:1;opacity:0;animation:up .8s .9s forwards}
+.cta{display:flex;gap:14px;flex-wrap:wrap;position:relative;z-index:1;opacity:0;animation:up .8s 1.1s forwards}
+.stats{display:flex;gap:44px;margin-top:64px;flex-wrap:wrap;position:relative;z-index:1}
+.stats b{display:block;font-family:'Space Grotesk';font-size:2rem}
+.stats span{color:var(--mut);font-size:.9rem}
+/* marquee */
+.marq{border-block:1px solid var(--line);overflow:hidden;padding:22px 0;background:var(--card)}
+.marq div{display:flex;gap:48px;width:max-content;animation:mq 30s linear infinite;font-family:'Space Grotesk';font-size:1.5rem;color:var(--mut);white-space:nowrap}
+.marq i{color:var(--acc);font-style:normal}
+@keyframes mq{to{transform:translateX(-50%)}}
+.grid{display:grid;gap:20px;margin-top:48px}
+.g3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:30px;transition:border-color .3s,transform .3s}
+.card:hover{border-color:var(--acc)}
+.tilt{transform-style:preserve-3d}
+.ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:rgba(124,92,255,.14);font-size:1.3rem;margin-bottom:18px}
+.card h3{font-size:1.25rem;margin-bottom:8px}
+.card p{color:var(--mut);font-size:.95rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chips span{font-size:.78rem;padding:5px 11px;border-radius:999px;background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.25);color:var(--acc2)}
+.new{font-size:.7rem;background:var(--acc2);color:#000;padding:2px 8px;border-radius:999px;margin-left:8px;vertical-align:middle;font-family:Inter;font-weight:600}
+/* motion showcase */
+.motion{position:relative}
+.big{font-family:'Space Grotesk';font-size:clamp(2.2rem,7vw,5.5rem);line-height:1.05;font-weight:700}
+.big span{display:block;color:rgba(232,235,242,.12);transition:color .4s}
+.big span.lit{color:var(--txt)}
+.big span.lit.g{background:linear-gradient(90deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.path{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:40px}
+.path div{border-left:3px solid var(--acc);padding:6px 0 6px 18px}
+.path b{display:block;font-family:'Space Grotesk';font-size:1.1rem;margin-bottom:4px}
+.path p{color:var(--mut);font-size:.92rem}
+/* pricing */
+.tabs{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:5px;margin-top:30px;flex-wrap:wrap;gap:2px}
+.tabs button{background:none;border:0;color:var(--mut);padding:10px 18px;border-radius:999px;font:600 .9rem Inter;cursor:pointer;transition:.2s}
+.tabs button.on{background:var(--acc);color:#fff}
+.plans{display:none}
+.plans.on{display:grid;animation:fade .4s}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}}
+.plan{position:relative;display:flex;flex-direction:column}
+.plan.pop{border-color:var(--acc);background:linear-gradient(180deg,rgba(124,92,255,.12),var(--card) 45%)}
+.badge{position:absolute;top:-12px;right:24px;background:var(--acc);font-size:.75rem;font-weight:600;padding:4px 12px;border-radius:999px}
+.from{font-size:.8rem;color:var(--mut);margin-top:10px}
+.price{font-family:'Space Grotesk';font-size:2.2rem;margin:0 0 2px}
+.price small{font-size:.95rem;color:var(--mut);font-family:Inter}
+.for{color:var(--mut);font-size:.9rem;margin-bottom:18px}
+.plan ul{list-style:none;margin-bottom:26px;flex:1}
+.plan li{padding:7px 0 7px 26px;position:relative;font-size:.94rem;border-bottom:1px dashed var(--line)}
+.plan li::before{content:"✓";position:absolute;left:0;color:var(--acc2);font-weight:700}
+.note{color:var(--mut);font-size:.88rem;margin-top:22px;max-width:860px}
+.steps{counter-reset:s}
+.step{counter-increment:s}
+.step::before{content:"0" counter(s);font-family:'Space Grotesk';font-size:2.4rem;color:var(--acc);opacity:.6;display:block;margin-bottom:6px}
+.faq{max-width:780px;margin-top:40px}
+.q{border-bottom:1px solid var(--line)}
+.q button{width:100%;text-align:left;background:none;border:0;color:var(--txt);font:600 1.05rem Inter;padding:22px 0;cursor:pointer;display:flex;justify-content:space-between;gap:16px}
+.q button::after{content:"+";color:var(--acc);font-size:1.4rem;transition:.25s}
+.q.open button::after{transform:rotate(45deg)}
+.a{max-height:0;overflow:hidden;transition:max-height .35s;color:var(--mut)}
+.q.open .a{max-height:700px}
+.a p{padding-bottom:22px}
+.contact{display:grid;grid-template-columns:1fr 1.2fr;gap:40px;align-items:start}
+form{display:grid;gap:14px}
+input,select,textarea{width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;color:var(--txt);font:inherit}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--acc)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.info p{margin:10px 0;color:var(--mut)}
+.info a{color:var(--txt)}
+#msg{font-size:.92rem;color:var(--acc2)}
+footer{border-top:1px solid var(--line);padding:30px 0;color:var(--mut);font-size:.9rem}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+/* scroll reveal with stagger */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.hero h1 .w,.hero p,.cta{opacity:1;transform:none}}
+@media(max-width:860px){
+ .links{display:none;position:absolute;top:68px;left:0;right:0;flex-direction:column;background:var(--bg);padding:20px 22px;border-bottom:1px solid var(--line)}
+ .links.show{display:flex}
+ .menu{display:block}
+ .contact,.row{grid-template-columns:1fr}
+ section{padding:72px 0}
+}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+
+<nav>
+ <div class="wrap">
+  <a href="#" class="logo">Aivora<span>.</span>Labs</a>
+  <div class="links" id="links">
+   <a href="#services">Services</a><a href="#motion">Animations</a><a href="#pricing">Pricing</a><a href="#process">Process</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+  </div>
+  <a href="#contact" class="btn btn-p" style="padding:10px 20px;font-size:.9rem">Get a quote</a>
+  <button class="menu" id="menu" aria-label="Open menu">☰</button>
+ </div>
+</nav>
+
+<header class="hero">
+ <div class="blob b1" data-speed="0.25"></div>
+ <div class="blob b2" data-speed="-0.15"></div>
+ <div class="wrap">
+  <span class="tag">Web · Motion · Apps · AI · Branding</span>
+  <h1 id="h1">Websites that look sharp, load fast and <span class="grad">bring you customers.</span></h1>
+  <p>We design and build websites, web applications and brands for small businesses, startups and growing companies. Basic Google SEO setup is included free with every website.</p>
+  <div class="cta">
+   <a href="#pricing" class="btn btn-p">See packages</a>
+   <a href="#contact" class="btn btn-g">Book a free call</a>
+  </div>
+  <div class="stats">
+   <div><b>100%</b><span>pixel-perfect, mobile-first & responsive</span></div>
+   <div><b>Free</b><span>basic SEO setup with every website</span></div>
+   <div><b>₹0</b><span>hidden costs: price agreed before we start</span></div>
+  </div>
+ </div>
+</header>
+
+<div class="marq"><div>
+ <span>Websites <i>✦</i></span><span>Scroll Animations <i>✦</i></span><span>Web Apps <i>✦</i></span><span>AI Integration <i>✦</i></span><span>UI/UX Design <i>✦</i></span><span>Branding <i>✦</i></span><span>SEO <i>✦</i></span>
+ <span>Websites <i>✦</i></span><span>Scroll Animations <i>✦</i></span><span>Web Apps <i>✦</i></span><span>AI Integration <i>✦</i></span><span>UI/UX Design <i>✦</i></span><span>Branding <i>✦</i></span><span>SEO <i>✦</i></span>
+</div></div>
+
+<section id="services">
+ <div class="wrap">
+  <span class="tag">What we do</span>
+  <h2 class="h2">One studio. Everything your business needs online.</h2>
+  <p class="lead">Strategy, design, development, motion and growth under one roof, so your brand stays consistent everywhere.</p>
+  <div class="grid g3">
+   <div class="card tilt reveal"><div class="ic">🌐</div><h3>Website Development</h3><p>Beautiful, fast and mobile-friendly websites that your team can easily update, built to make a great first impression.</p></div>
+   <div class="card tilt reveal"><div class="ic">🎞️</div><h3>Animated & Scroll Websites <span class="new">TRENDING</span></h3><p>Websites that come alive as visitors scroll, with smooth movement and eye-catching effects that make people stop and explore.</p></div>
+   <div class="card tilt reveal"><div class="ic">⚙️</div><h3>Web Applications</h3><p>Booking systems, customer portals, dashboards, online courses and custom software, built around how your business works.</p></div>
+   <div class="card tilt reveal"><div class="ic">🤖</div><h3>AI Integration</h3><p>Smart chatbots that answer your customers 24/7, plus automation that saves your team hours of repetitive work.</p></div>
+   <div class="card tilt reveal"><div class="ic">🎨</div><h3>UI / UX Design</h3><p>Clean, easy-to-use designs that you see and approve before we build anything.</p></div>
+   <div class="card tilt reveal"><div class="ic">✨</div><h3>Branding & SEO</h3><p>Logo, brand identity and brand videos that make you memorable, plus SEO that helps customers find you on Google.</p></div>
+  </div>
+ </div>
+</section>
+
+<section id="design-to-code" class="d2c">
+ <style>
+ .d2c .wrap{display:grid;grid-template-columns:1fr 1.05fr;gap:60px;align-items:center}
+ .d2c ul{list-style:none;margin:24px 0 28px}
+ .d2c li{padding:9px 0 9px 28px;position:relative}
+ .d2c li::before{content:"✓";position:absolute;left:0;color:var(--acc2);font-weight:700}
+ .d2c .price-line{color:var(--mut);margin-bottom:22px}
+ .d2c .price-line b{color:var(--txt);font-family:'Space Grotesk';font-size:1.3rem}
+ .vis{display:flex;align-items:center;gap:16px}
+ .frame{flex:1;background:var(--card);border:1.5px dashed var(--acc);border-radius:16px;padding:18px}
+ .lbl{color:var(--mut);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:12px}
+ .blk{height:10px;border-radius:6px;background:var(--line);margin-bottom:8px}
+ .blk.h{height:40px;background:rgba(124,92,255,.18)}
+ .arrow{font-size:1.8rem;color:var(--acc2);animation:nudge 1.4s ease-in-out infinite}
+ @keyframes nudge{50%{transform:translateX(6px)}}
+ .browser{flex:1.3;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(124,92,255,.5)}
+ .browser .top{display:flex;gap:6px;padding:11px 14px;border-bottom:1px solid var(--line)}
+ .browser .top i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+ .browser .body{padding:18px}
+ .hb{height:52px;border-radius:10px;background:linear-gradient(135deg,var(--acc),var(--acc2));margin-bottom:12px}
+ .mini{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+ .mini div{height:34px;border-radius:8px;background:var(--line)}
+ .fmts{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+ .fmts span{font-size:.78rem;padding:5px 12px;border-radius:999px;border:1px solid var(--line);color:var(--mut)}
+ @media(max-width:860px){.d2c .wrap{grid-template-columns:1fr}.vis{order:-1}}
+ </style>
+ <div class="wrap">
+  <div class="reveal">
+   <span class="tag">Pixel-Perfect Design to Code</span>
+   <h2 class="h2">Have a design? We'll bring it to life, pixel by pixel.</h2>
+   <p class="lead">Send us your Figma, Adobe XD or Photoshop file and we'll turn it into a live website that looks exactly like your design on every screen, from mobile to desktop.</p>
+   <ul>
+    <li>Pixel-perfect match to your design</li>
+    <li>Fully responsive on mobile, tablet & desktop</li>
+    <li>Clean, fast-loading code</li>
+    <li>Built as a custom website or on WordPress</li>
+    <li>White-label friendly: designers & agencies, we'll happily build it for you, and you deliver it proudly under your own name</li>
+   </ul>
+   <p class="price-line">Every design is different, so the price depends on your pages and how detailed they are. <b>Send your file and get a free quote within 24 hours.</b></p>
+   <a href="#contact" class="btn btn-p">Send us your design</a>
+  </div>
+  <div class="vis reveal">
+   <div class="frame">
+    <span class="lbl">Your design</span>
+    <div class="blk h"></div><div class="blk" style="width:80%"></div><div class="blk" style="width:60%"></div><div class="blk"></div><div class="blk" style="width:70%"></div>
+    <div class="fmts"><span>Figma</span><span>XD</span><span>PSD</span></div>
+   </div>
+   <div class="arrow">→</div>
+   <div class="browser">
+    <div class="top"><i></i><i></i><i></i></div>
+    <div class="body">
+     <span class="lbl">Live website</span>
+     <div class="hb"></div><div class="blk" style="width:85%"></div><div class="blk" style="width:65%"></div>
+     <div class="mini"><div></div><div></div><div></div></div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="motion" class="motion">
+ <div class="wrap">
+  <span class="tag">Why animation matters</span>
+  <div class="big" id="big">
+   <span>Your business has a story.</span>
+   <span>Let's tell it beautifully,</span>
+   <span>so every visitor feels it</span>
+   <span class="g">and remembers you.</span>
+  </div>
+  <p class="lead" style="margin-top:28px">Your website is often the first place a customer meets you. We make that first moment special, with smooth, thoughtful animations that guide visitors through your story, make your brand feel premium and turn a quick visit into a real enquiry.</p>
+  <a href="#contact" class="btn btn-p" style="margin-top:30px">Want a website like this? Let's talk</a>
+ </div>
+</section>
+
+<section style="padding-top:0">
+ <div class="wrap">
+  <div class="card reveal" style="padding:44px">
+   <span class="tag">Starting from zero?</span>
+   <h2 class="h2">No name, no logo, no website? We'll guide you through everything.</h2>
+   <p class="lead">Launching a brand-new business? We take care of the full journey and guide you at every step.</p>
+   <div class="path">
+    <div><b>1. Brand name & logo</b><p>Name ideas, logo design, colours and fonts that fit your business.</p></div>
+    <div><b>2. Brand identity</b><p>Business cards, social media kit, brand guidelines and email signature.</p></div>
+    <div><b>3. Website or app</b><p>Designed around your new brand, mobile-first and SEO-ready.</p></div>
+    <div><b>4. Launch & grow</b><p>Domain, business email, Google Business Profile, SEO and AI tools.</p></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="pricing">
+ <div class="wrap">
+  <span class="tag">Packages</span>
+  <h2 class="h2">Clear packages. No surprises.</h2>
+  <p class="lead">Choose a starting point. Every project begins with a free consultation and a fixed written quote.</p>
+  <div class="tabs">
+   <button class="on" data-t="web">Websites</button>
+   <button data-t="anim">Animated Sites</button>
+   <button data-t="app">Web Apps</button>
+   <button data-t="brand">Branding</button>
+   <button data-t="seo">SEO & Care</button>
+  </div>
+
+  <div class="grid g3 plans on" id="web">
+   <div class="card plan"><h3>Basic</h3><p class="from">Starting at</p><div class="price">₹12,999</div><p class="for">For new businesses & professionals</p>
+    <ul><li>Up to 5 pages</li><li>Pixel-perfect, mobile-responsive design</li><li>Subtle hover & fade animations</li><li>Contact form & WhatsApp button</li><li>Basic Google SEO setup</li><li>2 rounds of revisions</li><li>2 weeks free support after launch</li><li>Delivery in 2 weeks</li></ul>
+    <p style="font-size:.88rem;color:var(--mut);margin:-12px 0 18px">Need more features? <a href="#contact" style="color:var(--acc2);font-weight:600">Get a custom quote →</a></p>
+    <a href="#contact" class="btn btn-g">Choose Basic</a></div>
+   <div class="card plan pop"><span class="badge">Most popular</span><h3>Premium</h3><p class="from">Starting at</p><div class="price">₹49,999</div><p class="for">For growing businesses</p>
+    <ul><li>Up to 15 pages</li><li>Custom design made for your brand</li><li>Scroll-reveal animations</li><li>Easy admin panel to edit content yourself</li><li>Blog / news section</li><li>Google SEO & Analytics setup</li><li>3 rounds of revisions</li><li>1 month free support after launch</li><li>Delivery in 3–4 weeks</li></ul>
+    <p style="font-size:.88rem;color:var(--mut);margin:-12px 0 18px">Need more features? <a href="#contact" style="color:var(--acc2);font-weight:600">Get a custom quote →</a></p>
+    <a href="#contact" class="btn btn-p">Choose Premium</a></div>
+   <div class="card plan"><h3>Elite</h3><p class="from">Starting at</p><div class="price">₹1,19,999</div><p class="for">For brands that want to lead</p>
+    <ul><li>Up to 25 pages</li><li>Premium custom design</li><li>Advanced scroll & page-transition animations</li><li>One special feature of your choice: online store to sell products, appointment booking, or a members login area for private content (like paid courses or member videos)</li><li>Online payments (UPI, cards, net banking)</li><li>Website in up to 2 languages</li><li>Advanced Google SEO setup</li><li>Logo & brand kit included</li><li>3 months free priority support</li><li>Delivery in 6–8 weeks</li></ul>
+    <p style="font-size:.88rem;color:var(--mut);margin:-12px 0 18px">Need more features? <a href="#contact" style="color:var(--acc2);font-weight:600">Get a custom quote →</a></p>
+    <a href="#contact" class="btn btn-g">Choose Elite</a></div>
+  </div>
+
+  <div class="grid g3 plans" id="anim">
+   <div class="card plan"><h3>Motion Landing Page</h3><p class="from">Starting at</p><div class="price">₹79,999</div><p class="for">One page that wows: launches, products, campaigns</p>
+    <ul><li>1 long-scroll page (up to 8 sections)</li><li>Scroll-triggered storytelling</li><li>Text, image & parallax animations</li><li>Lottie / SVG animated icons</li><li>Optimised for mobile performance</li><li>2 rounds of revisions</li><li>Delivery in 3–4 weeks</li></ul>
+    <a href="#contact" class="btn btn-g">Get started</a></div>
+   <div class="card plan pop"><span class="badge">Showstopper</span><h3>Immersive Website</h3><p class="from">Starting at</p><div class="price">₹1,79,999</div><p class="for">A fully animated brand experience</p>
+    <ul><li>Up to 8 pages, fully animated</li><li>Custom scroll-driven storytelling</li><li>Smooth page transitions</li><li>Pinned & horizontal scroll sections</li><li>Micro-interactions & custom cursor</li><li>AI-generated visuals & motion assets</li><li>CMS + SEO setup</li><li>Delivery in 6–8 weeks</li></ul>
+    <a href="#contact" class="btn btn-p">Get started</a></div>
+   <div class="card plan"><h3>3D / WebGL Experience</h3><p class="from">Starting at</p><div class="price">₹2,99,999</div><p class="for">Interactive 3D for premium brands</p>
+    <ul><li>Interactive 3D product or scene</li><li>Scroll-controlled 3D camera</li><li>Custom shaders & effects</li><li>Performance fallbacks for mobile</li><li>Everything in Immersive</li></ul>
+    <a href="#contact" class="btn btn-g">Book a call</a></div>
+  </div>
+
+  <div class="grid g3 plans" id="app">
+   <div class="card plan"><h3>MVP</h3><p class="from">Starting at</p><div class="price">₹1,49,999</div><p class="for">Launch and test your idea</p>
+    <ul><li>Up to 8 core screens</li><li>User login & roles</li><li>Database & admin panel</li><li>Responsive web app</li><li>Cloud deployment</li><li>1 month support</li></ul>
+    <a href="#contact" class="btn btn-g">Discuss your idea</a></div>
+   <div class="card plan pop"><span class="badge">Best value</span><h3>Business Platform</h3><p class="from">Starting at</p><div class="price">₹3,49,999</div><p class="for">Portals, dashboards, booking & e-learning</p>
+    <ul><li>Multi-role portals (customer, staff, admin)</li><li>Custom UI/UX design</li><li>Payments & subscriptions</li><li>KPI dashboard & reports</li><li>Auto-generated PDF reports</li><li>3 months support</li></ul>
+    <a href="#contact" class="btn btn-p">Discuss your idea</a></div>
+   <div class="card plan"><h3>Custom SaaS</h3><p class="from">Pricing</p><div class="price">Custom quote</div><p class="for">Complex products built to scale</p>
+    <ul><li>Discovery & technical planning</li><li>Scalable architecture</li><li>Real-time data features</li><li>Multi-tenant & subscription billing</li><li>Monthly development retainer</li></ul>
+    <a href="#contact" class="btn btn-g">Book a call</a></div>
+  </div>
+
+  <div class="grid g3 plans" id="brand">
+   <div class="card plan"><h3>Brand Starter</h3><p class="from">Starting at</p><div class="price">₹19,999</div><p class="for">For brand-new businesses</p>
+    <ul><li>Logo design (3 concepts)</li><li>Colour palette & fonts</li><li>Business card design</li><li>Social media profile kit</li><li>All logo file formats</li></ul>
+    <a href="#contact" class="btn btn-g">Get started</a></div>
+   <div class="card plan pop"><span class="badge">Complete</span><h3>Brand Identity</h3><p class="from">Starting at</p><div class="price">₹49,999</div><p class="for">Look established from day one</p>
+    <ul><li>Everything in Starter</li><li>Brand guidelines document</li><li>Stationery & email signature</li><li>10 social media templates</li><li>30-second animated brand video</li></ul>
+    <a href="#contact" class="btn btn-p">Get started</a></div>
+   <div class="card plan"><h3>Launch Bundle</h3><p class="from">Starting at</p><div class="price">₹89,999</div><p class="for">Brand + website, done for you</p>
+    <ul><li>Brand Identity package</li><li>Premium website (up to 15 pages)</li><li>Domain & business email setup</li><li>Google Business Profile</li><li>Launch SEO setup</li></ul>
+    <a href="#contact" class="btn btn-g">Get started</a></div>
+  </div>
+
+  <div class="grid g3 plans" id="seo">
+   <div class="card plan"><h3>Local SEO</h3><p class="from">Starting at</p><div class="price">₹12,999<small>/mo</small></div><p class="for">Get found in your city</p>
+    <ul><li>Google Business Profile optimisation</li><li>Local keyword targeting</li><li>Directory listings</li><li>Monthly ranking report</li></ul>
+    <a href="#contact" class="btn btn-g">Get started</a></div>
+   <div class="card plan pop"><span class="badge">Recommended</span><h3>Growth SEO</h3><p class="from">Starting at</p><div class="price">₹24,999<small>/mo</small></div><p class="for">Grow organic traffic steadily</p>
+    <ul><li>Technical SEO audit & fixes</li><li>4 SEO blog posts per month</li><li>Core Web Vitals optimisation</li><li>Competitor & keyword research</li><li>Detailed monthly report</li></ul>
+    <a href="#contact" class="btn btn-p">Get started</a></div>
+   <div class="card plan"><h3>Website Care</h3><p class="from">Starting at</p><div class="price">₹4,999<small>/mo</small></div><p class="for">Peace of mind after launch</p>
+    <ul><li>Updates & security monitoring</li><li>Weekly backups</li><li>Content changes (up to 3 hrs)</li><li>Uptime & speed checks</li></ul>
+    <a href="#contact" class="btn btn-g">Get started</a></div>
+  </div>
+  <p class="note">Package prices include our design, animation and AI tool costs. Not included: GST (if applicable), domain, hosting, paid plugins, stock or 3D asset licences, and ongoing AI usage (API) costs, which are billed at actuals. Extra pages beyond your package: ₹2,500–₹4,000 per page (₹6,000+ for fully animated pages). UI/UX design on its own starts at ₹4,000 per screen. Design to code is quoted per project.</p>
+ </div>
+</section>
+
+<section>
+ <div class="wrap">
+  <span class="tag">Built for every industry</span>
+  <h2 class="h2">What we can build for you</h2>
+  <div class="grid g3">
+   <div class="card tilt reveal"><div class="ic">🏥</div><h3>Clinics & Healthcare</h3><p>Appointment booking, doctor profiles, WhatsApp reminders and an AI assistant for patient FAQs.</p></div>
+   <div class="card tilt reveal"><div class="ic">🍽️</div><h3>Restaurants & Cafés</h3><p>Animated menus, table reservations, online ordering and Google Maps visibility.</p></div>
+   <div class="card tilt reveal"><div class="ic">🏠</div><h3>Real Estate</h3><p>Property listings with filters, virtual tours, 3D showcases and lead capture.</p></div>
+   <div class="card tilt reveal"><div class="ic">🎓</div><h3>Education & Coaching</h3><p>Course platforms, student portals, subscriptions and AI study tools.</p></div>
+   <div class="card tilt reveal"><div class="ic">🛍️</div><h3>E-commerce & D2C</h3><p>Fast online stores with scroll-animated product launches and payment integration.</p></div>
+   <div class="card tilt reveal"><div class="ic">🚀</div><h3>Startups & SaaS</h3><p>The first version of your app (MVP) to test your idea fast, plus admin dashboards and product launch websites.</p></div>
+   <div class="card tilt reveal"><div class="ic">💪</div><h3>Gyms & Fitness</h3><p>Membership plans, class schedules, trainer profiles and online sign-ups.</p></div>
+   <div class="card tilt reveal"><div class="ic">💇</div><h3>Salons, Spas & Beauty</h3><p>Online appointment booking, service menus with prices and before-and-after galleries.</p></div>
+   <div class="card tilt reveal"><div class="ic">🏨</div><h3>Hotels, Resorts & Travel</h3><p>Room booking, stunning photo galleries, tour packages and enquiry forms.</p></div>
+   <div class="card tilt reveal"><div class="ic">🛋️</div><h3>Interior Design & Architecture</h3><p>Beautiful project portfolios, animated showcases and lead capture for new projects.</p></div>
+   <div class="card tilt reveal"><div class="ic">🏭</div><h3>Manufacturing & Industrial</h3><p>Product catalogues, company profiles, dealer enquiries and downloadable brochures.</p></div>
+   <div class="card tilt reveal"><div class="ic">⚖️</div><h3>CAs, Lawyers & Consultants</h3><p>Professional websites that build trust, with service pages, consultation booking and client portals.</p></div>
+   <div class="card tilt reveal"><div class="ic">💍</div><h3>Events & Weddings</h3><p>Event galleries, package listings, online enquiries and wedding invitation websites.</p></div>
+   <div class="card tilt reveal"><div class="ic">🚗</div><h3>Automobile & Services</h3><p>Service booking, vehicle listings, inspection reports and customer tracking.</p></div>
+   <div class="card tilt reveal"><div class="ic">🤝</div><h3>NGOs & Communities</h3><p>Donation pages with online payments, volunteer sign-ups and impact stories.</p></div>
+  </div>
+  <p class="lead" style="margin-top:36px">Don't see your industry? We build for every kind of business. <a href="#contact" style="color:var(--acc2);font-weight:600">Tell us about yours →</a></p>
+ </div>
+</section>
+
+<section id="process">
+ <div class="wrap">
+  <span class="tag">How we work</span>
+  <h2 class="h2">From idea to launch in 4 steps</h2>
+  <div class="grid g3 steps" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">
+   <div class="card step reveal"><h3>Discover</h3><p>A free call to understand your business, goals and budget. You get a fixed written quote.</p></div>
+   <div class="card step reveal"><h3>Design</h3><p>We design your brand, screens and animations, then refine them together with your feedback before we start building.</p></div>
+   <div class="card step reveal"><h3>Build</h3><p>We develop, test on every device and optimise for speed, SEO and accessibility.</p></div>
+   <div class="card step reveal"><h3>Launch & grow</h3><p>We go live, show you how to manage your website and keep supporting you as your business grows.</p></div>
+  </div>
+ </div>
+</section>
+
+<section>
+ <div class="wrap">
+  <span class="tag">Why Aivora Labs</span>
+  <h2 class="h2">Senior-level work. Startup-friendly approach.</h2>
+  <div class="grid g3">
+   <div class="card reveal"><h3>Experienced hands</h3><p>Years of real-world experience building websites, SaaS platforms and e-learning products.</p></div>
+   <div class="card reveal"><h3>Direct communication</h3><p>You talk to the people building your product: no account managers, no confusion.</p></div>
+   <div class="card reveal"><h3>You own everything</h3><p>Your domain, code, designs and content are 100% yours. You're free to take them anywhere, anytime.</p></div>
+  </div>
+ </div>
+</section>
+
+<section id="faq">
+ <div class="wrap">
+  <span class="tag">FAQ</span>
+  <h2 class="h2">Questions, answered</h2>
+  <div class="faq">
+   <div class="q"><button>Why do animated websites cost more?</button><div class="a"><p>Every scroll animation is designed, timed and tested by hand on phones, tablets and desktops so it stays smooth and fast. It also uses premium animation, 3D and AI tools. That extra craft and tooling is included in the price.</p></div></div>
+   <div class="q"><button>Will animations slow down my website?</button><div class="a"><p>No. We optimise every animation for performance, keep it lighter on mobile and respect users who prefer reduced motion.</p></div></div>
+   <div class="q"><button>What if I need more pages than my package includes?</button><div class="a"><p>Each package has a clear page limit. Extra pages are quoted per page and always agreed in writing before work starts.</p></div></div>
+   <div class="q"><button>I'm starting a new business. Can you help with everything?</button><div class="a"><p>Yes: logo, brand identity, website, domain, business email, Google Business Profile and SEO. Our Launch Bundle covers it all.</p></div></div>
+   <div class="q"><button>What does "AI integration" mean for my business?</button><div class="a"><p>Adding smart features to your website or business, like a chatbot that answers your customers 24/7, automatic replies to enquiries, or tools that save your team from repetitive work. We recommend AI only where it truly saves you time or money, and we build and set it up for you.</p></div></div>
+   <div class="q"><button>How does payment work?</button><div class="a"><p><b style="color:var(--txt)">For websites:</b> pay 50% to start the project and the remaining 50% after you've seen and approved your website, just before it goes live.<br><br><b style="color:var(--txt)">For web applications:</b> the project is divided into stages (for example: design, development, testing and launch). You pay a part after each stage is completed, so you never pay for work you haven't seen.<br><br><b style="color:var(--txt)">Payment methods:</b> UPI (Google Pay, PhonePe, Paytm) and bank transfer. You'll get a proper invoice for every payment.</p></div></div>
+   <div class="q"><button>Do we need to meet in person?</button><div class="a"><p>No. We work 100% online, so you can work with us from anywhere, without any office visits.<br><br><b style="color:var(--txt)">Meetings:</b> we schedule video calls on Google Meet or Zoom at a time that suits you.<br><br><b style="color:var(--txt)">Daily updates:</b> quick questions and updates on WhatsApp and email.<br><br><b style="color:var(--txt)">Progress:</b> you get a live preview link to see your website as it's being built.<br><br>We guide you at every step, from the first discussion to launch.</p></div></div>
+  </div>
+ </div>
+</section>
+
+<section id="contact">
+ <div class="wrap contact">
+  <div class="info reveal">
+   <span class="tag">Contact</span>
+   <h2 class="h2">Let's build something great</h2>
+   <p>Tell us about your project and we'll reply within 24 hours with ideas and a quote.</p>
+   <p>📧 <a href="mailto:hello@aivoralabs.com">hello@aivoralabs.com</a></p>
+   <p>💬 <a href="https://wa.me/910000000000">WhatsApp us</a></p>
+   <p>🌐 100% online: video calls, WhatsApp & email</p>
+   <p>📍 Working with clients across India and worldwide</p>
+  </div>
+  <form id="form" class="reveal" action="https://api.web3forms.com/submit" method="POST">
+   <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+   <div class="row"><input name="name" placeholder="Your name" required><input type="email" name="email" placeholder="Email" required></div>
+   <div class="row"><input name="phone" placeholder="Phone / WhatsApp">
+    <select name="service"><option>Website – Basic</option><option>Website – Premium</option><option>Website – Elite</option><option>Animated / Scroll Website</option><option>3D / WebGL Experience</option><option>Web Application</option><option>AI Integration</option><option>Branding / Logo</option><option>Launch Bundle (brand + website)</option><option>SEO</option><option>Design to Code (Figma / XD / PSD)</option><option>Not sure yet</option></select></div>
+   <select name="budget"><option>Budget: under ₹50,000</option><option>₹50,000 – ₹1,50,000</option><option>₹1,50,000 – ₹5,00,000</option><option>₹5,00,000+</option></select>
+   <textarea name="message" rows="5" placeholder="Tell us about your project" required></textarea>
+   <button class="btn btn-p" type="submit">Send enquiry</button>
+   <p id="msg"></p>
+  </form>
+ </div>
+</section>
+
+<footer>
+ <div class="wrap"><span>© <span id="yr"></span> Aivora Labs. All rights reserved.</span><span>Websites · Motion · Web Apps · AI · Branding · SEO</span></div>
+</footer>
+
+<script>
+document.getElementById('yr').textContent=new Date().getFullYear();
+// hero word-by-word reveal
+(function(){const h=document.getElementById('h1');let i=0;
+ const wrapWords=n=>{[...n.childNodes].forEach(c=>{
+  if(c.nodeType===3){const f=document.createDocumentFragment();
+   c.textContent.split(/(\s+)/).forEach(t=>{if(!t.trim()){f.appendChild(document.createTextNode(t));return}
+    const s=document.createElement('span');s.className='w';s.textContent=t;s.style.animationDelay=(i++*0.07)+'s';f.appendChild(s)});
+   c.replaceWith(f)}else wrapWords(c)})};
+ wrapWords(h)})();
+// menu
+const menu=document.getElementById('menu'),links=document.getElementById('links');
+menu.onclick=()=>links.classList.toggle('show');
+links.querySelectorAll('a').forEach(a=>a.onclick=()=>links.classList.remove('show'));
+// tabs
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
+ document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('on'));
+ document.querySelectorAll('.plans').forEach(x=>x.classList.remove('on'));
+ b.classList.add('on');document.getElementById(b.dataset.t).classList.add('on');
+});
+// faq
+document.querySelectorAll('.q button').forEach(b=>b.onclick=()=>b.parentElement.classList.toggle('open'));
+// staggered reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){
+ const sib=[...e.target.parentElement.children].filter(c=>c.classList.contains('reveal'));
+ e.target.style.transitionDelay=(sib.indexOf(e.target)%3*0.12)+'s';
+ e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+// scroll: progress bar, parallax blobs, scroll-lit text
+const bar=document.getElementById('bar'),blobs=document.querySelectorAll('.blob'),lines=document.querySelectorAll('#big span');
+function onScroll(){
+ const y=scrollY,h=document.documentElement.scrollHeight-innerHeight;
+ bar.style.width=(y/h*100)+'%';
+ blobs.forEach(b=>b.style.transform=`translateY(${y*b.dataset.speed}px)`);
+ lines.forEach(l=>{const r=l.getBoundingClientRect();l.classList.toggle('lit',r.top<innerHeight*0.62)});
+}
+addEventListener('scroll',()=>requestAnimationFrame(onScroll),{passive:true});onScroll();
+// card tilt on hover (desktop)
+if(matchMedia('(hover:hover)').matches){
+ document.querySelectorAll('.tilt').forEach(c=>{
+  c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+   c.style.transform=`perspective(700px) rotateY(${x*8}deg) rotateX(${-y*8}deg) translateY(-4px)`});
+  c.addEventListener('mouseleave',()=>c.style.transform='')});
+}
+// form
+const f=document.getElementById('form'),m=document.getElementById('msg');
+f.onsubmit=async e=>{
+ e.preventDefault();m.textContent='Sending...';
+ try{const r=await fetch(f.action,{method:'POST',body:new FormData(f)});const d=await r.json();
+  m.textContent=d.success?'Thanks! We will get back to you within 24 hours.':'Something went wrong. Please WhatsApp or email us directly.';
+  if(d.success)f.reset();
+ }catch(err){m.textContent='Something went wrong. Please WhatsApp or email us directly.'}
+};
+</script>
+</body>
+</html>
