@@ -2,6 +2,8 @@
 
 Run `npm install` and `npm run dev` for local development. Run `npm run build` to create the production files in `dist/`.
 
+For Cloudflare Workers Builds, use repository root `/`, build command `npm run build`, and deploy command `npx wrangler deploy`. The Worker configuration serves the generated `dist/` directory.
+
 Page markup is in `src/PageContent.jsx`. The contact form is in `src/ContactForm.jsx`. Styles and animation libraries are in `src/styles.css` and `public/`.
 
 Contact submissions go to `experibytetechnologies@gmail.com` through FormSubmit. The inbox owner must confirm FormSubmit's one-time activation email after the first submission before messages are delivered. A deployed site needs to be served over HTTP or HTTPS.
