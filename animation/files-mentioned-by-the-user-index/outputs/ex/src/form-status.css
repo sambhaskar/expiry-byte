@@ -1,0 +1,30 @@
+#msg.form-status--success {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  padding: 16px 18px;
+  border: 1px solid #86dba2;
+  border-radius: 14px;
+  background: #e8f8ed;
+  color: #14532d;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.form-status__icon {
+  display: grid;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border-radius: 50%;
+  background: #16803d;
+  color: #fff;
+}
+
+.form-status__icon svg {
+  width: 17px;
+  height: 17px;
+}
