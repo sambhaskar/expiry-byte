@@ -72,7 +72,14 @@ export function ContactForm() {
       </select>
       <textarea name="message" rows="5" placeholder="Tell us about your project" aria-label="Tell us about your project" required />
       <button className="btn btn-p" type="submit" disabled={sending}>{sending ? 'Sending…' : 'Send enquiry'}</button>
-      <p className="privacy">🔒 Your details are used only to reply to your enquiry. No spam, ever.</p>
+      <p className="privacy">
+        We use the details you provide to respond to your enquiry, discuss your project and communicate about requested services. For more information, please read our{' '}
+        <a href="/privacy-policy/">Privacy Policy</a>.
+      </p>
+      <label className="privacy-consent">
+        <input type="checkbox" name="privacyConsent" value="accepted" required />
+        <span>I have read the <a href="/privacy-policy/">Privacy Policy</a> and understand how my enquiry information will be processed.</span>
+      </label>
       <div id="msg" className={`form-status${status.type === 'success' ? ' form-status--success' : ''}`} role="status" aria-live="polite">
         {status.type === 'success' && (
           <span className="form-status__icon" aria-hidden="true">

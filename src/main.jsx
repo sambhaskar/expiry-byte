@@ -2,9 +2,11 @@ import React, { useEffect } from 'react';
 import { createRoot, hydrateRoot } from 'react-dom/client';
 import PageContent from './PageContent.jsx';
 import TemplatesPage from './TemplatesPage.jsx';
+import LegalPage from './LegalPage.jsx';
 import './styles.css';
 
 const isTemplatesPage = window.location.pathname.replace(/\/+$/, '') === '/templates';
+const legalPath = window.location.pathname.replace(/\/+$/, '');
 
 function App() {
   useEffect(() => {
@@ -15,7 +17,10 @@ function App() {
     return () => script.remove();
   }, []);
 
-  return isTemplatesPage ? <TemplatesPage /> : <PageContent />;
+  if (isTemplatesPage) return <TemplatesPage />;
+  if (legalPath === '/privacy-policy') return <LegalPage type="privacy" />;
+  if (legalPath === '/terms') return <LegalPage type="terms" />;
+  return <PageContent />;
 }
 
 const root = document.getElementById('root');

@@ -4,7 +4,7 @@ import { createServer } from 'vite';
 const vite = await createServer({ server: { middlewareMode: true }, appType: 'custom' });
 
 try {
-  const { render, renderTemplates } = await vite.ssrLoadModule('/src/entry-server.jsx');
+  const { render, renderTemplates, renderLegal } = await vite.ssrLoadModule('/src/entry-server.jsx');
   const html = await readFile('dist/index.html', 'utf8');
   const homeHtml = html.replace('<div id="root"></div>', `<div id="root">${render()}</div>`);
   if (homeHtml === html) throw new Error('Could not find the root element in dist/index.html');
@@ -20,6 +20,18 @@ try {
     .replace(/(<meta name="twitter:description" content=")[^"]*(" \/>)/, `$1${templatesDescription}$2`)
     .replace('<div id="root"></div>', `<div id="root">${renderTemplates()}</div>`);
   if (templatesHtml === html) throw new Error('Could not generate the Templates page HTML');
+
+  const legalPages = [
+    { path: 'privacy-policy', type: 'privacy', title: 'Privacy Policy | Experibyte', description: 'Learn how Experibyte handles information submitted through its website enquiry form.' },
+    { path: 'terms', type: 'terms', title: 'Terms & Conditions | Experibyte', description: 'General terms for Experibyte website and application projects.' },
+  ];
+  const legalDocuments = legalPages.map(({ path, type, title, description }) => ({
+    path,
+    html: html
+      .replace('<title>Experibyte | Website Design, Web Apps &amp; AI</title>', `<title>${title}</title>`)
+      .replace(/(<meta name="description" content=")[^"]*(" \/>)/, `$1${description}$2`)
+      .replace('<div id="root"></div>', `<div id="root">${renderLegal(type)}</div>`),
+  }));
 
   const siteUrl = process.env.SITE_URL;
   if (siteUrl) {
@@ -38,16 +50,25 @@ try {
     const homeHead = `<link rel="canonical" href="${canonical}" />\n  <meta property="og:url" content="${canonical}" />\n  <script type="application/ld+json">${JSON.stringify(structuredData)}</script>`;
     const templatesHead = `<link rel="canonical" href="${templatesUrl}" />\n  <meta property="og:url" content="${templatesUrl}" />`;
     const insertHead = (document, head) => document.replace('</head>', `  ${head}\n</head>`);
-    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${canonical}</loc></url><url><loc>${templatesUrl}</loc></url></urlset>\n`;
+    const sitemapLegalUrls = legalPages.map(({ path }) => `<url><loc>${new URL(`${path}/`, canonical).href}</loc></url>`).join('');
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${canonical}</loc></url><url><loc>${templatesUrl}</loc></url>${sitemapLegalUrls}</urlset>\n`;
     await writeFile('dist/sitemap.xml', sitemap);
     await writeFile('dist/robots.txt', `User-agent: *\nAllow: /\nSitemap: ${new URL('sitemap.xml', canonical).href}\n`);
     await writeFile('dist/index.html', insertHead(homeHtml, homeHead));
     await mkdir('dist/templates', { recursive: true });
     await writeFile('dist/templates/index.html', insertHead(templatesHtml, templatesHead));
+    for (const document of legalDocuments) {
+      await mkdir(`dist/${document.path}`, { recursive: true });
+      await writeFile(`dist/${document.path}/index.html`, insertHead(document.html));
+    }
   } else {
     await writeFile('dist/index.html', homeHtml);
     await mkdir('dist/templates', { recursive: true });
     await writeFile('dist/templates/index.html', templatesHtml);
+    for (const document of legalDocuments) {
+      await mkdir(`dist/${document.path}`, { recursive: true });
+      await writeFile(`dist/${document.path}/index.html`, document.html);
+    }
   }
 } finally {
   await vite.close();

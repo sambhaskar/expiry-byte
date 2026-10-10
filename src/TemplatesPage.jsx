@@ -95,8 +95,16 @@ export default function TemplatesPage() {
 
       <footer className="site-footer templates-footer">
         <Brand />
-        <span>Experibyte. All rights reserved.</span>
-        <span>Websites · Templates · Web Apps · AI</span>
+        <div className="footer-content">
+          <p className="footer-tagline">Websites. Experiences. Applications. Growth.</p>
+          <p className="footer-relationship">Beyond projects. Built on relationships.</p>
+          <div className="footer-links">
+            <div><b>Quick Links</b><a href="/#services">Services</a><a href="/templates/">Templates</a><a href="/#pricing">Pricing</a><a href="/#process">Process</a><a href="/#contact">Contact</a></div>
+            <div><b>Legal</b><a href="/privacy-policy/">Privacy Policy</a><a href="/terms/">Terms &amp; Conditions</a></div>
+            <div><b>Business Enquiries</b><a href="mailto:experibytetechnologies@gmail.com">experibytetechnologies@gmail.com</a><span>Working with clients across India and worldwide.</span></div>
+          </div>
+          <p className="footer-legal">© {new Date().getFullYear()} Experibyte. All rights reserved.<br />Experibyte is an independently operated web development business based in India.</p>
+        </div>
         <a href="#main" className="back-top">BACK TO TOP ↑</a>
       </footer>
     </>
