@@ -12,7 +12,7 @@ try {
   const templatesTitle = 'Website Templates Coming Soon | Experibyte';
   const templatesDescription = 'Explore upcoming website templates for businesses, creatives, online stores and SaaS products from Experibyte.';
   let templatesHtml = html
-    .replace('<title>Experibyte | Website Design, Web Apps &amp; AI</title>', `<title>${templatesTitle}</title>`)
+    .replace('<title>Experibyte | Websites, Experiences &amp; Applications</title>', `<title>${templatesTitle}</title>`)
     .replace(/(<meta name="description" content=")[^"]*(" \/>)/, `$1${templatesDescription}$2`)
     .replace(/(<meta property="og:title" content=")[^"]*(" \/>)/, `$1${templatesTitle}$2`)
     .replace(/(<meta property="og:description" content=")[^"]*(" \/>)/, `$1${templatesDescription}$2`)
@@ -28,12 +28,12 @@ try {
   const legalDocuments = legalPages.map(({ path, type, title, description }) => ({
     path,
     html: html
-      .replace('<title>Experibyte | Website Design, Web Apps &amp; AI</title>', `<title>${title}</title>`)
+      .replace('<title>Experibyte | Websites, Experiences &amp; Applications</title>', `<title>${title}</title>`)
       .replace(/(<meta name="description" content=")[^"]*(" \/>)/, `$1${description}$2`)
       .replace('<div id="root"></div>', `<div id="root">${renderLegal(type)}</div>`),
   }));
 
-  const siteUrl = process.env.SITE_URL;
+  const siteUrl = process.env.SITE_URL || 'https://experibyte.in/';
   if (siteUrl) {
     const url = new URL(siteUrl);
     if (url.protocol !== 'https:') throw new Error('SITE_URL must use HTTPS');
