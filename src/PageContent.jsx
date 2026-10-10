@@ -18,7 +18,7 @@ export default function PageContent() {
 </a>
 <nav aria-label="Main navigation" id="navigation">
 <a href="#services">Services</a>
-<a href="#motion">Animations</a>
+<a href="/templates/">Templates</a>
 <a href="#pricing">Pricing</a>
 <a href="#process">Process</a>
 <a href="#faq">FAQ</a>

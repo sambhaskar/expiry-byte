@@ -1,19 +1,32 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { createServer } from 'vite';
 
 const vite = await createServer({ server: { middlewareMode: true }, appType: 'custom' });
 
 try {
-  const { render } = await vite.ssrLoadModule('/src/entry-server.jsx');
+  const { render, renderTemplates } = await vite.ssrLoadModule('/src/entry-server.jsx');
   const html = await readFile('dist/index.html', 'utf8');
-  let rendered = html.replace('<div id="root"></div>', `<div id="root">${render()}</div>`);
-  if (rendered === html) throw new Error('Could not find the root element in dist/index.html');
+  const homeHtml = html.replace('<div id="root"></div>', `<div id="root">${render()}</div>`);
+  if (homeHtml === html) throw new Error('Could not find the root element in dist/index.html');
+
+  const templatesTitle = 'Website Templates Coming Soon | Experibyte';
+  const templatesDescription = 'Explore upcoming website templates for businesses, creatives, online stores and SaaS products from Experibyte.';
+  let templatesHtml = html
+    .replace('<title>Experibyte | Website Design, Web Apps &amp; AI</title>', `<title>${templatesTitle}</title>`)
+    .replace(/(<meta name="description" content=")[^"]*(" \/>)/, `$1${templatesDescription}$2`)
+    .replace(/(<meta property="og:title" content=")[^"]*(" \/>)/, `$1${templatesTitle}$2`)
+    .replace(/(<meta property="og:description" content=")[^"]*(" \/>)/, `$1${templatesDescription}$2`)
+    .replace(/(<meta name="twitter:title" content=")[^"]*(" \/>)/, `$1${templatesTitle}$2`)
+    .replace(/(<meta name="twitter:description" content=")[^"]*(" \/>)/, `$1${templatesDescription}$2`)
+    .replace('<div id="root"></div>', `<div id="root">${renderTemplates()}</div>`);
+  if (templatesHtml === html) throw new Error('Could not generate the Templates page HTML');
 
   const siteUrl = process.env.SITE_URL;
   if (siteUrl) {
     const url = new URL(siteUrl);
     if (url.protocol !== 'https:') throw new Error('SITE_URL must use HTTPS');
     const canonical = url.href.endsWith('/') ? url.href : `${url.href}/`;
+    const templatesUrl = new URL('templates/', canonical).href;
     const structuredData = {
       '@context': 'https://schema.org',
       '@graph': [
@@ -22,12 +35,20 @@ try {
           '@type': 'Organization', name: 'Experibyte', url: canonical, email: 'experibytetechnologies@gmail.com', logo: new URL('logo.png', canonical).href },
       ],
     };
-    const head = `<link rel="canonical" href="${canonical}" />\n  <meta property="og:url" content="${canonical}" />\n  <script type="application/ld+json">${JSON.stringify(structuredData)}</script>`;
-    rendered = rendered.replace('</head>', `  ${head}\n</head>`);
-    await writeFile('dist/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${canonical}</loc></url></urlset>\n`);
+    const homeHead = `<link rel="canonical" href="${canonical}" />\n  <meta property="og:url" content="${canonical}" />\n  <script type="application/ld+json">${JSON.stringify(structuredData)}</script>`;
+    const templatesHead = `<link rel="canonical" href="${templatesUrl}" />\n  <meta property="og:url" content="${templatesUrl}" />`;
+    const insertHead = (document, head) => document.replace('</head>', `  ${head}\n</head>`);
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${canonical}</loc></url><url><loc>${templatesUrl}</loc></url></urlset>\n`;
+    await writeFile('dist/sitemap.xml', sitemap);
     await writeFile('dist/robots.txt', `User-agent: *\nAllow: /\nSitemap: ${new URL('sitemap.xml', canonical).href}\n`);
+    await writeFile('dist/index.html', insertHead(homeHtml, homeHead));
+    await mkdir('dist/templates', { recursive: true });
+    await writeFile('dist/templates/index.html', insertHead(templatesHtml, templatesHead));
+  } else {
+    await writeFile('dist/index.html', homeHtml);
+    await mkdir('dist/templates', { recursive: true });
+    await writeFile('dist/templates/index.html', templatesHtml);
   }
-  await writeFile('dist/index.html', rendered);
 } finally {
   await vite.close();
 }
