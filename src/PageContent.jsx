@@ -605,7 +605,7 @@ export default function PageContent() {
 <em>No surprises.</em>
 </h2>
 </div>
-<p>Our entry packages have clear starting prices. Bigger and custom projects get a fixed written quote after a free call, so you only pay for what your business actually needs.</p>
+<p><strong>Transparent pricing. Clearly defined deliverables.</strong><br />Every project begins with a discussion of your goals, features, budget and timeline. You will receive a written proposal outlining exactly what is included before development begins.<br /><br />Starting prices apply to standard project requirements. Additional features, integrations and custom functionality are quoted separately with your approval.</p>
 </div>
 <div className="tabs">
    <button className="on" data-t="web">Websites</button>
@@ -618,53 +618,66 @@ export default function PageContent() {
 <h3>Basic</h3>
 <p className="from">Starting at</p>
 <div className="price">₹12,999</div>
-<p className="for">For new businesses &amp; professionals</p>
+<p className="for">For new businesses and professionals who need a polished, dependable online presence.</p>
     <ul>
-<li>Up to 5 pages</li>
+<li>Up to 5 standard pages</li>
 <li>Pixel-perfect, mobile-responsive design</li>
 <li>Subtle hover &amp; fade animations</li>
-<li>Contact form &amp; WhatsApp button</li>
-<li>Basic Google SEO setup</li>
-<li>2 rounds of revisions</li>
-<li>2 weeks free support after launch</li>
+<li>Contact form setup (subject to the agreed hosting configuration) and WhatsApp button</li>
+<li>Best suited for informational and business websites</li>
+<li>Client-provided content and brand assets</li>
+<li>Basic on-page SEO configuration</li>
+<li>Two consolidated revision rounds</li>
+<li>Two weeks of post-launch bug-fix support</li>
+
+
+
+
 </ul>
     <p className="more">Need more features? <a href="#contact">Get a custom quote →</a>
 </p>
+    <p className="more"><b>Please note:</b> E-commerce, payment gateways, custom dashboards, premium animations, hosting, domain registration, paid plugins and ongoing maintenance are not included unless specified in the proposal.</p>
     <a href="#contact" className="btn btn-g">Choose Basic</a>
 </div>
    <div className="card plan pop">
 <span className="badge">Most popular</span>
-<h3>Advance</h3>
+<h3>Advanced</h3>
 <p className="from">Pricing</p>
 <div className="price quote">Custom quote</div>
-<p className="for">For growing businesses</p>
+<p className="for">For growing businesses requiring a more flexible website with additional pages, integrations and content management.</p>
     <ul>
-<li>Up to 15 pages</li>
 <li>Custom design made for your business</li>
+<li>Up to 15 pages within the agreed project scope</li>
+<li>Content management functionality where specified</li>
 <li>Scroll-reveal animations</li>
-<li>Easy admin panel to edit content yourself</li>
 <li>Blog / news section</li>
 <li>Google SEO &amp; Analytics setup</li>
-<li>3 rounds of revisions</li>
-<li>1 month free support after launch</li>
+<li>Three consolidated revision rounds</li>
+<li>One month of post-launch bug-fix support</li>
+<li>Integrations subject to technical feasibility and third-party availability</li>
 </ul>
+    <p className="more"><b>Please note:</b> Ongoing content uploads, third-party subscription charges, paid APIs and new feature requests are quoted separately.</p>
     <a href="#contact" className="btn btn-p">Get a quote</a>
 </div>
    <div className="card plan">
 <h3>Premium</h3>
 <p className="from">Pricing</p>
 <div className="price quote">Custom quote</div>
-<p className="for">For businesses that want to lead</p>
+<p className="for">For ambitious brands seeking distinctive digital experiences and advanced functionality.</p>
     <ul>
-<li>Unlimited pages</li>
+<li>Custom page count based on the approved project scope</li>
 <li>Premium custom design</li>
 <li>Advanced scroll &amp; page-transition animations</li>
-<li>One special feature of your choice: online store, appointment booking, or a members login area (like paid courses or member videos)</li>
+<li>One major custom feature defined in the proposal: for example, an online store, appointment booking or a members area</li>
 <li>Online payments (UPI, cards, net banking)</li>
 <li>Website in up to 2 languages</li>
 <li>Advanced Google SEO setup</li>
-<li>3 months free priority support</li>
+<li>Three months of post-launch support for agreed deliverables</li>
+<li>Advanced animation and interactive experiences as agreed</li>
+<li>Performance optimisation suited to the chosen technology</li>
+<li>Third-party integrations where feasible</li>
 </ul>
+    <p className="more"><b>Please note:</b> Additional features, maintenance, payment processing fees, API subscriptions and infrastructure costs may be billed separately.</p>
     <a href="#contact" className="btn btn-g">Get a quote</a>
 </div>
   </div>
@@ -673,18 +686,20 @@ export default function PageContent() {
 <h3>MVP</h3>
 <p className="from">Starting at</p>
 <div className="price">₹1,29,999</div>
-<p className="for">Launch and test your idea</p>
+<p className="for">Build and validate your product idea with a focused first release.</p>
     <ul>
-<li>Up to 8 core screens</li>
-<li>User login &amp; roles</li>
-<li>Database &amp; admin panel</li>
+<li>Up to 8 agreed core application screens</li>
+<li>Basic authentication and role management where required</li>
+<li>Database and administration features within the approved scope</li>
 <li>Responsive web app</li>
 <li>Cloud deployment</li>
-<li>Paid in stages, after each is done</li>
-<li>1 month support</li>
+<li>Deployment to an agreed cloud environment</li>
+<li>Testing and one month of post-launch bug-fix support</li>
+<li>Feature list finalised before development</li>
 </ul>
     <p className="more">Bigger scope? <a href="#contact">Get a custom quote →</a>
 </p>
+    <p className="more"><b>Please note:</b> Complex integrations, native mobile applications, advanced security or compliance requirements, high-volume infrastructure, AI usage charges and ongoing maintenance are quoted separately. A core screen is a distinct application view; additional workflows, complex interactions and integrations are estimated separately.</p>
     <a href="#contact" className="btn btn-g">Discuss your idea</a>
 </div>
    <div className="card plan pop">
@@ -692,29 +707,16 @@ export default function PageContent() {
 <h3>Business Platform</h3>
 <p className="from">Pricing</p>
 <div className="price quote">Custom quote</div>
-<p className="for">Portals, dashboards, booking &amp; e-learning</p>
-    <ul>
-<li>Multi-role portals (customer, staff, admin)</li>
-<li>Custom UI/UX design</li>
-<li>Payments &amp; subscriptions</li>
-<li>KPI dashboard &amp; reports</li>
-<li>Auto-generated PDF reports</li>
-<li>3 months support</li>
-</ul>
+<p className="for">A platform scoped around your users, workflows, integrations and reporting requirements.</p>
+    <p className="more">Development milestones, deliverables, hosting requirements and support terms are documented in the approved proposal.</p>
     <a href="#contact" className="btn btn-p">Discuss your idea</a>
 </div>
    <div className="card plan">
 <h3>Custom SaaS</h3>
 <p className="from">Pricing</p>
 <div className="price quote">Custom quote</div>
-<p className="for">Complex products built to scale</p>
-    <ul>
-<li>Discovery &amp; technical planning</li>
-<li>Scalable architecture</li>
-<li>Real-time data features</li>
-<li>Multi-tenant &amp; subscription billing</li>
-<li>Monthly development retainer</li>
-</ul>
+<p className="for">SaaS development requires a tailored technical and commercial plan.</p>
+    <p className="more">Architecture, subscriptions, security, infrastructure, ongoing development and support are agreed before implementation.</p>
     <a href="#contact" className="btn btn-g">Book a call</a>
 </div>
   </div>
@@ -724,13 +726,15 @@ export default function PageContent() {
 <p className="from">Starting at</p>
 <div className="price">₹12,999<small>/mo</small>
 </div>
-<p className="for">Get found in your city</p>
+<p className="for">For businesses seeking stronger visibility in their local market.</p>
     <ul>
-<li>Google Business Profile optimisation</li>
-<li>Local keyword targeting</li>
-<li>Directory listings</li>
-<li>Monthly ranking report</li>
+<li>Monthly service with agreed deliverables</li>
+<li>Initial website and Google Business Profile review</li>
+<li>Keyword and local visibility monitoring</li>
+<li>Monthly performance summary</li>
+<li>Additional content production and development work quoted separately</li>
 </ul>
+    <p className="more">Search rankings, traffic and enquiries cannot be guaranteed.</p>
     <a href="#contact" className="btn btn-g">Get started</a>
 </div>
    <div className="card plan pop">
@@ -738,36 +742,23 @@ export default function PageContent() {
 <h3>Growth SEO</h3>
 <p className="from">Pricing</p>
 <div className="price quote">Custom quote</div>
-<p className="for">Grow organic traffic steadily</p>
-    <ul>
-<li>Technical SEO audit &amp; fixes</li>
-<li>4 SEO blog posts per month</li>
-<li>Core Web Vitals optimisation</li>
-<li>Competitor &amp; keyword research</li>
-<li>Detailed monthly report</li>
-</ul>
+<p className="for">A tailored plan to improve organic visibility steadily.</p>
+    <p className="more">Monthly SEO activities, content deliverables, technical fixes, reporting and campaign duration are defined in the agreed plan.</p>
     <a href="#contact" className="btn btn-p">Get a quote</a>
 </div>
    <div className="card plan">
 <h3>Website Care</h3>
 <p className="from">Pricing</p>
 <div className="price quote">Custom quote</div>
-<p className="for">Peace of mind after launch</p>
-    <ul>
-<li>Updates &amp; security monitoring</li>
-<li>Weekly backups</li>
-<li>Content changes (up to 3 hrs)</li>
-<li>Uptime &amp; speed checks</li>
-</ul>
+<p className="for">Maintenance based on the support your website needs.</p>
+    <p className="more">Maintenance covers the specific updates, monitoring, backups and content support in your selected plan. Major redesigns, new functionality, hosting charges and external subscriptions are excluded unless agreed.</p>
     <a href="#contact" className="btn btn-g">Get a quote</a>
 </div>
   </div>
 </div>
 <p className="note">
-<b>Note:</b> Prices don't include GST (if applicable), domain, hosting or paid plugins, which are billed at actual cost. 
-    {/* Custom quotes are fixed and written, and sent after a free call. */}
-
-  </p>
+<b>Pricing &amp; billing information</b><br />All prices are in Indian Rupees (INR) unless otherwise stated. Starting prices are indicative and subject to the confirmed project scope. Domain names, hosting, paid software, third-party services, payment gateway charges and applicable taxes are excluded unless expressly included in your proposal.<br /><br />Experibyte is currently not registered under GST and does not charge GST. Applicable tax treatment will be updated if our registration status changes.
+</p>
 </section>
 <section id="trust" className="trust-section section-pad">
 <div className="section-heading">
@@ -786,18 +777,18 @@ export default function PageContent() {
 </article>
 <article data-reveal>
 <div className="trust-icon" aria-hidden="true">↗</div>
-<h3>Pay only for what you've seen</h3>
-<p>Websites: 50% to start, the rest only after you approve your site. Web apps are paid stage by stage, after each stage is done.</p>
+<h3>Clear milestones. Transparent payments.</h3>
+<p>For standard websites, payments are generally split into two stages: 50% to begin and 50% following final approval, before launch or handover. Web applications use milestones agreed in writing. Any different arrangement will be stated in your proposal.</p>
 </article>
 <article data-reveal>
 <div className="trust-icon" aria-hidden="true">⌘</div>
-<h3>You own everything</h3>
-<p>Your domain is registered in your name, and the code, designs and content are 100% yours. You're free to take them anywhere, anytime.</p>
+<h3>Built for you. Owned by you.</h3>
+<p>Once the project is fully paid for, ownership of the original, custom-developed deliverables transfers to you as specified in our agreement. Third-party fonts, images, plugins, frameworks, software and licensed assets remain subject to their respective licences.</p>
 </article>
 <article data-reveal>
 <div className="trust-icon" aria-hidden="true">✳</div>
-<h3>See progress every step</h3>
-<p>A live preview link shows your website as it's built, with regular updates on WhatsApp and email. You talk directly to the people building it.</p>
+<h3>Direct communication. Real progress.</h3>
+<p>Work directly with your developer, review progress through shared previews and receive clear updates at important milestones. No unnecessary layers between your ideas and the work being built.</p>
 </article>
 <article data-reveal>
 <div className="trust-icon" aria-hidden="true">◒</div>
@@ -807,7 +798,7 @@ export default function PageContent() {
 <article data-reveal>
 <div className="trust-icon" aria-hidden="true">↗</div>
 <h3>Proper invoice, real support</h3>
-<p>You get a proper invoice for every payment, and free support after launch with every package, so you're never left on your own.</p>
+<p>You receive an invoice for payments. Registration and tax details are shown according to our business status.</p>
 </article>
 </div>
 <div className="promise">
@@ -917,7 +908,62 @@ export default function PageContent() {
 <br />We guide you at every step, from the first discussion to launch.</p>
 </div>
 </details>
+<details>
+<summary>
+<span className="micro">11</span>Are hosting and domain charges included?<span className="faq-plus">+</span>
+</summary>
+<div className="faq-answer">
+<p>Unless specifically mentioned in your proposal, hosting, domain registration, renewals, premium plugins and third-party subscriptions are charged separately. We recommend registering your domain in your own name and keeping access to important accounts.</p>
 </div>
+</details>
+<details>
+<summary>
+<span className="micro">12</span>Can I request changes during development?<span className="faq-plus">+</span>
+</summary>
+<div className="faq-answer">
+<p>Yes. Your package includes the stated number of revision rounds. Changes within the agreed scope can be requested during those rounds. New features or substantial changes may require an additional quote.</p>
+</div>
+</details>
+<details>
+<summary>
+<span className="micro">13</span>Can I cancel my project?<span className="faq-plus">+</span>
+</summary>
+<div className="faq-answer">
+<p>You can request cancellation in writing. The amount payable or refundable depends on the agreed milestones, work completed, non-recoverable third-party costs and the terms accepted before the project begins. Any applicable statutory consumer rights remain unaffected.</p>
+</div>
+</details>
+<details>
+<summary>
+<span className="micro">14</span>Will I receive an invoice?<span className="faq-plus">+</span>
+</summary>
+<div className="faq-answer">
+<p>Yes. An invoice will be provided for payments received. Applicable registration and tax details will be shown according to our business status.</p>
+</div>
+</details>
+<details>
+<summary>
+<span className="micro">15</span>Do you guarantee Google rankings or sales?<span className="faq-plus">+</span>
+</summary>
+<div className="faq-answer">
+<p>No. We follow established design, technical SEO and performance practices, but search rankings, traffic, leads and sales depend on many factors outside any developer's control.</p>
+</div>
+</details>
+<details>
+<summary>
+<span className="micro">16</span>What happens after the free support period?<span className="faq-plus">+</span>
+</summary>
+<div className="faq-answer">
+<p>You can choose an ongoing Website Care plan or request support as needed. Any additional service charges will be agreed before work begins.</p>
+</div>
+</details>
+<details>
+<summary>
+<span className="micro">17</span>Can Experibyte become our long-term technology partner?<span className="faq-plus">+</span>
+</summary>
+<div className="faq-answer">
+<p>Absolutely. We support businesses beyond their initial website launch through improvements, maintenance, new features and ongoing technical collaboration. Our aim is to understand your business and remain a dependable development partner as your needs evolve.</p>
+</div>
+</details></div>
 </section>
 <section id="contact" className="contact-section section-pad">
 <div className="contact-top">
