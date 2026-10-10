@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { SiteFooter, SiteHeader } from './SiteChrome.jsx';
 
 const templates = [
   { number: '01', name: 'Studio & Agency', category: 'Business', style: 'studio', detail: 'A polished home for your services, work and story.' },
@@ -6,14 +7,6 @@ const templates = [
   { number: '03', name: 'Online Store', category: 'Commerce', style: 'store', detail: 'A considered storefront for products and new launches.' },
   { number: '04', name: 'SaaS Launch', category: 'Technology', style: 'saas', detail: 'A clear product page for features, plans and signups.' },
 ];
-
-function Brand() {
-  return (
-    <a className="brand" href="/#home" aria-label="Experibyte home">
-      <img src="/logo.png" alt="Experibyte" />
-    </a>
-  );
-}
 
 function TemplatePreview({ style }) {
   return (
@@ -32,24 +25,9 @@ function TemplatePreview({ style }) {
 }
 
 export default function TemplatesPage() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
   return (
     <>
-      <header className="site-header templates-header">
-        <Brand />
-        <nav className={menuOpen ? 'open' : ''} aria-label="Main navigation" id="templates-navigation">
-          <a href="/#services" onClick={() => setMenuOpen(false)}>Services</a>
-          <a href="/templates/" aria-current="page" onClick={() => setMenuOpen(false)}>Templates</a>
-          <a href="/#pricing" onClick={() => setMenuOpen(false)}>Pricing</a>
-          <a href="/#process" onClick={() => setMenuOpen(false)}>Process</a>
-          <a href="/#faq" onClick={() => setMenuOpen(false)}>FAQ</a>
-        </nav>
-        <a className="nav-cta" href="/#contact">Get a quote <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7" /></svg></a>
-        <button className="templates-menu" type="button" aria-expanded={menuOpen} aria-controls="templates-navigation" aria-label={menuOpen ? 'Close menu' : 'Open menu'} onClick={() => setMenuOpen(!menuOpen)}>
-          <span /><span />
-        </button>
-      </header>
+      <SiteHeader activePage="templates" />
 
       <main className="templates-page" id="main">
         <section className="templates-hero section-pad">
@@ -93,20 +71,7 @@ export default function TemplatesPage() {
         </section>
       </main>
 
-      <footer className="site-footer templates-footer">
-        <Brand />
-        <div className="footer-content">
-          <p className="footer-tagline">Websites. Experiences. Applications. Growth.</p>
-          <p className="footer-relationship">Beyond projects. Built on relationships.</p>
-          <div className="footer-links">
-            <div><b>Quick Links</b><a href="/#services">Services</a><a href="/templates/">Templates</a><a href="/#pricing">Pricing</a><a href="/#process">Process</a><a href="/#contact">Contact</a></div>
-            <div><b>Legal</b><a href="/privacy-policy/">Privacy Policy</a><a href="/terms/">Terms &amp; Conditions</a></div>
-            <div><b>Business Enquiries</b><a href="mailto:experibytetechnologies@gmail.com">experibytetechnologies@gmail.com</a><span>Working with clients across India and worldwide.</span></div>
-          </div>
-          <p className="footer-legal">© {new Date().getFullYear()} Experibyte. All rights reserved.<br />Experibyte is an independently operated web development business based in India.</p>
-        </div>
-        <a href="#main" className="back-top">BACK TO TOP ↑</a>
-      </footer>
+      <SiteFooter activePage="templates" />
     </>
   );
 }

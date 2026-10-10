@@ -1,5 +1,6 @@
 import React from 'react';
 import { ContactForm } from './ContactForm.jsx';
+import { SiteFooter, SiteHeader } from './SiteChrome.jsx';
 
 export default function PageContent() {
   return (
@@ -8,29 +9,7 @@ export default function PageContent() {
 <a className="skip-link" href="#main">Skip to content</a>
 <div id="progress" aria-hidden="true">
 </div>
-<header className="site-header">
-<a className="brand" href="#home" aria-label="Experibyte home">
-<img src="/logo.png" alt="Experibyte" />
-</a>
-<nav aria-label="Main navigation" id="navigation">
-<a href="#services">Services</a>
-<a href="/templates/">Templates</a>
-<a href="#pricing">Pricing</a>
-<a href="#process">Process</a>
-<a href="#faq">FAQ</a>
-<a href="#contact">Contact</a>
-</nav>
-<a className="nav-cta" href="#contact">Get a quote <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-<path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7"/>
-</svg>
-</a>
-<button id="menu" aria-expanded="false" aria-controls="navigation" aria-label="Open menu">
-<span>
-</span>
-<span>
-</span>
-</button>
-</header>
+<SiteHeader />
 <main id="main">
 <section className="story" id="home">
 <div className="story-stage">
@@ -667,7 +646,6 @@ export default function PageContent() {
     <ul>
 <li>Custom page count based on the approved project scope</li>
 <li>Premium custom design</li>
-<li>Advanced scroll &amp; page-transition animations</li>
 <li>One major custom feature defined in the proposal: for example, an online store, appointment booking or a members area</li>
 <li>Online payments (UPI, cards, net banking)</li>
 <li>Website in up to 2 languages</li>
@@ -683,41 +661,55 @@ export default function PageContent() {
   </div>
 <div className="grid g3 plans" id="app">
    <div className="card plan">
-<h3>MVP</h3>
+<h3>Starter</h3>
 <p className="from">Starting at</p>
 <div className="price">₹1,29,999</div>
-<p className="for">Build and validate your product idea with a focused first release.</p>
+<p className="for">For startups and entrepreneurs ready to launch their first web application.</p>
     <ul>
-<li>Up to 8 agreed core application screens</li>
-<li>Basic authentication and role management where required</li>
-<li>Database and administration features within the approved scope</li>
-<li>Responsive web app</li>
+<li>Up to 8 core application screens</li>
+<li>Custom, mobile-responsive UI/UX</li>
+<li>User login and role-based access</li>
+<li>Database and admin dashboard</li>
+<li>Essential business functionality</li>
 <li>Cloud deployment</li>
-<li>Deployment to an agreed cloud environment</li>
-<li>Testing and one month of post-launch bug-fix support</li>
-<li>Feature list finalised before development</li>
+<li>Milestone-based payments</li>
+<li>1 month of post-launch bug-fix support</li>
 </ul>
-    <p className="more">Bigger scope? <a href="#contact">Get a custom quote →</a>
-</p>
-    <p className="more"><b>Please note:</b> Complex integrations, native mobile applications, advanced security or compliance requirements, high-volume infrastructure, AI usage charges and ongoing maintenance are quoted separately. A core screen is a distinct application view; additional workflows, complex interactions and integrations are estimated separately.</p>
-    <a href="#contact" className="btn btn-g">Discuss your idea</a>
+    <a href="#contact" className="btn btn-g">Get Started</a>
 </div>
    <div className="card plan pop">
-<span className="badge">Best value</span>
-<h3>Business Platform</h3>
+<h3>Advanced</h3>
 <p className="from">Pricing</p>
 <div className="price quote">Custom quote</div>
-<p className="for">A platform scoped around your users, workflows, integrations and reporting requirements.</p>
-    <p className="more">Development milestones, deliverables, hosting requirements and support terms are documented in the approved proposal.</p>
-    <a href="#contact" className="btn btn-p">Discuss your idea</a>
+<p className="for">For growing businesses that need smarter workflows and connected digital platforms.</p>
+    <ul>
+<li>Custom business portals and dashboards</li>
+<li>Multi-role access (customers, staff and admins)</li>
+<li>Tailored UI/UX design</li>
+<li>Workflow automation and integrations</li>
+<li>Payment gateway and subscription integration</li>
+<li>Analytics and business reports</li>
+<li>Cloud deployment and optimisation</li>
+<li>3 months of post-launch bug-fix support</li>
+</ul>
+    <a href="#contact" className="btn btn-p">Get a Quote</a>
 </div>
    <div className="card plan">
-<h3>Custom SaaS</h3>
+<h3>Premium</h3>
 <p className="from">Pricing</p>
 <div className="price quote">Custom quote</div>
-<p className="for">SaaS development requires a tailored technical and commercial plan.</p>
-    <p className="more">Architecture, subscriptions, security, infrastructure, ongoing development and support are agreed before implementation.</p>
-    <a href="#contact" className="btn btn-g">Book a call</a>
+<p className="for">For ambitious businesses building scalable SaaS products and complex digital platforms.</p>
+    <ul>
+<li>Product discovery and technical planning</li>
+<li>Scalable application architecture</li>
+<li>Advanced UI/UX and interactive experiences</li>
+<li>Multi-tenant architecture, where required</li>
+<li>Subscription billing and payment integrations</li>
+<li>Real-time functionality and API integrations</li>
+<li>Advanced security and performance planning</li>
+<li>Custom development and maintenance plans</li>
+</ul>
+    <a href="#contact" className="btn btn-g">Discuss Your Project</a>
 </div>
   </div>
 <div className="grid g3 plans" id="seo">
@@ -757,7 +749,7 @@ export default function PageContent() {
   </div>
 </div>
 <p className="note">
-<b>Pricing &amp; billing information</b><br />All prices are in Indian Rupees (INR) unless otherwise stated. Starting prices are indicative and subject to the confirmed project scope. Domain names, hosting, paid software, third-party services, payment gateway charges and applicable taxes are excluded unless expressly included in your proposal.<br /><br />Experibyte is currently not registered under GST and does not charge GST. Applicable tax treatment will be updated if our registration status changes.
+<b>Pricing &amp; billing information</b><br />All packages are subject to an agreed project scope, technical requirements and delivery timeline. Hosting, domains, third-party subscriptions and external service fees are charged separately unless included in the proposal. Applicable taxes, if any, are additional.<br /><br />Experibyte is currently not registered under GST and does not charge GST. Applicable tax treatment will be updated if our registration status changes.
 </p>
 </section>
 <section id="trust" className="trust-section section-pad">
@@ -797,8 +789,8 @@ export default function PageContent() {
 </article>
 <article data-reveal>
 <div className="trust-icon" aria-hidden="true">↗</div>
-<h3>Proper invoice, real support</h3>
-<p>You receive an invoice for payments. Registration and tax details are shown according to our business status.</p>
+<h3>Clear billing. Reliable support.</h3>
+<p>Every project comes with transparent pricing, proper invoices, and dedicated support throughout development and after launch, as outlined in your project agreement.</p>
 </article>
 </div>
 <div className="promise">
@@ -994,22 +986,7 @@ export default function PageContent() {
 </div>
 </section>
 </main>
-<footer className="site-footer">
-<a className="brand" href="#home" aria-label="Experibyte home">
-<img src="/logo.png" alt="Experibyte" />
-</a>
-<div className="footer-content">
-<p className="footer-tagline">Websites. Experiences. Applications. Growth.</p>
-<p className="footer-relationship">Beyond projects. Built on relationships.</p>
-<div className="footer-links">
-<div><b>Quick Links</b><a href="#services">Services</a><a href="/templates/">Templates</a><a href="#pricing">Pricing</a><a href="#process">Process</a><a href="#contact">Contact</a></div>
-<div><b>Legal</b><a href="/privacy-policy/">Privacy Policy</a><a href="/terms/">Terms &amp; Conditions</a></div>
-<div><b>Business Enquiries</b><a href="mailto:experibytetechnologies@gmail.com">experibytetechnologies@gmail.com</a><span>Working with clients across India and worldwide.</span></div>
-</div>
-<p className="footer-legal">© {new Date().getFullYear()} Experibyte. All rights reserved.<br />Experibyte is an independently operated web development business based in India.</p>
-</div>
-<a href="#home" className="back-top">BACK TO TOP ↑</a>
-</footer>
+<SiteFooter />
 
     </>
   );

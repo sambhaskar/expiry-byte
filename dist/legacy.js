@@ -7,8 +7,6 @@
  const lerp=(a,b,t)=>a+(b-a)*t;
  const menu=$('#menu'),nav=$('#navigation');
  function closeMenu(){nav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open menu')}
- menu.addEventListener('click',()=>{const opened=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(opened));menu.setAttribute('aria-label',opened?'Close menu':'Open menu')});
- document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();menu.focus()}});
  $$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const target=$(a.getAttribute('href'));if(!target)return;e.preventDefault();closeMenu();if(lenis)lenis.scrollTo(target,{offset:-78,duration:1.25});else target.scrollIntoView({behavior:'auto'});history.replaceState(null,'',a.getAttribute('href'))}));
  // Keep all tab panels and form fields usable independently of animation.
  const tabs=$$('.tabs button'),panels=$$('.plans');$('.tabs').setAttribute('role','tablist');$('.tabs').setAttribute('aria-label','Service packages');

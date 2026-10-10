@@ -1,4 +1,5 @@
 import React from 'react';
+import { SiteFooter, SiteHeader } from './SiteChrome.jsx';
 
 const sections = {
   privacy: {
@@ -10,7 +11,6 @@ const sections = {
       ['How it is used', 'We use these details to respond to your enquiry, discuss your project and communicate about services you requested. The form sends your submission to Experibyte via FormSubmit, the form delivery service configured on this website.'],
       ['Sharing and retention', 'We do not sell enquiry information. It is available to Experibyte and the service providers needed to deliver and protect the enquiry form and email. Messages may be retained in our business email for follow-up and record keeping.'],
       ['Your choices', 'You can contact us to ask about, correct or request deletion of information you submitted, subject to records we must retain. You may also contact us at experibytetechnologies@gmail.com with privacy questions.'],
-      ['Updates', 'This policy may be updated when our practices or services change. The current version and its update date will appear on this page.'],
     ],
   },
   terms: {
@@ -32,10 +32,7 @@ export default function LegalPage({ type }) {
   const page = sections[type];
   return (
     <>
-      <header className="site-header legal-header">
-        <a className="brand" href="/#home" aria-label="Experibyte home"><img src="/logo.png" alt="Experibyte" /></a>
-        <a className="nav-cta" href="/#contact">Contact Experibyte</a>
-      </header>
+      <SiteHeader activePage="legal" />
       <main id="main" className="legal-page section-pad">
         <span className="micro">EXPERIBYTE / LEGAL</span>
         <h1>{page.title}</h1>
@@ -43,7 +40,7 @@ export default function LegalPage({ type }) {
         <p className="legal-intro">{page.intro}</p>
         {page.body.map(([heading, text]) => <section key={heading}><h2>{heading}</h2><p>{text}</p></section>)}
       </main>
-      <footer className="legal-footer"><a href="/">Experibyte</a><span>© {new Date().getFullYear()} Experibyte</span><a href="/">Back to home</a></footer>
+      <SiteFooter activePage="legal" />
     </>
   );
 }
