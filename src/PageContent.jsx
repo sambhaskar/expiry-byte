@@ -10,11 +10,7 @@ export default function PageContent() {
 </div>
 <header className="site-header">
 <a className="brand" href="#home" aria-label="Experibyte home">
-<svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
-<path d="M8 8h47v12H20v24h35v12H8V8Z" fill="currentColor"/>
-<path d="M26 26h12v12H26V26Z" fill="#2B4BFF"/>
-</svg>
-<span>exper<span className="brand-i">ı</span>byte</span>
+<img src="/logo.png" alt="Experibyte" />
 </a>
 <nav aria-label="Main navigation" id="navigation">
 <a href="#services">Services</a>
@@ -953,12 +949,8 @@ export default function PageContent() {
 </section>
 </main>
 <footer className="site-footer">
-<a className="brand" href="#home">
-<svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
-<path d="M8 8h47v12H20v24h35v12H8V8Z" fill="currentColor"/>
-<path d="M26 26h12v12H26V26Z" fill="#2B4BFF"/>
-</svg>
-<span>exper<span className="brand-i">ı</span>byte</span>
+<a className="brand" href="#home" aria-label="Experibyte home">
+<img src="/logo.png" alt="Experibyte" />
 </a>
 <span>Experibyte. All rights reserved.</span>
 <span>Websites · Motion · Web Apps · AI · SEO</span>
