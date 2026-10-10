@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://experibyte.in/sitemap.xml
+Sitemap: https://experibyte.com/sitemap.xml

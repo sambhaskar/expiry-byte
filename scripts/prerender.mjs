@@ -33,7 +33,7 @@ try {
       .replace('<div id="root"></div>', `<div id="root">${renderLegal(type)}</div>`),
   }));
 
-  const siteUrl = process.env.SITE_URL || 'https://experibyte.in/';
+  const siteUrl = process.env.SITE_URL || 'https://experibyte.com/';
   if (siteUrl) {
     const url = new URL(siteUrl);
     if (url.protocol !== 'https:') throw new Error('SITE_URL must use HTTPS');

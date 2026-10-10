@@ -55,7 +55,7 @@
    const text=(t,px,py,size=30,color='#0A0D1F',weight=600)=>{x.fillStyle=color;x.font=`${weight} ${size}px "Plus Jakarta Sans",Manrope,Arial,sans-serif`;x.fillText(t,px,py)};
    const drawBrandMark=(px,py,scale=1)=>{x.fillStyle='#0A0D1F';x.beginPath();x.moveTo(px+8*scale,py+8*scale);x.lineTo(px+55*scale,py+8*scale);x.lineTo(px+55*scale,py+20*scale);x.lineTo(px+20*scale,py+20*scale);x.lineTo(px+20*scale,py+44*scale);x.lineTo(px+55*scale,py+44*scale);x.lineTo(px+55*scale,py+56*scale);x.lineTo(px+8*scale,py+56*scale);x.closePath();x.fill();x.fillStyle='#2B4BFF';x.fillRect(px+26*scale,py+26*scale,12*scale,12*scale)};
    if(kind==='main'){
-    x.fillStyle='#E1E6F2';x.fillRect(0,0,w,70);['#A7B0CA','#A7B0CA','#E1E6F2'].forEach((v,i)=>{x.fillStyle=v;x.beginPath();x.arc(36+i*26,35,7,0,Math.PI*2);x.fill()});x.fillStyle='#FFFFFF';x.beginPath();x.roundRect(280,18,810,35,8);x.fill();text('experibyte.in',585,43,18,'#59617F',500);
+    x.fillStyle='#E1E6F2';x.fillRect(0,0,w,70);['#A7B0CA','#A7B0CA','#E1E6F2'].forEach((v,i)=>{x.fillStyle=v;x.beginPath();x.arc(36+i*26,35,7,0,Math.PI*2);x.fill()});x.fillStyle='#FFFFFF';x.beginPath();x.roundRect(280,18,810,35,8);x.fill();text('experibyte.com',585,43,18,'#59617F',500);
     drawBrandMark(65,82,1.15);text('experibyte',155,148,36,'#0A0D1F',800);text('DESIGN   /   DEVELOPMENT   /   MOTION',755,143,16,'#59617F',500);x.fillStyle='#E1E6F2';x.fillRect(65,184,1270,1);
     text('LOOK SHARP.',65,350,107,'#0A0D1F',800);text('LOAD FAST.',65,455,107,'#2B4BFF',800);text('Websites, motion, apps and AI.',70,530,25,'#59617F',500);
     x.fillStyle='#0A0D1F';x.beginPath();x.roundRect(70,590,310,70,35);x.fill();text('Get a quote  ↗',100,634,22,'#FFFFFF',600);
