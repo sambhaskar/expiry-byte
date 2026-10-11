@@ -80,7 +80,7 @@
 .stage-grid,.story-dots{display:none}
 .story-footer{border-top:0}
 .hero-panel h1{margin-top:0}
-.hero-panel .hero-small{display:none}
+.hero-panel .hero-small{font-size:inherit;font-weight:inherit;letter-spacing:inherit;line-height:inherit;margin:0}
 .micro,.service-info .micro,.process-copy .micro,.story-about>.micro,.story-promise>.micro{font-size:12px;line-height:1.6;letter-spacing:.09em}
 .story-footer .micro,.object-label.micro{font-size:11px}
 .nav-caption{font-size:10px}
