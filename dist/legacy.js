@@ -14,16 +14,26 @@
  tabs.forEach((b,i)=>{b.id='tab-'+b.dataset.t;b.setAttribute('role','tab');b.setAttribute('aria-controls',b.dataset.t);b.setAttribute('aria-selected',String(i===0));b.tabIndex=i===0?0:-1;b.addEventListener('click',()=>activateTab(b));b.addEventListener('keydown',e=>{let next=i;if(e.key==='ArrowRight')next=(i+1)%tabs.length;else if(e.key==='ArrowLeft')next=(i-1+tabs.length)%tabs.length;else if(e.key==='Home')next=0;else if(e.key==='End')next=tabs.length-1;else return;e.preventDefault();activateTab(tabs[next],true)})});
  panels.forEach((p,i)=>{p.setAttribute('role','tabpanel');p.setAttribute('aria-labelledby','tab-'+p.id);p.hidden=i!==0});
  $$('details').forEach(d=>d.addEventListener('toggle',()=>window.ScrollTrigger?.refresh()));
+ function initReveals(){
+  if(media.matches||!('IntersectionObserver' in window))return;
+  const mobile=matchMedia('(max-width: 900px)').matches;
+  const targets=[...$$('[data-reveal]'),...(mobile?$$('.motion-line span, .startup-steps article, .hero-stats > div, .hero-panel h1'):[])];
+  const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+   if(!entry.isIntersecting)return;
+   observer.unobserve(entry.target);
+   entry.target.animate([{opacity:.55,transform:'translateY(18px)'},{opacity:1,transform:'translateY(0)'}],{duration:650,easing:'cubic-bezier(.22,1,.36,1)'});
+  }),{threshold:.08,rootMargin:'0px 0px -6% 0px'});
+  targets.forEach(target=>observer.observe(target));
+ }
  function initMotion(){
   if(!window.gsap||!window.ScrollTrigger){document.body.classList.add('no-animation');return}
   gsap.registerPlugin(ScrollTrigger);const mm=gsap.matchMedia();
-  mm.add('(prefers-reduced-motion: no-preference)',()=>{
+  mm.add('(prefers-reduced-motion: no-preference) and (min-width: 901px)',()=>{
    if(window.Lenis){lenis=new Lenis({duration:1.1,smoothWheel:true,syncTouch:false,lerp:.095,wheelMultiplier:.85});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(tickLenis)}
    const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:'.story',start:'top top',end:'bottom bottom',scrub:.7}});
    tl.to(state,{p:1,duration:1,onUpdate:()=>draw()},0)
     .to('.hero-panel',{autoAlpha:0,y:-75,duration:.11},.30)
     .fromTo('.story-promise',{autoAlpha:0,y:55},{autoAlpha:1,y:0,duration:.12},.52);
-   $$('[data-reveal]').forEach(el=>gsap.from(el,{y:42,autoAlpha:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 94%',toggleActions:'play none none none'}}));
    $$('.service-art').forEach(el=>gsap.fromTo(el.children,{y:20},{y:-18,ease:'none',scrollTrigger:{trigger:el,start:'top bottom',end:'bottom top',scrub:1}}));
    const mt=gsap.timeline({scrollTrigger:{trigger:'.motion-story',start:'top top',end:'bottom bottom',scrub:.5}});
    $$('.motion-line span').forEach((line,i)=>mt.fromTo(line,{opacity:.18,x:i%2?35:-35},{opacity:1,x:0,duration:.18,ease:'none'},i*.18));
@@ -79,7 +89,7 @@
   // Soft contact shadow, generated locally rather than downloaded.
   const sc=document.createElement('canvas');sc.width=256;sc.height=128;const sx=sc.getContext('2d'),sg=sx.createRadialGradient(128,64,3,128,64,110);sg.addColorStop(0,'rgba(31,38,58,.22)');sg.addColorStop(1,'rgba(31,38,58,0)');sx.fillStyle=sg;sx.fillRect(0,0,256,128);const shadow=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(sc),transparent:true,depthWrite:false}));shadow.scale.set(5.8,1.1,1);shadow.position.set(2,-1.9,-.9);scene.add(shadow);
   let width=0,height=0,visible=true,lost=false;
-  const keyframes=[{t:0,x:3.20,y:.02,s:.74,rx:.12,ry:-.37,rz:-.09,e:0},{t:.32,x:3.20,y:.02,s:.74,rx:.12,ry:-.37,rz:-.09,e:0},{t:.52,x:-3.45,y:-.08,s:.64,rx:.17,ry:.30,rz:.05,e:.25},{t:1,x:-3.45,y:-.08,s:.64,rx:.17,ry:.25,rz:.02,e:.25}];
+  const keyframes=[{t:0,x:2.90,y:.02,s:.90,rx:.12,ry:-.37,rz:-.09,e:0},{t:.32,x:2.90,y:.02,s:.90,rx:.12,ry:-.37,rz:-.09,e:0},{t:.52,x:-3.10,y:-.08,s:.78,rx:.17,ry:.30,rz:.05,e:.25},{t:1,x:-3.10,y:-.08,s:.78,rx:.17,ry:.25,rz:.02,e:.25}];
   function sample(p){let i=0;while(i<keyframes.length-2&&p>keyframes[i+1].t)i++;const a=keyframes[i],b=keyframes[i+1];const raw=clamp((p-a.t)/(b.t-a.t)),t=raw*raw*(3-2*raw);const o={};for(const k of ['x','y','s','rx','ry','rz','e'])o[k]=lerp(a[k],b[k],t);return o}
   draw=()=>{if(lost||!visible||document.hidden)return;const p=media.matches?0:state.p,o=sample(p);const mobile=width<900;let scale=o.s;
    if(mobile){const vw=2*Math.tan(THREE.MathUtils.degToRad(21))*8*width/height;const promiseBlend=clamp((p-.32)/.26);scale=vw*(width<540?lerp(height<740?.48:.60,height<740?.47:.56,promiseBlend):lerp(.60,.56,promiseBlend))/4.3;const mobileY=lerp(height<740?-.10:.05,height<740?-.20:-.10,promiseBlend);root.position.set(lerp(width<540?0:.4,-.35,promiseBlend),mobileY,0);root.rotation.set(o.rx*.55,o.ry*.6,o.rz*.7)}else{const viewportShape=Math.min(1,width/(height*2));const heightFactor=.93+.07*clamp((height-650)/290);const desktopRatio=Math.max(.62,viewportShape*heightFactor);scale*=desktopRatio;root.position.set(o.x*desktopRatio,o.y,0);root.rotation.set(o.rx,o.ry,o.rz)}
@@ -87,12 +97,13 @@
    shadow.position.x=root.position.x;shadow.position.y=root.position.y-1.88*scale;shadow.scale.set(5.8*scale,1.1*scale,1);shadow.material.opacity=1-o.e*.3;
    renderer.render(scene,camera);$$('.story-dots i').forEach((d,i)=>d.classList.toggle('active',i===(p<.48?0:1)));
   };
-  function resize(){width=stage.clientWidth;height=media.matches?Math.min(850,stage.clientHeight):stage.clientHeight;renderer.setSize(width,height);camera.aspect=width/height;camera.updateProjectionMatrix();draw()}
-  const ro=new ResizeObserver(resize);ro.observe(stage);const io=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible)draw()});io.observe(stage);
+  function resize(){const mobile=matchMedia('(max-width: 900px)').matches;width=mobile?host.clientWidth:stage.clientWidth;height=mobile?host.clientHeight:media.matches?Math.min(850,stage.clientHeight):stage.clientHeight;renderer.setSize(width,height);camera.aspect=width/height;camera.updateProjectionMatrix();draw()}
+  const ro=new ResizeObserver(resize);ro.observe(stage);ro.observe(host);const io=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible)draw()});io.observe(stage);
   renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();lost=true;host.classList.remove('webgl-ready')});renderer.domElement.addEventListener('webglcontextrestored',()=>{lost=false;host.classList.add('webgl-ready');draw()});
   document.addEventListener('visibilitychange',()=>draw());media.addEventListener('change',()=>{state.p=0;resize()});resize();host.classList.add('webgl-ready');threeReady=true;
  }
  initMotion();
+ initReveals();
  // Build the hero textures after available fonts are ready so text matches the page.
  document.fonts.ready.then(()=>{try{initThree()}catch(error){console.warn('3D fallback enabled:',error.message)}});
  if(!window.gsap)document.body.classList.add('no-animation');
