@@ -255,7 +255,7 @@ export default function PageContent() {
 </div>
 <div className="motion-bottom">
 <p>Your website is often the first place a customer meets you. We make that first moment special, with smooth, thoughtful animations that guide visitors through your story, make your business feel premium and turn a quick visit into a real enquiry.</p>
-<a className="button button-light" href="#contact">Want a website like this? Let's talk <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+<a className="button button-light" href="#contact">Want a website? Let's talk <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
 <path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7"/>
 </svg>
 </a>
