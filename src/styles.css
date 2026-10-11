@@ -385,4 +385,5 @@ h1,h2,h3,.motion-line{letter-spacing:-1.9px!important}
   .site-header #menu[aria-expanded="true"] span:first-child{transform:translateY(7px) rotate(45deg)}
   .site-header #menu[aria-expanded="true"] span:nth-child(2){opacity:0}
   .site-header #menu[aria-expanded="true"] span:last-child{transform:translateY(-7px) rotate(-45deg)}
+  .story-promise h2{max-width:none;font-size:clamp(18px,5.6vw,52px);white-space:nowrap}
 }
