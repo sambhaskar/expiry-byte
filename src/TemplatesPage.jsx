@@ -2,9 +2,7 @@ import React from 'react';
 import { SiteFooter, SiteHeader } from './SiteChrome.jsx';
 
 const templates = [
-  { number: '01', name: 'Studio & Agency', category: 'Business' },
-  { number: '02', name: 'Portfolio', category: 'Creative' },
-  { number: '03', name: 'Online Store', category: 'Commerce' },
+  '01', '02', '03',
 ];
 
 function TemplatePreview() {
@@ -41,13 +39,8 @@ export default function TemplatesPage() {
           </div>
           <div className="template-grid">
             {templates.map((template) => (
-              <article className="template-card" key={template.number}>
+              <article className="template-card" key={template}>
                 <TemplatePreview />
-                <div className="template-card__meta">
-                  <h3>{template.name}</h3>
-                  <span className="template-card__status">Coming soon</span>
-                </div>
-                <p>{template.category}</p>
               </article>
             ))}
           </div>
