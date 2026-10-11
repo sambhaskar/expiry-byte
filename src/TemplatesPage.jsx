@@ -2,24 +2,15 @@ import React from 'react';
 import { SiteFooter, SiteHeader } from './SiteChrome.jsx';
 
 const templates = [
-  { number: '01', name: 'Studio & Agency', category: 'Business', style: 'studio', detail: 'A polished home for your services, work and story.' },
-  { number: '02', name: 'Portfolio', category: 'Creative', style: 'portfolio', detail: 'A clean, visual portfolio made to put your work first.' },
-  { number: '03', name: 'Online Store', category: 'Commerce', style: 'store', detail: 'A considered storefront for products and new launches.' },
-  { number: '04', name: 'SaaS Launch', category: 'Technology', style: 'saas', detail: 'A clear product page for features, plans and signups.' },
+  { number: '01', name: 'Studio & Agency', category: 'Business' },
+  { number: '02', name: 'Portfolio', category: 'Creative' },
+  { number: '03', name: 'Online Store', category: 'Commerce' },
 ];
 
-function TemplatePreview({ style }) {
+function TemplatePreview() {
   return (
-    <div className={`template-preview template-preview--${style}`} aria-hidden="true">
-      <div className="template-preview__browser"><i /><i /><i /><span>yourbrand.com</span></div>
-      <div className="template-preview__canvas">
-        <div className="template-preview__nav"><b /><span /><span /><span /></div>
-        <div className="template-preview__hero">
-          <i /><i /><i />
-          <div className="template-preview__visual"><b /><span /><span /></div>
-        </div>
-        <div className="template-preview__foot"><i /><i /><i /></div>
-      </div>
+    <div className="template-preview" aria-hidden="true">
+      <span>Template preview</span>
     </div>
   );
 }
@@ -51,14 +42,12 @@ export default function TemplatesPage() {
           <div className="template-grid">
             {templates.map((template) => (
               <article className="template-card" key={template.number}>
-                <TemplatePreview style={template.style} />
+                <TemplatePreview />
                 <div className="template-card__meta">
-                  <span className="micro">{template.category} / {template.number}</span>
+                  <h3>{template.name}</h3>
                   <span className="template-card__status">Coming soon</span>
                 </div>
-                <h3>{template.name}</h3>
-                <p>{template.detail}</p>
-                <button className="template-card__button" type="button" disabled>Coming soon <span aria-hidden="true">↗</span></button>
+                <p>{template.category}</p>
               </article>
             ))}
           </div>

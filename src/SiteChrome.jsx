@@ -28,7 +28,7 @@ export function SiteHeader({ activePage = 'home' }) {
       </nav>
       <a className="nav-cta" href={homeHref('contact')} onClick={() => setMenuOpen(false)}>Get a quote <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7" /></svg></a>
       <button id="menu" type="button" aria-expanded={menuOpen} aria-controls="navigation" aria-label={menuOpen ? 'Close menu' : 'Open menu'} onClick={() => setMenuOpen((open) => !open)}>
-        <span /><span />
+        <span /><span /><span />
       </button>
     </header>
   );
