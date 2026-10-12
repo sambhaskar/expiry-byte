@@ -242,13 +242,13 @@ export default function PageContent() {
 <div className="motion-heading" aria-label="Your business has a story. Let's tell it beautifully, so every visitor feels it and remembers you.">
 <div className="motion-line" aria-hidden="true">
 <span>Your business has a story.</span>
-</div>
+</div>{' '}
 <div className="motion-line" aria-hidden="true">
 <span>Let's tell it beautifully,</span>
-</div>
+</div>{' '}
 <div className="motion-line" aria-hidden="true">
 <span>so every visitor feels it</span>
-</div>
+</div>{' '}
 <div className="motion-line" aria-hidden="true">
 <span>and remembers you.</span>
 </div>

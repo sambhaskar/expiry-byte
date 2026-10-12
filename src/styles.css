@@ -319,7 +319,10 @@ h3{letter-spacing:0!important}
 /* Each motion statement occupies one deliberate line. */
 .motion-heading{max-width:none;width:100%}
 .motion-line{font-size:clamp(35px,7vw,89px);line-height:1.07;white-space:nowrap}
-@media(max-width:900px){.motion-line{font-size:clamp(18px,5.2vw,47px);line-height:1.12;overflow-wrap:normal}}
+@media(max-width:900px){
+  .motion-line{display:inline;font-size:40px;line-height:1.12;letter-spacing:-0.9px!important;white-space:normal;overflow-wrap:normal}
+  .motion-line span{display:inline}
+}
 .industries .industry-item h3{font-size:16px}
 
 /* Shared type scale across sections and screen sizes. */
