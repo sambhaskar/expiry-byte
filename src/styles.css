@@ -306,6 +306,7 @@ h2{font-size:clamp(44px,5.8vw,86px)}
 }
 @media(min-width:901px){h1,h2,.motion-line{letter-spacing:-1.9px!important}}
 @media(max-width:900px){h2{letter-spacing:-0.9px!important}}
+.hero-panel h1{letter-spacing:-0.9px!important}
 h3{letter-spacing:0!important}
 .startup-head h2{letter-spacing:-0.6px!important}
 @media(min-width:901px){
@@ -392,4 +393,12 @@ h3{letter-spacing:0!important}
   .site-header #menu[aria-expanded="true"] span:nth-child(2){opacity:0}
   .site-header #menu[aria-expanded="true"] span:last-child{transform:translateY(-7px) rotate(-45deg)}
   .story-promise h2{max-width:none;font-size:clamp(18px,5.6vw,52px)}
+}
+@media (max-width:540px){
+  .hero-panel .hero-end{max-width:100%;letter-spacing:-0.1px!important}
+  .section-heading h2,.design-copy h2,.startup-head h2{font-size:35px}
+  .process-copy h3{font-size:30px}
+}
+@media (max-width:900px){
+  .story-promise h2{max-width:none;font-size:35px}
 }
