@@ -304,7 +304,9 @@ h2{font-size:clamp(44px,5.8vw,86px)}
   .service-info h3,.trust-grid h3,.plan h3{font-size:24px}
   .industry-item h3,.startup-steps h3{font-size:20px}
 }
-h1,h2,h3,.motion-line{letter-spacing:-1.9px!important}
+h1,h2,.motion-line{letter-spacing:-1.9px!important}
+h3{letter-spacing:0!important}
+.startup-head h2{letter-spacing:-0.6px!important}
 @media(min-width:901px){
   .hero-panel h1{margin-top:33px;font-size:clamp(90px,10vw,115px);line-height:.97;position:relative;z-index:2;pointer-events:none}
   .section-heading>p,.section-heading>div+div{max-width:510px}

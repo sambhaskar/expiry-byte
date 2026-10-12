@@ -615,7 +615,6 @@ export default function PageContent() {
 </ul>
     <p className="more">Need more features? <a href="#contact">Get a custom quote →</a>
 </p>
-    <p className="more"><b>Please note:</b> E-commerce, payment gateways, custom dashboards, premium animations, hosting, domain registration, paid plugins and ongoing maintenance are not included unless specified in the proposal.</p>
     <a href="#contact" className="btn btn-g">Choose Basic</a>
 </div>
    <div className="card plan pop">
@@ -635,7 +634,6 @@ export default function PageContent() {
 <li>One month of post-launch bug-fix support</li>
 <li>Integrations subject to technical feasibility and third-party availability</li>
 </ul>
-    <p className="more"><b>Please note:</b> Ongoing content uploads, third-party subscription charges, paid APIs and new feature requests are quoted separately.</p>
     <a href="#contact" className="btn btn-p">Get a quote</a>
 </div>
    <div className="card plan">
@@ -655,7 +653,6 @@ export default function PageContent() {
 <li>Performance optimisation suited to the chosen technology</li>
 <li>Third-party integrations where feasible</li>
 </ul>
-    <p className="more"><b>Please note:</b> Additional features, maintenance, payment processing fees, API subscriptions and infrastructure costs may be billed separately.</p>
     <a href="#contact" className="btn btn-g">Get a quote</a>
 </div>
   </div>
@@ -749,7 +746,7 @@ export default function PageContent() {
   </div>
 </div>
 <p className="note">
-<b>Pricing &amp; billing information</b><br />All packages are subject to an agreed project scope, technical requirements and delivery timeline. Hosting, domains, third-party subscriptions and external service fees are charged separately unless included in the proposal. Applicable taxes, if any, are additional.<br /><br />Experibyte is currently not registered under GST and does not charge GST. Applicable tax treatment will be updated if our registration status changes.
+<b>Pricing &amp; billing information</b><br />All packages are subject to an agreed project scope, technical requirements and delivery timeline. Hosting, domains, third-party subscriptions and external service fees are charged separately unless included in the proposal. Applicable taxes, if any, are additional.
 </p>
 </section>
 <section id="trust" className="trust-section section-pad">
