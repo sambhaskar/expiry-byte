@@ -4,7 +4,7 @@ import { SiteFooter, SiteHeader } from './SiteChrome.jsx';
 const sections = {
   privacy: {
     title: 'Privacy Policy',
-    updated: '10 October 2026',
+    updated: '20 October 2026',
     intro: 'This policy explains how Experibyte handles information you submit through the website enquiry form.',
     body: [
       ['Information you provide', 'The enquiry form may ask for your name, email address, phone number, service of interest, budget and project message.'],
@@ -15,7 +15,7 @@ const sections = {
   },
   terms: {
     title: 'Terms & Conditions',
-    updated: '10 October 2026',
+    updated: '20 October 2026',
     intro: 'These general terms describe how Experibyte website and application projects are scoped. The written proposal and agreement for a specific project set its binding details.',
     body: [
       ['Project scope and pricing', 'Features, deliverables, milestones, timeline, support and fees are confirmed in a written proposal before work begins. Prices are in Indian Rupees unless otherwise stated. Hosting, domains, paid software, third-party services, gateway charges and applicable taxes are excluded unless the proposal includes them.'],
