@@ -454,3 +454,13 @@ h3{letter-spacing:0!important}
 .faq-list summary{font-size:16px;color:#000}
 .faq-list summary>.micro{font-size:15px;color:#A7B0CA;font-weight:600;margin-top:2px;min-width:26px;flex-shrink:0}
 .faq-list .faq-answer p{font-size:14px;line-height:1.7}
+
+.notfound{min-height:100svh;display:flex;flex-direction:column;padding:34px var(--pad);position:relative;overflow:hidden;background:var(--paper)}
+.notfound .brand img{height:34px;width:auto}
+.notfound__body{margin:auto 0;max-width:640px;position:relative;z-index:1}
+.notfound__body .micro{display:block;margin-bottom:24px;color:var(--blue)}
+.notfound h1{font-size:clamp(52px,9vw,128px);margin-bottom:28px}
+.notfound h1 em{font-style:normal;color:var(--blue)}
+.notfound__body p{font-size:16px;max-width:480px;margin-bottom:38px}
+.notfound__ghost{position:absolute;right:-2vw;bottom:-6vw;font-size:clamp(180px,34vw,520px);font-weight:700;letter-spacing:-.07em;line-height:1;color:#F0F2FA;user-select:none;pointer-events:none}
+@media(max-width:700px){.notfound{padding:24px var(--pad)}.notfound__body p{font-size:14px}}

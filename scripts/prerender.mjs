@@ -16,7 +16,7 @@ const withMeta = (doc, { title, description }) => doc
 const vite = await createServer({ server: { middlewareMode: true }, appType: 'custom' });
 
 try {
-  const { render, renderTemplates, renderLegal, renderV2 } = await vite.ssrLoadModule('/src/entry-server.jsx');
+  const { render, renderTemplates, renderLegal, renderV2, renderNotFound } = await vite.ssrLoadModule('/src/entry-server.jsx');
   const html = await readFile('dist/index.html', 'utf8');
   const root = '<div id="root"></div>';
   if (!html.includes(root)) throw new Error('Could not find the root element in dist/index.html');
@@ -66,6 +66,12 @@ try {
   await writeFile('dist/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}</urlset>\n`);
   await writeFile('dist/robots.txt', `User-agent: *\nAllow: /\n\n# AI search and answer crawlers are welcome\nUser-agent: GPTBot\nAllow: /\nUser-agent: OAI-SearchBot\nAllow: /\nUser-agent: ChatGPT-User\nAllow: /\nUser-agent: ClaudeBot\nAllow: /\nUser-agent: Claude-SearchBot\nAllow: /\nUser-agent: PerplexityBot\nAllow: /\nUser-agent: Google-Extended\nAllow: /\nUser-agent: Applebot\nAllow: /\nUser-agent: Bingbot\nAllow: /\n\nSitemap: ${new URL('sitemap.xml', canonical).href}\n`);
   await writeFile('dist/llms.txt', llmsTxt(canonical));
+
+  // Branded 404 page (Cloudflare serves it for unknown URLs). Not indexed.
+  const notFoundHtml = withMeta(html, { title: 'Page not found | Experibyte', description: 'This page could not be found. Head back to the Experibyte home page.' })
+    .replace('<meta name="robots" content="index, follow" />', '<meta name="robots" content="noindex, nofollow" />')
+    .replace(root, `<div id="root" data-not-found="true">${renderNotFound()}</div>`);
+  await writeFile('dist/404.html', notFoundHtml);
 
   // Draft route for the new copy. noindex and kept out of sitemap until approved.
   const v2Title = 'Experibyte — Animated Websites, Web Apps & Templates | India';
