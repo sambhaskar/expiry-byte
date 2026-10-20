@@ -1,0 +1,22 @@
+# Experibyte
+
+> Experibyte is a web studio that designs and builds creative animation websites, scroll-animated and mouse-interactive websites, web applications, AI integrations and premium React, Next.js and HTML animation templates for startups and growing businesses in India and worldwide.
+
+Experibyte (also written "Experi Byte" or "Experibyte Technologies") works 100% online. Websites are priced with a fixed written quote agreed before work starts, with 50% paid to start and 50% after approval.
+
+## Services
+- Website development and fully animated, creative scrolling websites
+- Web applications and AI integration (chatbots, automation)
+- Websites with a content dashboard (CMS) so teams can update content without a developer, on WordPress, React or Next.js
+- UI / UX design and SEO
+- Ready-made animation website templates in React, Next.js and HTML/CSS/JS (coming soon)
+
+## Pages
+- [Home](https://experibyte.com/): services, packages, process and FAQ
+- [Templates](https://experibyte.com/templates/): animation website templates (coming soon)
+- [Privacy Policy](https://experibyte.com/privacy-policy/)
+- [Terms & Conditions](https://experibyte.com/terms/)
+
+## Contact
+- Email: experibytetechnologies@gmail.com
+- Website: https://experibyte.com/

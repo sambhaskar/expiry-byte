@@ -2,6 +2,9 @@ import React from 'react';
 import { ContactForm } from './ContactForm.jsx';
 import { SiteFooter, SiteHeader } from './SiteChrome.jsx';
 
+// Product & promo video offering is hidden for now. Set to true to bring it back.
+const SHOW_VIDEO = false;
+
 export default function PageContent() {
   return (
     <>
@@ -28,7 +31,7 @@ export default function PageContent() {
 <span className="hero-small">Websites that</span> <span>look sharp,</span> <span className="blue">load fast</span> <span className="hero-end">and bring you customers.</span>
 </h1>
 <div className="hero-bottom">
-<p>We design and build websites and web applications for small businesses, startups and growing companies. Basic Google SEO setup is included free with every website.</p>
+<p>We design and build websites, animated scroll experiences and web apps for startups and growing businesses. Prefer to build it yourself? Grab one of our ready-made React, Next.js and HTML animation templates.</p>
 </div>
 <span className="object-label micro">Web · Motion · Apps · AI</span>
 </div>
@@ -99,7 +102,7 @@ export default function PageContent() {
 <div className="service-info">
 <span className="micro">01 / BUILD</span>
 <h3>Website Development</h3>
-<p>Beautiful, fast and mobile-friendly websites that your team can easily update, built to make a great first impression.</p>
+<p>Landing pages, business websites, web publications and HTML email signatures. Fast, mobile-friendly and easy for your team to update.</p>
 <a href="#contact" className="round-link" aria-label="Discuss Website Development">
 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
 <path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7"/>
@@ -202,7 +205,7 @@ export default function PageContent() {
 <div className="service-info">
 <span className="micro">05 / DESIGN</span>
 <h3>UI / UX Design</h3>
-<p>Clean, easy-to-use designs that you see and approve before we build anything.</p>
+<p>UI/UX design for websites, web apps and dashboards. You see and approve every screen before a line of code is written.</p>
 <a href="#contact" className="round-link" aria-label="Discuss UI / UX Design">
 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
 <path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7"/>
@@ -228,6 +231,45 @@ export default function PageContent() {
 <h3>SEO</h3>
 <p>Help customers find you on Google, with the right setup, local search visibility and steady improvements over time.</p>
 <a href="#contact" className="round-link" aria-label="Discuss SEO">
+<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+<path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7"/>
+</svg>
+</a>
+</div>
+</article>
+{SHOW_VIDEO && (
+<article className="service-card service-6" data-reveal>
+<div className="service-art" aria-hidden="true">
+<div className="video-play">
+<span>▶</span>
+</div>
+<div className="floating-label">Under 60 seconds</div>
+</div>
+<div className="service-info">
+<span className="micro">07 / SHOW</span>
+<h3>Product &amp; Promo Videos</h3>
+<p>Product demo videos, website walkthroughs, social reels and custom motion videos that explain what you sell in under 60 seconds.</p>
+<a href="#contact" className="round-link" aria-label="Discuss Product & Promo Videos">
+<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+<path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7"/>
+</svg>
+</a>
+</div>
+</article>
+)}
+<article className="service-card service-7" data-reveal>
+<div className="service-art" aria-hidden="true">
+<div className="template-stack">
+<span>Next.js</span>
+<span>React</span>
+<span>HTML</span>
+</div>
+</div>
+<div className="service-info">
+<span className="micro">07 / LAUNCH</span>
+<h3>Ready-made Templates</h3>
+<p>Premium React, Next.js and HTML/CSS/JS templates with scroll animations built in. Buy, customise, launch the same day.</p>
+<a href="/templates/" className="round-link" aria-label="Browse templates">
 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
 <path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7"/>
 </svg>
@@ -589,7 +631,8 @@ export default function PageContent() {
 <div className="tabs">
    <button className="on" data-t="web">Websites</button>
    <button data-t="app">Web Apps</button>
-   <button data-t="seo">SEO &amp; Care</button>
+   {SHOW_VIDEO && <button data-t="video">Video</button>}
+   <button data-t="seo">SEO</button>
   </div>
 <div className="pricing-panels">
 <div className="grid g3 plans on" id="web">
@@ -615,6 +658,7 @@ export default function PageContent() {
 </ul>
     <p className="more">Need more features? <a href="#contact">Get a custom quote →</a>
 </p>
+    <p className="addon"><b>Optional add-on (extra charge, not included):</b> Content dashboard, so your team can update text, images and blogs without a developer. Priced separately in your quote.</p>
     <a href="#contact" className="btn btn-g">Choose Basic</a>
 </div>
    <div className="card plan pop">
@@ -634,6 +678,7 @@ export default function PageContent() {
 <li>One month of post-launch bug-fix support</li>
 <li>Integrations subject to technical feasibility and third-party availability</li>
 </ul>
+    <p className="addon"><b>Optional add-on (extra charge, not included):</b> Content dashboard, so your team can update text, images and blogs without a developer. Priced separately in your quote.</p>
     <a href="#contact" className="btn btn-p">Get a quote</a>
 </div>
    <div className="card plan">
@@ -653,6 +698,7 @@ export default function PageContent() {
 <li>Performance optimisation suited to the chosen technology</li>
 <li>Third-party integrations where feasible</li>
 </ul>
+    <p className="addon"><b>Optional add-on (extra charge, not included):</b> Content dashboard, so your team can update text, images and blogs without a developer. Priced separately in your quote.</p>
     <a href="#contact" className="btn btn-g">Get a quote</a>
 </div>
   </div>
@@ -663,7 +709,6 @@ export default function PageContent() {
 <div className="price">₹1,29,999</div>
 <p className="for">For startups and entrepreneurs ready to launch their first web application.</p>
     <ul>
-<li>Up to 8 core application screens</li>
 <li>Custom, mobile-responsive UI/UX</li>
 <li>User login and role-based access</li>
 <li>Database and admin dashboard</li>
@@ -687,7 +732,7 @@ export default function PageContent() {
 <li>Payment gateway and subscription integration</li>
 <li>Analytics and business reports</li>
 <li>Cloud deployment and optimisation</li>
-<li>3 months of post-launch bug-fix support</li>
+<li>2 months of post-launch bug-fix support</li>
 </ul>
     <a href="#contact" className="btn btn-p">Get a Quote</a>
 </div>
@@ -704,11 +749,97 @@ export default function PageContent() {
 <li>Subscription billing and payment integrations</li>
 <li>Real-time functionality and API integrations</li>
 <li>Advanced security and performance planning</li>
+<li>3 months of post-launch bug-fix support</li>
 <li>Custom development and maintenance plans</li>
 </ul>
     <a href="#contact" className="btn btn-g">Discuss Your Project</a>
 </div>
   </div>
+{SHOW_VIDEO && (
+<div className="grid g3 plans" id="video">
+   <div className="card plan">
+<h3>Basic</h3>
+<p className="from">Starting at / video</p>
+<div className="price">₹2,999</div>
+<p className="for">For simple, attention-grabbing product videos.</p>
+    <ul>
+<li>15-second video</li>
+<li>1 product, up to 2 scenes</li>
+<li>AI-generated visuals</li>
+<li>Music and logo</li>
+<li>1080p, 1 aspect ratio</li>
+<li>1 minor revision</li>
+</ul>
+    <a href="#contact" className="btn btn-g">Get started</a>
+</div>
+   <div className="card plan pop">
+<span className="badge">Most popular</span>
+<h3>Advanced</h3>
+<p className="from">Starting at / video</p>
+<div className="price">₹6,999</div>
+<p className="for">For polished product launches and social ads.</p>
+    <ul>
+<li>Up to 30 seconds</li>
+<li>1 product, up to 4 scenes</li>
+<li>Cinematic AI visuals</li>
+<li>Basic creative concept</li>
+<li>Music and motion text</li>
+<li>1080p, 1 aspect ratio</li>
+<li>2 minor revisions</li>
+</ul>
+    <a href="#contact" className="btn btn-p">Get started</a>
+</div>
+   <div className="card plan">
+<h3>Premium</h3>
+<p className="from">Starting at / video</p>
+<div className="price">₹14,999</div>
+<p className="for">For premium product storytelling and campaigns.</p>
+    <ul>
+<li>Up to 45 seconds</li>
+<li>1 product, up to 6 scenes</li>
+<li>Custom concept and storyboard</li>
+<li>Advanced AI camera effects</li>
+<li>Music and sound design</li>
+<li>1080p, 2 aspect ratios</li>
+<li>3 minor revisions</li>
+</ul>
+    <a href="#contact" className="btn btn-g">Get a quote</a>
+</div>
+<div className="video-detail">
+<div>
+<h3>Detailed package comparison</h3>
+<div className="table-wrap">
+<table>
+<thead>
+<tr><th>Features</th><th>Basic</th><th>Advanced</th><th>Premium</th></tr>
+</thead>
+<tbody>
+<tr><td>Video duration</td><td>15 sec</td><td>Up to 30 sec</td><td>Up to 45 sec</td></tr>
+<tr><td>Scenes</td><td>Up to 2</td><td>Up to 4</td><td>Up to 6</td></tr>
+<tr><td>Product count</td><td>1</td><td>1</td><td>1</td></tr>
+<tr><td>Creative direction</td><td>Simple</td><td>Basic concept</td><td>Custom concept</td></tr>
+<tr><td>AI animation</td><td>Basic</td><td>Cinematic</td><td>Advanced cinematic</td></tr>
+<tr><td>Text animation</td><td>Logo/end card</td><td>Included</td><td>Included</td></tr>
+<tr><td>Background music</td><td>Included</td><td>Included</td><td>Included</td></tr>
+<tr><td>Sound effects</td><td>Basic</td><td>Basic</td><td>Custom mix</td></tr>
+<tr><td>Storyboard</td><td>&mdash;</td><td>&mdash;</td><td>Included</td></tr>
+<tr><td>Voice-over</td><td>Add-on</td><td>Add-on</td><td>Add-on</td></tr>
+<tr><td>Output</td><td>1080p</td><td>1080p</td><td>1080p</td></tr>
+<tr><td>Aspect ratios</td><td>1</td><td>1</td><td>2</td></tr>
+<tr><td>Minor revisions</td><td>1</td><td>2</td><td>3</td></tr>
+<tr><td>Estimated delivery</td><td>3&ndash;4 business days</td><td>5&ndash;7 business days</td><td>7&ndash;10 business days</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div className="video-notes">
+<h3>Production notes</h3>
+<p>All packages include AI-assisted video production using client-provided product references or assets. Prices cover one approved creative direction and the stated number of scenes. Revisions include minor text, edit, timing, or music changes. New concepts, major scene changes, additional AI generations, and product redesigns may incur extra charges.</p>
+<p>Accurate product labels, logos, packaging, and technical details require suitable reference files and manual quality checks. AI generation cannot guarantee exact visual consistency. All prices are starting rates, exclusive of applicable taxes.</p>
+</div>
+</div>
+  </div>
+)}
 <div className="grid g3 plans" id="seo">
    <div className="card plan">
 <h3>Local SEO</h3>
@@ -732,21 +863,21 @@ export default function PageContent() {
 <p className="from">Pricing</p>
 <div className="price quote">Custom quote</div>
 <p className="for">A tailored plan to improve organic visibility steadily.</p>
-    <p className="more">Monthly SEO activities, content deliverables, technical fixes, reporting and campaign duration are defined in the agreed plan.</p>
+    <ul>
+<li>Monthly SEO activities and content deliverables as agreed</li>
+<li>Technical SEO fixes and speed checks</li>
+<li>Website backups and uptime monitoring</li>
+<li>Routine software and security updates</li>
+<li>A few small content edits each month, as agreed</li>
+<li>Monthly performance report</li>
+</ul>
+    <p className="more">Exact deliverables, edit limits and campaign duration are written in your agreed plan. Rankings, traffic and enquiries cannot be guaranteed, and backups cannot guarantee that no data is ever lost. Major redesigns, new functionality, hosting and domain charges and third-party subscriptions are excluded unless agreed in writing.</p>
     <a href="#contact" className="btn btn-p">Get a quote</a>
-</div>
-   <div className="card plan">
-<h3>Website Care</h3>
-<p className="from">Pricing</p>
-<div className="price quote">Custom quote</div>
-<p className="for">Maintenance based on the support your website needs.</p>
-    <p className="more">Maintenance covers the specific updates, monitoring, backups and content support in your selected plan. Major redesigns, new functionality, hosting charges and external subscriptions are excluded unless agreed.</p>
-    <a href="#contact" className="btn btn-g">Get a quote</a>
 </div>
   </div>
 </div>
 <p className="note">
-<b>Pricing &amp; billing information</b><br />All packages are subject to an agreed project scope, technical requirements and delivery timeline. Hosting, domains, third-party subscriptions and external service fees are charged separately unless included in the proposal. Applicable taxes, if any, are additional.
+<b>Pricing &amp; billing information</b><br />All packages are subject to an agreed project scope, technical requirements and delivery timeline. Hosting, domains, third-party subscriptions and external service fees are charged separately unless included in the proposal. Applicable taxes, if any, are additional.<br /><br /><b>Content dashboard (optional add-on, charged extra):</b> every website package can be extended with a dashboard where your team (marketing, editors, managers) updates text, images, blogs and offers without a developer. It works with WordPress, React and Next.js, including animated websites. Ask for it in your quote; the price depends on what you need to edit and how many people need access.
 </p>
 </section>
 <section id="trust" className="trust-section section-pad">
@@ -820,7 +951,7 @@ export default function PageContent() {
 <span className="micro">02</span>Why do animated websites cost more?<span className="faq-plus">+</span>
 </summary>
 <div className="faq-answer">
-<p>Every scroll animation is designed, timed and tested by hand on phones, tablets and desktops so it stays smooth and fast. It also uses premium animation, 3D and AI tools. That extra craft and tooling is included in the price.</p>
+<p>An animated website takes much more creative and design time. We plan the story and motion, design every scene and interaction, then build, time and test each scroll animation by hand on phones, tablets and desktops so it stays smooth and fast. It also uses premium animation, 3D and AI tools. That extra creative time, design effort, craft and tooling is included in the price.</p>
 </div>
 </details>
 <details>
@@ -852,7 +983,7 @@ export default function PageContent() {
 <span className="micro">06</span>Will you keep my business idea confidential?<span className="faq-plus">+</span>
 </summary>
 <div className="faq-answer">
-<p>Yes. Everything you share with us stays private, and we're happy to sign a non-disclosure agreement (NDA) before you share your idea.</p>
+<p>Yes. Your idea, files and business details are strictly confidential. We protect them with restricted access, never share them with anyone outside your project, and never reuse them for other clients.</p>
 </div>
 </details>
 <details>
@@ -899,15 +1030,7 @@ export default function PageContent() {
 </details>
 <details>
 <summary>
-<span className="micro">11</span>Are hosting and domain charges included?<span className="faq-plus">+</span>
-</summary>
-<div className="faq-answer">
-<p>Unless specifically mentioned in your proposal, hosting, domain registration, renewals, premium plugins and third-party subscriptions are charged separately. We recommend registering your domain in your own name and keeping access to important accounts.</p>
-</div>
-</details>
-<details>
-<summary>
-<span className="micro">12</span>Can I request changes during development?<span className="faq-plus">+</span>
+<span className="micro">11</span>Can I request changes during development?<span className="faq-plus">+</span>
 </summary>
 <div className="faq-answer">
 <p>Yes. Your package includes the stated number of revision rounds. Changes within the agreed scope can be requested during those rounds. New features or substantial changes may require an additional quote.</p>
@@ -915,23 +1038,15 @@ export default function PageContent() {
 </details>
 <details>
 <summary>
-<span className="micro">13</span>Can I cancel my project?<span className="faq-plus">+</span>
+<span className="micro">12</span>Will I receive an invoice?<span className="faq-plus">+</span>
 </summary>
 <div className="faq-answer">
-<p>You can request cancellation in writing. The amount payable or refundable depends on the agreed milestones, work completed, non-recoverable third-party costs and the terms accepted before the project begins. Any applicable statutory consumer rights remain unaffected.</p>
+<p>Yes. We provide a proper invoice for every payment you make, with the project details, amount and date, so you always know exactly what you paid for.</p>
 </div>
 </details>
 <details>
 <summary>
-<span className="micro">14</span>Will I receive an invoice?<span className="faq-plus">+</span>
-</summary>
-<div className="faq-answer">
-<p>Yes. An invoice will be provided for payments received. Applicable registration and tax details will be shown according to our business status.</p>
-</div>
-</details>
-<details>
-<summary>
-<span className="micro">15</span>Do you guarantee Google rankings or sales?<span className="faq-plus">+</span>
+<span className="micro">13</span>Do you guarantee Google rankings or sales?<span className="faq-plus">+</span>
 </summary>
 <div className="faq-answer">
 <p>No. We follow established design, technical SEO and performance practices, but search rankings, traffic, leads and sales depend on many factors outside any developer's control.</p>
@@ -939,18 +1054,26 @@ export default function PageContent() {
 </details>
 <details>
 <summary>
-<span className="micro">16</span>What happens after the free support period?<span className="faq-plus">+</span>
+<span className="micro">14</span>What happens after the free support period?<span className="faq-plus">+</span>
 </summary>
 <div className="faq-answer">
-<p>You can choose an ongoing Website Care plan or request support as needed. Any additional service charges will be agreed before work begins.</p>
+<p>After the free support period ends, you can request help whenever you need it, such as fixes, updates or new features. We will share the cost and scope with you first, and work begins only after you approve it.</p>
 </div>
 </details>
 <details>
 <summary>
-<span className="micro">17</span>Can Experibyte become our long-term technology partner?<span className="faq-plus">+</span>
+<span className="micro">15</span>Can Experibyte become our long-term technology partner?<span className="faq-plus">+</span>
 </summary>
 <div className="faq-answer">
 <p>Absolutely. We support businesses beyond their initial website launch through improvements, maintenance, new features and ongoing technical collaboration. Our aim is to understand your business and remain a dependable development partner as your needs evolve.</p>
+</div>
+</details>
+<details>
+<summary>
+<span className="micro">16</span>Can my team update the website without a developer?<span className="faq-plus">+</span>
+</summary>
+<div className="faq-answer">
+<p>Yes. Add a content dashboard to any website, including WordPress, React, Next.js and fully animated sites. Your team can edit text, images, blogs and offers with their own logins, while the animations and layout stay protected. Ask us about it in your quote.</p>
 </div>
 </details></div>
 </section>

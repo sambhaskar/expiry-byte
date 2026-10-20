@@ -402,3 +402,55 @@ h3{letter-spacing:0!important}
 @media (max-width:900px){
   .story-promise h2{max-width:none;font-size:35px}
 }
+
+/* Home page cards: full borders, full-width card text (overrides the older rules above) */
+.hero-bottom>p{max-width:720px}
+.services-grid .service-card{border:1px solid #E1E6F2;border-radius:8px;padding:36px;background:#FFFFFF}
+.services-grid .service-card:nth-child(even){padding-top:36px}
+.services-grid .service-info{padding:25px 0 0}
+.services-grid .service-info h3{padding-right:60px}
+.services-grid .service-info p{max-width:none}
+.trust-grid article,.startup-steps article{border:1px solid #E1E6F2;border-radius:8px;padding:30px;background:#FFFFFF}
+.startup-steps article>span{margin-left:0}
+.industry-grid{gap:20px 25px}
+.industry-item{border:1px solid #E1E6F2;border-radius:8px;padding:0 24px;background:#FFFFFF}
+.industry-item[open]{padding-bottom:24px}
+.industry-item p{max-width:none}
+.trust-grid p,.startup-steps p{max-width:none}
+.service-6 .service-art{background:#FFE6DC;color:#0B1030}
+.service-7 .service-art{background:#E7EAFF;color:#0B1030}
+.video-play{width:88px;height:88px;border-radius:50%;background:#2B4BFF;color:#FFFFFF;display:grid;place-items:center;font-size:28px;padding-left:6px}
+.template-stack{display:flex;flex-direction:column;gap:12px;align-items:center}
+.template-stack span{font-size:14px;font-weight:600;background:#FFFFFF;border-radius:30px;padding:10px 22px;min-width:150px;text-align:center}
+
+/* Video pricing tab: comparison tables, add-ons and production notes under the cards */
+.video-detail{grid-column:1/-1;display:grid;gap:50px;margin-top:20px}
+.video-detail h3{font-size:22px;margin:0 0 20px}
+.video-detail .table-wrap{overflow-x:auto}
+.video-detail table{width:100%;border-collapse:collapse;font-size:15px;line-height:1.5}
+.video-detail th,.video-detail td{text-align:left;padding:14px 16px 14px 0;border-bottom:1px solid #E1E6F2;vertical-align:top}
+.video-detail th{font-weight:700}
+.video-detail td:last-child,.video-detail th:last-child{text-align:right;padding-right:0}
+.video-notes{border:1px solid #E1E6F2;border-radius:8px;padding:30px;background:#FFFFFF}
+.video-notes h3{font-size:18px;margin:0 0 14px}
+.video-notes p{font-size:15px;line-height:1.75;font-weight:500;color:var(--muted);margin:0 0 14px}
+
+
+.dashboard-section>.micro{display:block;margin-bottom:25px}
+.dashboard-section h2{max-width:900px;margin-bottom:30px}
+.dashboard-lead{max-width:760px;font-size:15px;margin-bottom:45px}
+.dashboard-compare{display:grid;grid-template-columns:1fr 1fr;gap:25px;max-width:980px}
+.dashboard-compare article{border:1px solid #E1E6F2;border-radius:8px;padding:32px;background:#FFFFFF}
+.dashboard-compare article.on{border-color:var(--blue)}
+.dashboard-compare h3{font-size:22px;margin-bottom:18px}
+.dashboard-compare ul{list-style:none;margin:0 0 24px;padding:0}
+.dashboard-compare li{font-size:14px;line-height:1.6;padding:10px 0;border-bottom:1px solid #EEF1F8}
+.dashboard-note{max-width:760px;margin-top:28px;font-size:12px}
+@media(max-width:700px){.dashboard-compare{grid-template-columns:1fr}.dashboard-compare article{padding:26px 22px}}
+
+.plan .addon{margin:26px 0 34px;padding:14px 16px;border:1px dashed var(--blue);border-radius:8px;background:#F4F6FF;font-size:12px;line-height:1.6;color:var(--ink)}
+.plan .addon b{color:var(--blue)}
+
+.faq-list summary{font-size:16px;color:#000}
+.faq-list summary>.micro{font-size:15px;color:#A7B0CA;font-weight:600;margin-top:2px;min-width:26px;flex-shrink:0}
+.faq-list .faq-answer p{font-size:14px;line-height:1.7}

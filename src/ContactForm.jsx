@@ -57,8 +57,9 @@ export function ContactForm() {
           <option>Web App – MVP</option>
           <option>Web App – Business Platform / SaaS</option>
           <option>AI Integration</option>
+          <option>Website with Content Dashboard</option>
           <option>Local SEO</option>
-          <option>Growth SEO / Website Care</option>
+          <option>Growth SEO</option>
           <option>Design to Code (Figma / XD / PSD)</option>
           <option>Not sure yet</option>
         </select>

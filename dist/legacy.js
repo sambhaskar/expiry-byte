@@ -14,6 +14,30 @@
  tabs.forEach((b,i)=>{b.id='tab-'+b.dataset.t;b.setAttribute('role','tab');b.setAttribute('aria-controls',b.dataset.t);b.setAttribute('aria-selected',String(i===0));b.tabIndex=i===0?0:-1;b.addEventListener('click',()=>activateTab(b));b.addEventListener('keydown',e=>{let next=i;if(e.key==='ArrowRight')next=(i+1)%tabs.length;else if(e.key==='ArrowLeft')next=(i-1+tabs.length)%tabs.length;else if(e.key==='Home')next=0;else if(e.key==='End')next=tabs.length-1;else return;e.preventDefault();activateTab(tabs[next],true)})});
  panels.forEach((p,i)=>{p.setAttribute('role','tabpanel');p.setAttribute('aria-labelledby','tab-'+p.id);p.hidden=i!==0});
  $$('details').forEach(d=>d.addEventListener('toggle',()=>window.ScrollTrigger?.refresh()));
+ // FAQ accordion: one answer open at a time, with a smooth height animation.
+ const faqItems=$$('.faq-list details');
+ const faqAnim=new WeakMap();
+ function faqAnimate(d,opening){
+  const sum=d.querySelector('summary'),ans=d.querySelector('.faq-answer');
+  faqAnim.get(d)?.cancel();
+  if(media.matches||!ans.animate){d.open=opening;window.ScrollTrigger?.refresh();return}
+  const start=d.offsetHeight;
+  if(opening)d.open=true;
+  const full=sum.offsetHeight+ans.offsetHeight;
+  const end=opening?full:sum.offsetHeight;
+  d.style.overflow='hidden';
+  const a=d.animate({height:[start+'px',end+'px']},{duration:380,easing:'cubic-bezier(.22,1,.36,1)'});
+  faqAnim.set(d,a);
+  a.onfinish=()=>{if(!opening)d.open=false;d.style.overflow='';faqAnim.delete(d);window.ScrollTrigger?.refresh()};
+  a.oncancel=()=>{d.style.overflow=''};
+ }
+ faqItems.forEach(d=>d.querySelector('summary').addEventListener('click',e=>{
+  e.preventDefault();
+  const opening=!d.open||faqAnim.has(d)&&d.dataset.closing==='1';
+  if(opening)faqItems.forEach(o=>{if(o!==d&&o.open){o.dataset.closing='1';faqAnimate(o,false)}});
+  d.dataset.closing=opening?'0':'1';
+  faqAnimate(d,opening);
+ }));
  function initReveals(){
   if(media.matches||!('IntersectionObserver' in window))return;
   const mobile=matchMedia('(max-width: 900px)').matches;

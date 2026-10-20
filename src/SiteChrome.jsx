@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 export function SiteHeader({ activePage = 'home' }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const homeRoute = activePage === 'home';
+  const homeRoute = activePage === 'home' || activePage === 'v2';
   const homeHref = (section) => homeRoute ? `#${section}` : `/#${section}`;
 
   useEffect(() => {
@@ -12,6 +12,29 @@ export function SiteHeader({ activePage = 'home' }) {
     document.addEventListener('keydown', onKeyDown);
     return () => document.removeEventListener('keydown', onKeyDown);
   }, []);
+
+  if (activePage === 'v2') {
+    return (
+      <header className="site-header">
+        <a className="brand" href="/" aria-label="Experibyte home">
+          <img src="/logo.png" alt="Experibyte" />
+        </a>
+        <nav className={menuOpen ? 'open' : ''} aria-label="Main navigation" id="navigation">
+          <a href={homeHref('services')} onClick={() => setMenuOpen(false)}>Services</a>
+          <a href="/templates/" onClick={() => setMenuOpen(false)}>Templates <span className="v2-tag">NEW</span></a>
+          <a href={homeHref('work')} onClick={() => setMenuOpen(false)}>Work</a>
+          <a href={homeHref('pricing')} onClick={() => setMenuOpen(false)}>Pricing</a>
+          <a href={homeHref('community')} onClick={() => setMenuOpen(false)}>Community</a>
+          <a href={homeHref('faq')} onClick={() => setMenuOpen(false)}>FAQ</a>
+          <a href={homeHref('contact')} onClick={() => setMenuOpen(false)}>Contact</a>
+        </nav>
+        <a className="nav-cta" href={homeHref('contact')} onClick={() => setMenuOpen(false)}>Book a free call <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7" /></svg></a>
+        <button id="menu" type="button" aria-expanded={menuOpen} aria-controls="navigation" aria-label={menuOpen ? 'Close menu' : 'Open menu'} onClick={() => setMenuOpen((open) => !open)}>
+          <span /><span /><span />
+        </button>
+      </header>
+    );
+  }
 
   return (
     <header className={`site-header${activePage === 'templates' ? ' templates-header' : ''}${activePage === 'legal' ? ' legal-header' : ''}`}>
@@ -35,7 +58,7 @@ export function SiteHeader({ activePage = 'home' }) {
 }
 
 export function SiteFooter({ activePage = 'home' }) {
-  const homeRoute = activePage === 'home';
+  const homeRoute = activePage === 'home' || activePage === 'v2';
   const homeHref = (section) => homeRoute ? `#${section}` : `/#${section}`;
   const topHref = '/';
 
