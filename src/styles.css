@@ -464,3 +464,8 @@ h3{letter-spacing:0!important}
 .notfound__body p{font-size:16px;max-width:480px;margin-bottom:38px}
 .notfound__ghost{position:absolute;right:-2vw;bottom:-6vw;font-size:clamp(180px,34vw,520px);font-weight:700;letter-spacing:-.07em;line-height:1;color:#F0F2FA;user-select:none;pointer-events:none}
 @media(max-width:700px){.notfound{padding:24px var(--pad)}.notfound__body p{font-size:14px}}
+
+.enquiry-form input:focus,.enquiry-form select:focus,.enquiry-form textarea:focus,.enquiry-form input:focus-visible,.enquiry-form select:focus-visible,.enquiry-form textarea:focus-visible{outline:none;border-bottom-color:#FFFFFF;box-shadow:0 1px 0 0 #FFFFFF}
+
+.legal-page section h2{font-size:22px;letter-spacing:normal!important;line-height:1.25;margin-bottom:12px}
+@media(max-width:540px){.legal-page section h2{font-size:20px}}

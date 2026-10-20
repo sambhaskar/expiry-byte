@@ -49,17 +49,12 @@ export function ContactForm() {
         <input type="tel" name="phone" placeholder="Phone / WhatsApp" aria-label="Phone or WhatsApp" autoComplete="tel" />
         <select name="service" aria-label="Service you are interested in">
           <option>Website – Basic</option>
-          <option>Website – Advance</option>
+          <option>Website – Advanced</option>
           <option>Website – Premium</option>
-          <option>Motion Landing Page</option>
-          <option>Immersive Animated Website</option>
-          <option>3D / WebGL Experience</option>
-          <option>Web App – MVP</option>
-          <option>Web App – Business Platform / SaaS</option>
-          <option>AI Integration</option>
+          <option>Animated / Scroll Website</option>
           <option>Website with Content Dashboard</option>
-          <option>Local SEO</option>
-          <option>Growth SEO</option>
+          <option>Web Application</option>
+          <option>SEO (Local / Growth)</option>
           <option>Design to Code (Figma / XD / PSD)</option>
           <option>Not sure yet</option>
         </select>
