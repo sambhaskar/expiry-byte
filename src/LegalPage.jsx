@@ -28,6 +28,11 @@ const sections = {
   },
 };
 
+// Turns any email address in the text into a mailto link.
+function withMailLinks(text) {
+  return text.split(/([\w.+-]+@[\w-]+\.[\w.]*\w)/).map((part, i) => (i % 2 ? <a key={i} href={`mailto:${part}`}>{part}</a> : part));
+}
+
 export default function LegalPage({ type }) {
   const page = sections[type];
   return (
@@ -38,7 +43,7 @@ export default function LegalPage({ type }) {
         <h1>{page.title}</h1>
         <p className="legal-updated">Last updated {page.updated}</p>
         <p className="legal-intro">{page.intro}</p>
-        {page.body.map(([heading, text]) => <section key={heading}><h2>{heading}</h2><p>{text}</p></section>)}
+        {page.body.map(([heading, text]) => <section key={heading}><h2>{heading}</h2><p>{withMailLinks(text)}</p></section>)}
       </main>
       <SiteFooter activePage="legal" />
     </>

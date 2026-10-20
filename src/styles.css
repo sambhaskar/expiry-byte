@@ -469,3 +469,5 @@ h3{letter-spacing:0!important}
 
 .legal-page section h2{font-size:22px;letter-spacing:normal!important;line-height:1.25;margin-bottom:12px}
 @media(max-width:540px){.legal-page section h2{font-size:20px}}
+
+.legal-page section p a{color:var(--blue);border-bottom:1px solid currentColor}
