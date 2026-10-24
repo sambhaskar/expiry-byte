@@ -4,11 +4,12 @@ import { SiteFooter, SiteHeader } from './SiteChrome.jsx';
 const sections = {
   privacy: {
     title: 'Privacy Policy',
-    updated: '20 October 2026',
-    intro: 'This policy explains how Experibyte handles information you submit through the website enquiry form.',
+    updated: '24 October 2026',
+    intro: 'This policy explains how Experibyte handles information you submit through the website enquiry form and how we measure visits to this website.',
     body: [
       ['Information you provide', 'The enquiry form may ask for your name, email address, phone number, service of interest, budget and project message.'],
       ['How it is used', 'We use these details to respond to your enquiry, discuss your project and communicate about services you requested. The form sends your submission to Experibyte via FormSubmit, the form delivery service configured on this website.'],
+      ['Website analytics', 'We use Google Analytics, provided by Google LLC, to measure visits and understand how pages are used. It collects information such as pages viewed, approximate location, device and browser type, and uses cookies to do so. Google processes this data under its own privacy policy. You can limit this by blocking cookies in your browser or by installing the Google Analytics opt-out browser add-on.'],
       ['Sharing and retention', 'We do not sell enquiry information. It is available to Experibyte and the service providers needed to deliver and protect the enquiry form and email. Messages may be retained in our business email for follow-up and record keeping.'],
       ['Your choices', 'You can contact us to ask about, correct or request deletion of information you submitted, subject to records we must retain. You may also contact us at experibytetechnologies@gmail.com with privacy questions.'],
     ],
