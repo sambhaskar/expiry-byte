@@ -877,7 +877,7 @@ export default function PageContent() {
   </div>
 </div>
 <p className="note">
-<b>Pricing &amp; billing information</b><br />All packages are subject to an agreed project scope, technical requirements and delivery timeline. Hosting, domains, third-party subscriptions and external service fees are charged separately unless included in the proposal. Applicable taxes, if any, are additional.<br /><br /><b>Content dashboard (optional add-on, charged extra):</b> every website package can be extended with a dashboard where your team (marketing, editors, managers) updates text, images, blogs and offers without a developer. It works with WordPress, React and Next.js, including animated websites. Ask for it in your quote; the price depends on what you need to edit and how many people need access.
+<b>Pricing &amp; billing information</b><br />All packages are subject to an agreed project scope, technical requirements and delivery timeline. Hosting, domains, third-party subscriptions and external service fees are charged separately unless included in the proposal. Applicable taxes, if any, are additional.<br /><br /><b>Content dashboard (optional add-on, charged extra):</b> every website package can be extended with a dashboard where your team (marketing, editors, managers) updates text, images, blogs and offers without a developer. Ask for it in your quote; the price depends on what you need to edit and how many people need access.
 </p>
 </section>
 <section id="trust" className="trust-section section-pad">
