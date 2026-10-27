@@ -720,6 +720,7 @@ export default function PageContent() {
     <a href="#contact" className="btn btn-g">Get Started</a>
 </div>
    <div className="card plan pop">
+<span className="badge">Most popular</span>
 <h3>Advanced</h3>
 <p className="from">Pricing</p>
 <div className="price quote">Custom quote</div>
