@@ -69,7 +69,7 @@ export function SiteFooter({ activePage = 'home' }) {
         <div className="footer-links">
           <div><b>Quick Links</b><a href={homeHref('services')}>Services</a><a href="/templates/">Templates</a><a href={homeHref('pricing')}>Pricing</a><a href={homeHref('process')}>Process</a><a href={homeHref('contact')}>Contact</a></div>
           <div><b>Legal</b><a href="/privacy-policy/">Privacy Policy</a><a href="/terms/">Terms &amp; Conditions</a></div>
-          <div><b>Business Enquiries</b><a href="mailto:experibytetechnologies@gmail.com">experibytetechnologies@gmail.com</a><span>Working with clients across India and worldwide.</span></div>
+          <div data-nosnippet><b>Business Enquiries</b><a href="mailto:experibytetechnologies@gmail.com">experibytetechnologies@gmail.com</a><span>Working with clients across India and worldwide.</span></div>
         </div>
       </div>
       <a href={topHref} className="back-top">BACK TO TOP ↑</a>
