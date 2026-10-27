@@ -14,6 +14,8 @@
  tabs.forEach((b,i)=>{b.id='tab-'+b.dataset.t;b.setAttribute('role','tab');b.setAttribute('aria-controls',b.dataset.t);b.setAttribute('aria-selected',String(i===0));b.tabIndex=i===0?0:-1;b.addEventListener('click',()=>activateTab(b));b.addEventListener('keydown',e=>{let next=i;if(e.key==='ArrowRight')next=(i+1)%tabs.length;else if(e.key==='ArrowLeft')next=(i-1+tabs.length)%tabs.length;else if(e.key==='Home')next=0;else if(e.key==='End')next=tabs.length-1;else return;e.preventDefault();activateTab(tabs[next],true)})});
  panels.forEach((p,i)=>{p.setAttribute('role','tabpanel');p.setAttribute('aria-labelledby','tab-'+p.id);p.hidden=i!==0});
  $$('details').forEach(d=>d.addEventListener('toggle',()=>window.ScrollTrigger?.refresh()));
+ // Industries: cards are static titles only (keyboard toggling re-closes).
+ $$('.industry-item').forEach(d=>d.addEventListener('toggle',()=>{if(d.open)d.open=false}));
  // FAQ accordion: one answer open at a time, with a smooth height animation.
  const faqItems=$$('.faq-list details');
  const faqAnim=new WeakMap();

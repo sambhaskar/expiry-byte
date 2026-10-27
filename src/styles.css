@@ -413,6 +413,9 @@ h3{letter-spacing:0!important}
 .trust-grid article,.startup-steps article{border:1px solid #E1E6F2;border-radius:8px;padding:30px;background:#FFFFFF}
 .startup-steps article>span{margin-left:0}
 .industry-grid{gap:20px 25px}
+.industry-item summary{pointer-events:none;cursor:default}
+.industry-item .industry-plus,.industry-item p{display:none}
+.industry-item[open]{padding-bottom:0}
 .industry-item{border:1px solid #E1E6F2;border-radius:8px;padding:0 24px;background:#FFFFFF}
 .industry-item[open]{padding-bottom:24px}
 .industry-item p{max-width:none}
