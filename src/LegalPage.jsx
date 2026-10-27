@@ -20,7 +20,6 @@ const sections = {
     body: [
       ['Project scope and pricing', 'Features, deliverables, milestones, timeline, support and fees are confirmed in a written proposal before work begins. Prices are in Indian Rupees unless otherwise stated. Hosting, domains, paid software, third-party services, gateway charges and applicable taxes are excluded unless the proposal includes them.'],
       ['Changes and approvals', 'The proposal states the included review or revision rounds. New features or substantial scope changes may affect fees and timeline and will be agreed before that work begins.'],
-      ['Payments and cancellation', 'Payment stages are those stated in the proposal. If a project is cancelled, payment for completed work, agreed milestones and non-recoverable third-party costs is handled under the accepted proposal or agreement and applicable law.'],
       ['Ownership and third-party materials', 'After full payment, ownership of original custom deliverables transfers as stated in the project agreement. Third-party fonts, images, plugins, frameworks, software and other licensed materials remain subject to their respective licences.'],
       ['Support and outcomes', 'Post-launch support is limited to the duration and deliverables stated in the proposal. Search rankings, traffic, leads and sales depend on external factors and are not guaranteed.'],
       ['Contact', 'For questions about these terms, contact experibytetechnologies@gmail.com.'],
