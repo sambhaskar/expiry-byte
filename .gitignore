@@ -2,3 +2,19 @@ node_modules/
 .chrome-test/
 preview.png
 contact-preview.png
+
+# Not part of the website: working files, brand documents, drafts and backups.
+# They stay on this computer but are never committed or pushed.
+.taste-skill/
+*.docx
+*.zip
+Screenshot*.png
+So I want to integrate payment gate.txt
+insights-image-prompts.md
+animation/
+archive/
+neh-web/
+newpage/
+testbrand/
+brand_name_explorer*.html
+fina.html

@@ -1,6 +1,6 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { createServer } from 'vite';
-import { home, templates, structuredData, templatesStructuredData, llmsTxt } from './seo.mjs';
+import { home, pages, pageStructuredData, structuredData, llmsTxt } from './seo.mjs';
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 
@@ -16,7 +16,7 @@ const withMeta = (doc, { title, description }) => doc
 const vite = await createServer({ server: { middlewareMode: true }, appType: 'custom' });
 
 try {
-  const { render, renderTemplates, renderLegal, renderV2, renderNotFound } = await vite.ssrLoadModule('/src/entry-server.jsx');
+  const { render, renderPage, renderLegal, renderV2, renderNotFound } = await vite.ssrLoadModule('/src/entry-server.jsx');
   const html = await readFile('dist/index.html', 'utf8');
   const root = '<div id="root"></div>';
   if (!html.includes(root)) throw new Error('Could not find the root element in dist/index.html');
@@ -37,29 +37,35 @@ try {
     `<link rel="canonical" href="${href}" />\n  <meta property="og:url" content="${href}" />${extra}`;
   const ldJson = (data) => `\n  <script type="application/ld+json">${JSON.stringify(data)}</script>`;
   const insertHead = (doc, markup) => doc.replace('</head>', `  ${markup}\n</head>`);
+  // Pages bundle GSAP, Lenis and three.js themselves; only the /v2 draft keeps the old vendor scripts.
+  const withoutThree = (doc) => doc.replace(/\s*<script defer src="\/vendor\/[a-z-]+\.js"><\/script>/g, '');
 
-  const homeDoc = withMeta(html, home)
+  const homeDoc = withoutThree(withMeta(html, home))
     .replace('<meta name="robots" content="index, follow" />',
       `<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />\n  <meta name="keywords" content="${esc(home.keywords.join(', '))}" />\n  <meta name="author" content="Experibyte" />`)
     .replace(root, `<div id="root">${render()}</div>`);
-  const templatesDoc = withMeta(html, templates).replace(root, `<div id="root">${renderTemplates()}</div>`);
   const legalDocs = legalPages.map(({ path, type, title, description }) => ({
     path,
-    html: insertHead(withMeta(html, { title, description }).replace(root, `<div id="root">${renderLegal(type)}</div>`), head(pageUrl(path))),
+    html: insertHead(withoutThree(withMeta(html, { title, description })).replace(root, `<div id="root">${renderLegal(type)}</div>`), head(pageUrl(path))),
   }));
 
   await writeFile('dist/index.html', insertHead(homeDoc, head(canonical, ldJson(structuredData(canonical)))));
-  await mkdir('dist/templates', { recursive: true });
-  await writeFile('dist/templates/index.html', insertHead(templatesDoc, head(pageUrl('templates'), ldJson(templatesStructuredData(canonical)))));
   for (const doc of legalDocs) {
     await mkdir(`dist/${doc.path}`, { recursive: true });
     await writeFile(`dist/${doc.path}/index.html`, doc.html);
   }
 
+  for (const [key, page] of Object.entries(pages)) {
+    let doc = withoutThree(withMeta(html, page)).replace(root, `<div id="root">${renderPage(key)}</div>`);
+    if (page.noindex) doc = doc.replace('<meta name="robots" content="index, follow" />', '<meta name="robots" content="noindex, follow" />');
+    await mkdir(`dist/${key}`, { recursive: true });
+    await writeFile(`dist/${key}/index.html`, insertHead(doc, head(pageUrl(key), ldJson(pageStructuredData(key, canonical)))));
+  }
+
   const today = new Date().toISOString().slice(0, 10);
   const entries = [
     { loc: canonical, priority: '1.0', changefreq: 'weekly' },
-    { loc: pageUrl('templates'), priority: '0.9', changefreq: 'weekly' },
+    ...Object.entries(pages).filter(([, p]) => !p.noindex).map(([key, { priority }]) => ({ loc: pageUrl(key), priority, changefreq: 'monthly' })),
     ...legalPages.map(({ path }) => ({ loc: pageUrl(path), priority: '0.3', changefreq: 'yearly' })),
   ];
   const urls = entries.map((e) => `<url><loc>${e.loc}</loc><lastmod>${today}</lastmod><changefreq>${e.changefreq}</changefreq><priority>${e.priority}</priority></url>`).join('');
@@ -68,7 +74,7 @@ try {
   await writeFile('dist/llms.txt', llmsTxt(canonical));
 
   // Branded 404 page (Cloudflare serves it for unknown URLs). Not indexed.
-  const notFoundHtml = withMeta(html, { title: 'Page not found | Experibyte', description: 'This page could not be found. Head back to the Experibyte home page.' })
+  const notFoundHtml = withoutThree(withMeta(html, { title: 'Page not found | Experibyte', description: 'This page could not be found. Head back to the Experibyte home page.' }))
     .replace('<meta name="robots" content="index, follow" />', '<meta name="robots" content="noindex, nofollow" />')
     .replace(root, `<div id="root" data-not-found="true">${renderNotFound()}</div>`);
   await writeFile('dist/404.html', notFoundHtml);

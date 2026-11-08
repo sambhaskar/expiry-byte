@@ -1,19 +1,31 @@
 # Experibyte
 
-> Experibyte is a web studio that designs and builds creative animation websites, scroll-animated and mouse-interactive websites, web applications, AI integrations and premium React, Next.js and HTML animation templates for startups and growing businesses in India and worldwide.
+> Experibyte builds websites, interactive digital experiences, web applications and practical AI integrations for businesses ready to move forward, in India and worldwide.
 
-Experibyte (also written "Experi Byte" or "Experibyte Technologies") works 100% online. Websites are priced with a fixed written quote agreed before work starts, with 50% paid to start and 50% after approval.
-
-## Services
-- Website development and fully animated, creative scrolling websites
-- Web applications and AI integration (chatbots, automation)
-- Websites with a content dashboard (CMS) so teams can update content without a developer, on WordPress, React or Next.js
-- UI / UX design and SEO
-- Ready-made animation website templates in React, Next.js and HTML/CSS/JS (coming soon)
+Experibyte (also written "Experi Byte" or "Experibyte Technologies") works online with startups, growing businesses, e-commerce brands and agencies. Every project starts with a written quote based on the agreed scope.
 
 ## Pages
-- [Home](https://experibyte.com/): services, packages, process and FAQ
-- [Templates](https://experibyte.com/templates/): animation website templates (coming soon)
+- [Home](https://experibyte.com/)
+- [Services](https://experibyte.com/services/): Explore website development, interactive web design, custom applications, AI integration, UI/UX and SEO services from Experibyte.
+- [Website Development](https://experibyte.com/services/website-development/): Custom, responsive website development for startups and growing businesses. Build a clear, fast and effective online presence.
+- [Animated & Scroll Websites](https://experibyte.com/services/animated-websites/): Interactive, scroll-driven websites and digital storytelling experiences designed for visual impact, usability and performance.
+- [Web Applications](https://experibyte.com/services/web-applications/): Custom web applications, portals, dashboards and workflows designed around your business and users.
+- [AI Integration & Automation](https://experibyte.com/services/ai-integration/): Explore practical AI integration and business automation for customer support, information access and repetitive tasks.
+- [UI/UX Design](https://experibyte.com/services/ui-ux-design/): UI/UX design for websites, dashboards and web applications—from user flows and wireframes to responsive interfaces.
+- [SEO & Website Growth](https://experibyte.com/services/seo/): Technical, on-page and local SEO services to strengthen website foundations and support ongoing organic visibility.
+- [Solutions](https://experibyte.com/solutions/): Digital solutions for startups, e-commerce, healthcare, real estate, education, agencies and other businesses.
+- [Work](https://experibyte.com/work/): Discover Experibyte’s approach to websites, interactive experiences and custom web application projects.
+- [Templates](https://experibyte.com/templates/): Explore React, Next.js and HTML website templates designed for customisation and faster launches.
+- [About](https://experibyte.com/about/): Learn about Experibyte’s approach to design, web engineering, motion and business-focused digital technology.
+- [Our Process](https://experibyte.com/process/): How Experibyte projects move from discovery and design to build, launch and ongoing improvement, with a written quote before work begins.
+- [Technologies](https://experibyte.com/technologies/): The technology approach behind Experibyte websites and applications: React, Next.js, HTML, CSS and JavaScript, motion, integrations and design-to-code.
+- [Pricing](https://experibyte.com/pricing/): Website packages from ₹12,999, web apps from ₹1,29,999 and Local SEO from ₹12,999 a month, with a written quote before work begins.
+- [Insights](https://experibyte.com/insights/): Practical perspectives on website development, user experience, performance, animation, web applications and AI.
+- [What makes a good business website in 2026?](https://experibyte.com/insights/what-makes-a-good-business-website/): Clear positioning, simple navigation, mobile usability, speed and purposeful calls to action: the parts of a business website that decide whether a visitor stays and gets in touch.
+- [When should you use scroll animation on a website?](https://experibyte.com/insights/when-to-use-scroll-animation/): Scroll animation can make a complex story easier to follow, but only when it supports the content. How to decide where motion helps, where it hurts, and how to plan it well.
+- [Website or web app: which does your business need?](https://experibyte.com/insights/website-or-web-app/): A website communicates; a web application lets people do things. How to tell which one your business needs, when you need both, and how to scope the right first version.
+- [Where can AI help a small business today?](https://experibyte.com/insights/where-ai-helps-small-business/): Practical, low-risk ways small businesses can use AI today, from answering common questions to routing enquiries, and how to judge whether it is working.
+- [Contact](https://experibyte.com/contact/): Contact Experibyte to discuss a website, interactive experience, application or AI integration project.
 - [Privacy Policy](https://experibyte.com/privacy-policy/)
 - [Terms & Conditions](https://experibyte.com/terms/)
 

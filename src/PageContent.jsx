@@ -1,1114 +1,136 @@
-import React from 'react';
-import { ContactForm } from './ContactForm.jsx';
+import React, { useEffect, useRef } from 'react';
 import { SiteFooter, SiteHeader } from './SiteChrome.jsx';
+import { pageByKey } from './content/site.js';
+import { gsap, ScrollTrigger, useGSAP, FULL_MOTION, ANY_MOTION } from './motion/gsap.js';
+import { Arrow } from './PageShell.jsx';
+import { Reel } from './ui/Visuals.jsx';
+import { ColourFields, PushedTable, Staircase, Bands } from './ui/Sections.jsx';
+import { QuestionEdges } from './ui/Closings.jsx';
 
-// Product & promo video offering is hidden for now. Set to true to bring it back.
-const SHOW_VIDEO = false;
+const serviceLinks = {
+  'Website Development': '/services/website-development/', 'Animated Websites': '/services/animated-websites/',
+  'Web Applications': '/services/web-applications/', 'AI Integration': '/services/ai-integration/',
+};
+
+// The scroll-driven 3D hero: the scene loads after the page, and the story only scrubs on desktop.
+function HeroStory({ hero }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    let scene = null; let cancelled = false;
+    const mm = gsap.matchMedia();
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+    const host = ref.current.querySelector('#three-stage');
+    const stage = ref.current.querySelector('.story-stage');
+    const state = { p: 0 };
+    import('three').then((THREE) => {
+      if (cancelled) return;
+      import('./home/heroScene.js').then(({ createHeroScene }) => {
+        if (cancelled) return;
+        try { scene = createHeroScene(THREE, host, stage, reduce); } catch (error) { console.warn('3D fallback enabled:', error.message); }
+        scene?.setProgress(state.p);
+      });
+    });
+    mm.add(FULL_MOTION, () => {
+      const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: ref.current, start: 'top top', end: 'bottom bottom', scrub: 0.7 } });
+      tl.to(state, { p: 1, duration: 1, onUpdate: () => scene?.setProgress(state.p) }, 0)
+        .to('.hero-panel', { autoAlpha: 0, y: -75, duration: 0.11 }, 0.3)
+        .fromTo('.story-promise', { autoAlpha: 0, y: 55 }, { autoAlpha: 1, y: 0, duration: 0.12 }, 0.52);
+      return () => { state.p = 0; scene?.setProgress(0); };
+    });
+    ScrollTrigger.refresh();
+    return () => { cancelled = true; mm.revert(); scene?.destroy(); };
+  }, []);
+  const [explore, start] = hero.ctas;
+  return (
+    <section className="story" id="home" ref={ref}>
+      <div className="story-stage">
+        <div id="three-stage" aria-hidden="true">
+          <div className="scene-fallback">
+            <b>EXPERIBYTE</b>
+            <span>Move people. Move business.</span>
+            <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+              <path d="M8 8h47v12H20v24h35v12H8V8Z" fill="currentColor" />
+              <path d="M26 26h12v12H26V26Z" fill="#2B4BFF" />
+            </svg>
+          </div>
+        </div>
+        <div className="story-panel hero-panel">
+          <h1>
+            <span className="hero-small">Websites that</span> <span>move people.</span> <span className="blue">Technology</span> <span className="hero-end">that moves businesses.</span>
+          </h1>
+          <div className="hero-bottom"><p>{hero.text}</p></div>
+          <span className="object-label micro">{hero.eyebrow}</span>
+        </div>
+        <div className="story-panel story-promise">
+          <h2>Built for every screen.<br /><em>Ready for growth.</em></h2>
+          <div className="hero-stats">
+            <div><strong>100%</strong><p>pixel-perfect, mobile-first &amp; responsive</p></div>
+            <div><strong>Free</strong><p>basic SEO setup with every website</p></div>
+            <div><strong>₹0</strong><p>hidden costs: price agreed before we start</p></div>
+          </div>
+        </div>
+        <div className="story-footer">
+          <span className="micro"><span className="down-arrow">↓</span></span>
+          <div className="hero-actions">
+            <a className="button button-dark" href={explore.href}>{explore.label} <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7" /></svg></a>
+            <a className="text-link" href={start.href}>{start.label} <span>↗</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// Alternative hero (draft, hidden for now). Set SHOW_NEW_HERO to true to show it above the 3D story.
+const SHOW_NEW_HERO = false;
+function HeroNow({ hero }) {
+  const ref = useRef(null);
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+    mm.add(ANY_MOTION, () => {
+      gsap.from('.hero-now .rise', { yPercent: 60, opacity: 0, duration: 1.1, ease: 'expo.out', stagger: 0.1 });
+      gsap.fromTo('.hero-now .reel', { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 1.2, ease: 'expo.inOut', delay: 0.35 });
+    });
+  }, { scope: ref });
+  const [explore, start] = hero.ctas;
+  return (
+    <section className="hero-now page" ref={ref} aria-labelledby="hero-now-title">
+      <p className="hero-now__tag rise">{hero.eyebrow}</p>
+      <h1 id="hero-now-title" className="hero-now__title">
+        <span className="hero-now__line rise">Websites that <Reel /></span>{' '}
+        <span className="hero-now__line rise">move people.</span>
+      </h1>
+      <p className="hero-now__second rise">Technology that moves businesses.</p>
+      <div className="hero-now__foot rise">
+        <p>{hero.text}</p>
+        <div className="actions">
+          <a className="button button-dark" href={explore.href}>{explore.label} <Arrow /></a>
+          <a className="text-link" href={start.href}>{start.label} <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function PageContent() {
+  const [hero, whatWeDo, featured, approach, who, final] = pageByKey('').blocks;
   return (
     <>
-
-<a className="skip-link" href="#main">Skip to content</a>
-<div id="progress" aria-hidden="true">
-</div>
-<SiteHeader />
-<main id="main">
-<section className="story" id="home">
-<div className="story-stage">
- <div id="three-stage" aria-hidden="true">
-<div className="scene-fallback">
-<b>EXPERIBYTE</b>
-<span>Look sharp. Load fast.</span>
-<svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
-<path d="M8 8h47v12H20v24h35v12H8V8Z" fill="currentColor"/>
-<path d="M26 26h12v12H26V26Z" fill="#2B4BFF"/>
-</svg>
-</div>
-</div>
- <div className="story-panel hero-panel">
-<h1>
-<span className="hero-small">Websites that</span> <span>look sharp,</span> <span className="blue">load fast</span> <span className="hero-end">and bring you customers.</span>
-</h1>
-<div className="hero-bottom">
-<p>We design and build websites, animated scroll experiences and web apps for startups and growing businesses. Prefer to build it yourself? Grab one of our ready-made React, Next.js and HTML animation templates.</p>
-</div>
-<span className="object-label micro">Web · Motion · Apps · AI</span>
-</div>
- <div className="story-panel story-promise">
-<h2>Built for every screen.<br />
-<em>Ready for growth.</em>
-</h2>
-<div className="hero-stats">
-<div>
-<strong>100%</strong>
-<p>pixel-perfect, mobile-first &amp; responsive</p>
-</div>
-<div>
-<strong>Free</strong>
-<p>basic SEO setup with every website</p>
-</div>
-<div>
-<strong>₹0</strong>
-<p>hidden costs: price agreed before we start</p>
-</div>
-</div>
-</div>
- <div className="story-footer">
-<span className="micro">
-<span className="down-arrow">↓</span>
-</span>
-<div className="hero-actions">
-<a className="button button-dark" href="#pricing">See packages <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-<path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7"/>
-</svg>
-</a>
-<a className="text-link" href="#contact">Book a free call <span>↗</span>
-</a>
-</div>
-</div>
-</div>
-</section>
-<section id="services" className="services section-pad">
-<div className="section-heading">
-<div>
-<span className="micro">What we do</span>
-<h2 data-reveal>One studio.<br/> Everything your business needs <em>online.</em>
-</h2>
-</div>
-<p data-reveal>Design, development, motion and growth under one roof, so your website looks and works great everywhere.</p>
-</div>
-<div className="services-grid">
-<article className="service-card service-0" data-reveal>
-<div className="service-art" aria-hidden="true">
-<div className="mini-browser">
-<div className="mini-bar">
-<i>
-</i>
-<i>
-</i>
-<i>
-</i>
-</div>
-<div className="mini-layout">
-<b>Look sharp.<br />Load fast.</b>
-<div className="mini-orb">
-</div>
-<span>Website Development</span>
-</div>
-</div>
-<div className="floating-label">Fully responsive ↗</div>
-</div>
-<div className="service-info">
-<span className="micro">01 / BUILD</span>
-<h3>Website Development</h3>
-<p>Landing pages, business websites, web publications and HTML email signatures. Fast, mobile-friendly and easy for your team to update.</p>
-<a href="#contact" className="round-link" aria-label="Discuss Website Development">
-<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-<path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7"/>
-</svg>
-</a>
-</div>
-</article>
-<article className="service-card service-1" data-reveal>
-<div className="service-art" aria-hidden="true">
-<div className="motion-type">
-<span>Scroll</span>
-<span>Animations</span>
-</div>
-<div className="motion-cursor">
-<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-<path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7"/>
-</svg>
-</div>
-</div>
-<div className="service-info">
-<span className="micro">02 / MOVE</span>
-<h3>Animated &amp; Scroll Websites <span className="service-trending">TRENDING</span>
-</h3>
-<p>Websites that come alive as visitors scroll, with smooth movement and eye-catching effects that make people stop and explore.</p>
-<a href="#contact" className="round-link" aria-label="Discuss Animated &amp; Scroll Websites TRENDING">
-<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-<path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7"/>
-</svg>
-</a>
-</div>
-</article>
-<article className="service-card service-2" data-reveal>
-<div className="service-art" aria-hidden="true">
-<div className="app-stack">
-<div className="app-tile">
-<i>
-</i>
-<b>Web Applications</b>
-<span className="chart-bars">
-<em>
-</em>
-<em>
-</em>
-<em>
-</em>
-<em>
-</em>
-<em>
-</em>
-</span>
-</div>
-<div className="app-tile back">
-</div>
-</div>
-</div>
-<div className="service-info">
-<span className="micro">03 / CONNECT</span>
-<h3>Web Applications</h3>
-<p>Booking systems, customer portals, dashboards, online courses and custom software, built around how your business works.</p>
-<a href="#contact" className="round-link" aria-label="Discuss Web Applications">
-<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-<path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7"/>
-</svg>
-</a>
-</div>
-</article>
-<article className="service-card service-3" data-reveal>
-<div className="service-art" aria-hidden="true">
-<div className="ai-spark">
-<svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
-<path d="M20 1v38M1 20h38M6.6 6.6l26.8 26.8M6.6 33.4L33.4 6.6" stroke="currentColor" strokeWidth="7"/>
-</svg>
-</div>
-<div className="ai-message">
-<i>
-</i> AI Integration</div>
-</div>
-<div className="service-info">
-<span className="micro">04 / AUTOMATE</span>
-<h3>AI Integration</h3>
-<p>Smart chatbots that answer your customers 24/7, plus automation that saves your team hours of repetitive work.</p>
-<a href="#contact" className="round-link" aria-label="Discuss AI Integration">
-<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-<path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7"/>
-</svg>
-</a>
-</div>
-</article>
-<article className="service-card service-4" data-reveal>
-<div className="service-art" aria-hidden="true">
-<div className="design-swatch one">
-</div>
-<div className="design-swatch two">
-</div>
-<div className="design-swatch three">
-<span>Aa</span>
-<small>UI / UX Design</small>
-</div>
-</div>
-<div className="service-info">
-<span className="micro">05 / DESIGN</span>
-<h3>UI / UX Design</h3>
-<p>UI/UX design for websites, web apps and dashboards. You see and approve every screen before a line of code is written.</p>
-<a href="#contact" className="round-link" aria-label="Discuss UI / UX Design">
-<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-<path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7"/>
-</svg>
-</a>
-</div>
-</article>
-<article className="service-card service-5" data-reveal>
-<div className="service-art" aria-hidden="true">
-<div className="search-ui">
-<span>your business</span>
-<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-<path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7"/>
-</svg>
-</div>
-<div className="ranking">
-<span>01</span>
-<b>Local<br />SEO</b>
-</div>
-</div>
-<div className="service-info">
-<span className="micro">06 / GROW</span>
-<h3>SEO</h3>
-<p>Help customers find you on Google, with the right setup, local search visibility and steady improvements over time.</p>
-<a href="#contact" className="round-link" aria-label="Discuss SEO">
-<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-<path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7"/>
-</svg>
-</a>
-</div>
-</article>
-{SHOW_VIDEO && (
-<article className="service-card service-6" data-reveal>
-<div className="service-art" aria-hidden="true">
-<div className="video-play">
-<span>▶</span>
-</div>
-<div className="floating-label">Under 60 seconds</div>
-</div>
-<div className="service-info">
-<span className="micro">07 / SHOW</span>
-<h3>Product &amp; Promo Videos</h3>
-<p>Product demo videos, website walkthroughs, social reels and custom motion videos that explain what you sell in under 60 seconds.</p>
-<a href="#contact" className="round-link" aria-label="Discuss Product & Promo Videos">
-<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-<path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7"/>
-</svg>
-</a>
-</div>
-</article>
-)}
-<article className="service-card service-7" data-reveal>
-<div className="service-art" aria-hidden="true">
-<div className="template-stack">
-<span>Next.js</span>
-<span>React</span>
-<span>HTML</span>
-</div>
-</div>
-<div className="service-info">
-<span className="micro">07 / LAUNCH</span>
-<h3>Ready-made Templates</h3>
-<p>Premium React, Next.js and HTML/CSS/JS templates with scroll animations built in. Buy, customise, launch the same day.</p>
-<a href="/templates/" className="round-link" aria-label="Browse templates">
-<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-<path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7"/>
-</svg>
-</a>
-</div>
-</article>
-</div>
-</section>
-<section id="motion" className="motion-story">
-<div className="motion-stage">
-<span className="micro">Why animation matters</span>
-<div className="motion-heading" aria-label="Your business has a story. Let's tell it beautifully, so every visitor feels it and remembers you.">
-<div className="motion-line" aria-hidden="true">
-<span>Your business has a story.</span>
-</div>{' '}
-<div className="motion-line" aria-hidden="true">
-<span>Let's tell it beautifully,</span>
-</div>{' '}
-<div className="motion-line" aria-hidden="true">
-<span>so every visitor feels it</span>
-</div>{' '}
-<div className="motion-line" aria-hidden="true">
-<span>and remembers you.</span>
-</div>
-</div>
-<div className="motion-bottom">
-<p>Your website is often the first place a customer meets you. We make that first moment special, with smooth, thoughtful animations that guide visitors through your story, make your business feel premium and turn a quick visit into a real enquiry.</p>
-<a className="button button-light" href="#contact">Want a website? Let's talk <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-<path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7"/>
-</svg>
-</a>
-</div>
-<div className="motion-flower" aria-hidden="true">
-<svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
-<path d="M8 8h47v12H20v24h35v12H8V8Z" fill="currentColor"/>
-<path d="M26 26h12v12H26V26Z" fill="#2B4BFF"/>
-</svg>
-</div>
-</div>
-</section>
-<section id="design-to-code" className="design-section section-pad">
-<div className="design-visual" aria-hidden="true">
-<div className="design-sheet">
-<div className="sheet-toolbar">
-<i>
-</i>
-<span>Your design</span>
-<b>↗</b>
-</div>
-<div className="sheet-grid">
-<span className="sheet-label">Figma · XD · PSD</span>
-<b>Your<br />design</b>
-<div className="sheet-spark">
-<svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
-<path d="M20 1v38M1 20h38M6.6 6.6l26.8 26.8M6.6 33.4L33.4 6.6" stroke="currentColor" strokeWidth="7"/>
-</svg>
-</div>
-<div className="sheet-palette">
-<i>
-</i>
-<i>
-</i>
-<i>
-</i>
-<i>
-</i>
-</div>
-</div>
-<span className="sheet-selection">Your design</span>
-</div>
-<div className="code-sheet">
-<span>
-<i>
-</i> Live website</span>
-<code>Your design<br />→<br />Live website</code>
-<div>Live website</div>
-</div>
-<span className="design-file">Figma · XD · PSD <b>→</b> Live website</span>
-</div>
-<div className="design-copy">
-<span className="micro">Pixel-Perfect Design to Code</span>
-<h2 data-reveal>Have a design? We'll bring it to life, pixel by pixel.</h2>
-<p>Send us your Figma, Adobe XD or Photoshop file and we'll turn it into a live website that looks exactly like your design on every screen, from mobile to desktop.</p>
-<ul>
-    <li>Pixel-perfect match to your design</li>
-    <li>Fully responsive on mobile, tablet &amp; desktop</li>
-    <li>Clean, fast-loading code</li>
-    <li>Built as a custom website or on WordPress</li>
-    <li>White-label friendly: designers &amp; agencies, we'll happily build it for you, and you deliver it proudly under your own name</li>
-   </ul>
-<p className="design-price">Every design is different, so the price depends on your pages and how detailed they are. <b>Send your file and get a free quote within 24 hours.</b>
-</p>
-<a className="button button-dark" href="#contact">Send us your design <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-<path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7"/>
-</svg>
-</a>
-</div>
-</section>
-<section className="startup section-pad">
-<div className="startup-head">
-<span className="micro">Starting from zero?</span>
-<h2 data-reveal>New business, no website yet? We'll guide you through everything.</h2>
-<p>Launching a brand-new business? We take care of your full online setup and guide you at every step.</p>
-</div>
-<div className="startup-steps">
-<article data-reveal>
-<span>
-<svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
-<path d="M20 1v38M1 20h38M6.6 6.6l26.8 26.8M6.6 33.4L33.4 6.6" stroke="currentColor" strokeWidth="7"/>
-</svg>
-</span>
-<h3>1. Plan your website</h3>
-<p>The pages, content and features that fit your business and customers.</p>
-</article>
-<article data-reveal>
-<span>
-<svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
-<path d="M20 1v38M1 20h38M6.6 6.6l26.8 26.8M6.6 33.4L33.4 6.6" stroke="currentColor" strokeWidth="7"/>
-</svg>
-</span>
-<h3>2. Domain &amp; email</h3>
-<p>Your own web address and a professional business email.</p>
-</article>
-<article data-reveal>
-<span>
-<svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
-<path d="M20 1v38M1 20h38M6.6 6.6l26.8 26.8M6.6 33.4L33.4 6.6" stroke="currentColor" strokeWidth="7"/>
-</svg>
-</span>
-<h3>3. Website or app</h3>
-<p>Designed around your business, mobile-first and SEO-ready.</p>
-</article>
-<article data-reveal>
-<span>
-<svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
-<path d="M20 1v38M1 20h38M6.6 6.6l26.8 26.8M6.6 33.4L33.4 6.6" stroke="currentColor" strokeWidth="7"/>
-</svg>
-</span>
-<h3>4. Launch &amp; grow</h3>
-<p>Google Business Profile, SEO and AI tools to help customers find you.</p>
-</article>
-</div>
-</section>
-<section id="process" className="process-section section-pad">
-<div className="section-heading">
-<div>
-<span className="micro">How we work</span>
-<h2 data-reveal>From idea to launch<br />
-<em>in 4 steps</em>
-</h2>
-</div>
-<a href="#contact" className="text-link">Book a free call</a>
-</div>
-<div className="process-stack">
-<article className="process-card" data-step="0">
-<span className="process-number">01</span>
-<div className="process-copy">
-<span className="micro">THE PROCESS / 01</span>
-<h3>Discover</h3>
-<p>A free call to understand your business, goals and budget. You get a fixed written quote.</p>
-</div>
-<div className="process-art process-art-0" aria-hidden="true">
-<div className="orbit">
-<i>
-</i>
-<i>
-</i>
-<i>
-</i>
-</div>
-</div>
-</article>
-<article className="process-card" data-step="1">
-<span className="process-number">02</span>
-<div className="process-copy">
-<span className="micro">THE PROCESS / 02</span>
-<h3>Design</h3>
-<p>We design your screens and animations, then refine them together with your feedback before we start building.</p>
-</div>
-<div className="process-art process-art-1" aria-hidden="true">
-<div className="wire-square">
-</div>
-<div className="wire-square alt">
-</div>
-</div>
-</article>
-<article className="process-card" data-step="2">
-<span className="process-number">03</span>
-<div className="process-copy">
-<span className="micro">THE PROCESS / 03</span>
-<h3>Build</h3>
-<p>We develop, test on every device and optimise for speed, SEO and accessibility.</p>
-</div>
-<div className="process-art process-art-2" aria-hidden="true">
-<span className="code-mark">&lt;/&gt;</span>
-</div>
-</article>
-<article className="process-card" data-step="3">
-<span className="process-number">04</span>
-<div className="process-copy">
-<span className="micro">THE PROCESS / 04</span>
-<h3>Launch &amp; grow</h3>
-<p>We go live, show you how to manage your website and keep supporting you as your business grows.</p>
-</div>
-<div className="process-art process-art-3" aria-hidden="true">
-<div className="launch-arrow">
-<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-<path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7"/>
-</svg>
-</div>
-</div>
-</article>
-</div>
-</section>
-<section className="industries section-pad" id="industries">
-<div className="section-heading">
-<div>
-<span className="micro">Built for every industry</span>
-<h2 data-reveal>What we can<br />
-<em>build for you</em>
-</h2>
-</div>
-</div>
-<div className="industry-grid">
-<details className="industry-item" data-reveal>
-<summary>
-<span className="micro">01</span>
-<h3>Clinics &amp; Healthcare</h3>
-<span className="industry-plus">+</span>
-</summary>
-<p>Appointment booking, doctor profiles, WhatsApp reminders and an AI assistant for patient FAQs.</p>
-</details>
-<details className="industry-item" data-reveal>
-<summary>
-<span className="micro">02</span>
-<h3>Restaurants &amp; Cafés</h3>
-<span className="industry-plus">+</span>
-</summary>
-<p>Animated menus, table reservations, online ordering and Google Maps visibility.</p>
-</details>
-<details className="industry-item" data-reveal>
-<summary>
-<span className="micro">03</span>
-<h3>Real Estate</h3>
-<span className="industry-plus">+</span>
-</summary>
-<p>Property listings with filters, virtual tours, 3D showcases and lead capture.</p>
-</details>
-<details className="industry-item" data-reveal>
-<summary>
-<span className="micro">04</span>
-<h3>Education &amp; Coaching</h3>
-<span className="industry-plus">+</span>
-</summary>
-<p>Course platforms, student portals, subscriptions and AI study tools.</p>
-</details>
-<details className="industry-item" data-reveal>
-<summary>
-<span className="micro">05</span>
-<h3>E-commerce &amp; D2C</h3>
-<span className="industry-plus">+</span>
-</summary>
-<p>Fast online stores with scroll-animated product launches and payment integration.</p>
-</details>
-<details className="industry-item" data-reveal>
-<summary>
-<span className="micro">06</span>
-<h3>Startups &amp; SaaS</h3>
-<span className="industry-plus">+</span>
-</summary>
-<p>The first version of your app (MVP) to test your idea fast, plus admin dashboards and product launch websites.</p>
-</details>
-<details className="industry-item" data-reveal>
-<summary>
-<span className="micro">07</span>
-<h3>Gyms &amp; Fitness</h3>
-<span className="industry-plus">+</span>
-</summary>
-<p>Membership plans, class schedules, trainer profiles and online sign-ups.</p>
-</details>
-<details className="industry-item" data-reveal>
-<summary>
-<span className="micro">08</span>
-<h3>Salons, Spas &amp; Beauty</h3>
-<span className="industry-plus">+</span>
-</summary>
-<p>Online appointment booking, service menus with prices and before-and-after galleries.</p>
-</details>
-<details className="industry-item" data-reveal>
-<summary>
-<span className="micro">09</span>
-<h3>Hotels, Resorts &amp; Travel</h3>
-<span className="industry-plus">+</span>
-</summary>
-<p>Room booking, stunning photo galleries, tour packages and enquiry forms.</p>
-</details>
-<details className="industry-item" data-reveal>
-<summary>
-<span className="micro">10</span>
-<h3>Interior Design &amp; Architecture</h3>
-<span className="industry-plus">+</span>
-</summary>
-<p>Beautiful project portfolios, animated showcases and lead capture for new projects.</p>
-</details>
-<details className="industry-item" data-reveal>
-<summary>
-<span className="micro">11</span>
-<h3>Manufacturing &amp; Industrial</h3>
-<span className="industry-plus">+</span>
-</summary>
-<p>Product catalogues, company profiles, dealer enquiries and downloadable brochures.</p>
-</details>
-<details className="industry-item" data-reveal>
-<summary>
-<span className="micro">12</span>
-<h3>CAs, Lawyers &amp; Consultants</h3>
-<span className="industry-plus">+</span>
-</summary>
-<p>Professional websites that build trust, with service pages, consultation booking and client portals.</p>
-</details>
-<details className="industry-item" data-reveal>
-<summary>
-<span className="micro">13</span>
-<h3>Events &amp; Weddings</h3>
-<span className="industry-plus">+</span>
-</summary>
-<p>Event galleries, package listings, online enquiries and wedding invitation websites.</p>
-</details>
-<details className="industry-item" data-reveal>
-<summary>
-<span className="micro">14</span>
-<h3>Automobile &amp; Services</h3>
-<span className="industry-plus">+</span>
-</summary>
-<p>Service booking, vehicle listings, inspection reports and customer tracking.</p>
-</details>
-<details className="industry-item" data-reveal>
-<summary>
-<span className="micro">15</span>
-<h3>NGOs &amp; Communities</h3>
-<span className="industry-plus">+</span>
-</summary>
-<p>Donation pages with online payments, volunteer sign-ups and impact stories.</p>
-</details>
-</div>
-<p className="industry-note">Don't see your industry? We build for every kind of business. <a href="#contact" style={{ color: "var(--acc2)", fontWeight: "600" }}>Tell us about yours →</a>
-</p>
-</section>
-<section id="pricing" className="pricing-section section-pad">
-<div className="section-heading">
-<div>
-<span className="micro">Packages</span>
-<h2 data-reveal>Clear packages.<br />
-<em>No surprises.</em>
-</h2>
-</div>
-<p><strong>Transparent pricing. Clearly defined deliverables.</strong><br />Every project begins with a discussion of your goals, features, budget and timeline. You will receive a written proposal outlining exactly what is included before development begins.<br /><br />Starting prices apply to standard project requirements. Additional features, integrations and custom functionality are quoted separately with your approval.</p>
-</div>
-<div className="tabs">
-   <button className="on" data-t="web">Websites</button>
-   <button data-t="app">Web Apps</button>
-   {SHOW_VIDEO && <button data-t="video">Video</button>}
-   <button data-t="seo">SEO</button>
-  </div>
-<div className="pricing-panels">
-<div className="grid g3 plans on" id="web">
-   <div className="card plan">
-<h3>Basic</h3>
-<p className="from">Starting at</p>
-<div className="price">₹12,999</div>
-<p className="for">For new businesses and professionals who need a polished, dependable online presence.</p>
-    <ul>
-<li>Up to 5 standard pages</li>
-<li>Pixel-perfect, mobile-responsive design</li>
-<li>Subtle hover &amp; fade animations</li>
-<li>Contact form setup (subject to the agreed hosting configuration) and WhatsApp button</li>
-<li>Best suited for informational and business websites</li>
-<li>Client-provided content and brand assets</li>
-<li>Basic on-page SEO configuration</li>
-<li>Two consolidated revision rounds</li>
-<li>Two weeks of post-launch bug-fix support</li>
-
-
-
-
-</ul>
-    <p className="more">Need more features? <a href="#contact">Get a custom quote →</a>
-</p>
-    <p className="addon"><b>Optional add-on (extra charge, not included):</b> Content dashboard, so your team can update text, images and blogs without a developer. Priced separately in your quote.</p>
-    <a href="#contact" className="btn btn-g">Choose Basic</a>
-</div>
-   <div className="card plan pop">
-<span className="badge">Most popular</span>
-<h3>Advanced</h3>
-<p className="from">Pricing</p>
-<div className="price quote">Custom quote</div>
-<p className="for">For growing businesses requiring a more flexible website with additional pages, integrations and content management.</p>
-    <ul>
-<li>Custom design made for your business</li>
-<li>Up to 15 pages within the agreed project scope</li>
-<li>Content management functionality where specified</li>
-<li>Scroll-reveal animations</li>
-<li>Blog / news section</li>
-<li>Google SEO &amp; Analytics setup</li>
-<li>Three consolidated revision rounds</li>
-<li>One month of post-launch bug-fix support</li>
-<li>Integrations subject to technical feasibility and third-party availability</li>
-</ul>
-    <p className="addon"><b>Optional add-on (extra charge, not included):</b> Content dashboard, so your team can update text, images and blogs without a developer. Priced separately in your quote.</p>
-    <a href="#contact" className="btn btn-p">Get a quote</a>
-</div>
-   <div className="card plan">
-<h3>Premium</h3>
-<p className="from">Pricing</p>
-<div className="price quote">Custom quote</div>
-<p className="for">For ambitious brands seeking distinctive digital experiences and advanced functionality.</p>
-    <ul>
-<li>Custom page count based on the approved project scope</li>
-<li>Premium custom design</li>
-<li>One major custom feature defined in the proposal: for example, an online store, appointment booking or a members area</li>
-<li>Online payments (UPI, cards, net banking)</li>
-<li>Website in up to 2 languages</li>
-<li>Advanced Google SEO setup</li>
-<li>Three months of post-launch support for agreed deliverables</li>
-<li>Advanced animation and interactive experiences as agreed</li>
-<li>Performance optimisation suited to the chosen technology</li>
-<li>Third-party integrations where feasible</li>
-</ul>
-    <p className="addon"><b>Optional add-on (extra charge, not included):</b> Content dashboard, so your team can update text, images and blogs without a developer. Priced separately in your quote.</p>
-    <a href="#contact" className="btn btn-g">Get a quote</a>
-</div>
-  </div>
-<div className="grid g3 plans" id="app">
-   <div className="card plan">
-<h3>Starter</h3>
-<p className="from">Starting at</p>
-<div className="price">₹1,29,999</div>
-<p className="for">For startups and entrepreneurs ready to launch their first web application.</p>
-    <ul>
-<li>Custom, mobile-responsive UI/UX</li>
-<li>User login and role-based access</li>
-<li>Database and admin dashboard</li>
-<li>Essential business functionality</li>
-<li>Cloud deployment</li>
-<li>Milestone-based payments</li>
-<li>1 month of post-launch bug-fix support</li>
-</ul>
-    <a href="#contact" className="btn btn-g">Get Started</a>
-</div>
-   <div className="card plan pop">
-<span className="badge">Most popular</span>
-<h3>Advanced</h3>
-<p className="from">Pricing</p>
-<div className="price quote">Custom quote</div>
-<p className="for">For growing businesses that need smarter workflows and connected digital platforms.</p>
-    <ul>
-<li>Custom business portals and dashboards</li>
-<li>Multi-role access (customers, staff and admins)</li>
-<li>Tailored UI/UX design</li>
-<li>Workflow automation and integrations</li>
-<li>Payment gateway and subscription integration</li>
-<li>Analytics and business reports</li>
-<li>Cloud deployment and optimisation</li>
-<li>2 months of post-launch bug-fix support</li>
-</ul>
-    <a href="#contact" className="btn btn-p">Get a Quote</a>
-</div>
-   <div className="card plan">
-<h3>Premium</h3>
-<p className="from">Pricing</p>
-<div className="price quote">Custom quote</div>
-<p className="for">For ambitious businesses building scalable SaaS products and complex digital platforms.</p>
-    <ul>
-<li>Product discovery and technical planning</li>
-<li>Scalable application architecture</li>
-<li>Advanced UI/UX and interactive experiences</li>
-<li>Multi-tenant architecture, where required</li>
-<li>Subscription billing and payment integrations</li>
-<li>Real-time functionality and API integrations</li>
-<li>Advanced security and performance planning</li>
-<li>3 months of post-launch bug-fix support</li>
-<li>Custom development and maintenance plans</li>
-</ul>
-    <a href="#contact" className="btn btn-g">Discuss Your Project</a>
-</div>
-  </div>
-{SHOW_VIDEO && (
-<div className="grid g3 plans" id="video">
-   <div className="card plan">
-<h3>Basic</h3>
-<p className="from">Starting at / video</p>
-<div className="price">₹2,999</div>
-<p className="for">For simple, attention-grabbing product videos.</p>
-    <ul>
-<li>15-second video</li>
-<li>1 product, up to 2 scenes</li>
-<li>AI-generated visuals</li>
-<li>Music and logo</li>
-<li>1080p, 1 aspect ratio</li>
-<li>1 minor revision</li>
-</ul>
-    <a href="#contact" className="btn btn-g">Get started</a>
-</div>
-   <div className="card plan pop">
-<span className="badge">Most popular</span>
-<h3>Advanced</h3>
-<p className="from">Starting at / video</p>
-<div className="price">₹6,999</div>
-<p className="for">For polished product launches and social ads.</p>
-    <ul>
-<li>Up to 30 seconds</li>
-<li>1 product, up to 4 scenes</li>
-<li>Cinematic AI visuals</li>
-<li>Basic creative concept</li>
-<li>Music and motion text</li>
-<li>1080p, 1 aspect ratio</li>
-<li>2 minor revisions</li>
-</ul>
-    <a href="#contact" className="btn btn-p">Get started</a>
-</div>
-   <div className="card plan">
-<h3>Premium</h3>
-<p className="from">Starting at / video</p>
-<div className="price">₹14,999</div>
-<p className="for">For premium product storytelling and campaigns.</p>
-    <ul>
-<li>Up to 45 seconds</li>
-<li>1 product, up to 6 scenes</li>
-<li>Custom concept and storyboard</li>
-<li>Advanced AI camera effects</li>
-<li>Music and sound design</li>
-<li>1080p, 2 aspect ratios</li>
-<li>3 minor revisions</li>
-</ul>
-    <a href="#contact" className="btn btn-g">Get a quote</a>
-</div>
-<div className="video-detail">
-<div>
-<h3>Detailed package comparison</h3>
-<div className="table-wrap">
-<table>
-<thead>
-<tr><th>Features</th><th>Basic</th><th>Advanced</th><th>Premium</th></tr>
-</thead>
-<tbody>
-<tr><td>Video duration</td><td>15 sec</td><td>Up to 30 sec</td><td>Up to 45 sec</td></tr>
-<tr><td>Scenes</td><td>Up to 2</td><td>Up to 4</td><td>Up to 6</td></tr>
-<tr><td>Product count</td><td>1</td><td>1</td><td>1</td></tr>
-<tr><td>Creative direction</td><td>Simple</td><td>Basic concept</td><td>Custom concept</td></tr>
-<tr><td>AI animation</td><td>Basic</td><td>Cinematic</td><td>Advanced cinematic</td></tr>
-<tr><td>Text animation</td><td>Logo/end card</td><td>Included</td><td>Included</td></tr>
-<tr><td>Background music</td><td>Included</td><td>Included</td><td>Included</td></tr>
-<tr><td>Sound effects</td><td>Basic</td><td>Basic</td><td>Custom mix</td></tr>
-<tr><td>Storyboard</td><td>&mdash;</td><td>&mdash;</td><td>Included</td></tr>
-<tr><td>Voice-over</td><td>Add-on</td><td>Add-on</td><td>Add-on</td></tr>
-<tr><td>Output</td><td>1080p</td><td>1080p</td><td>1080p</td></tr>
-<tr><td>Aspect ratios</td><td>1</td><td>1</td><td>2</td></tr>
-<tr><td>Minor revisions</td><td>1</td><td>2</td><td>3</td></tr>
-<tr><td>Estimated delivery</td><td>3&ndash;4 business days</td><td>5&ndash;7 business days</td><td>7&ndash;10 business days</td></tr>
-</tbody>
-</table>
-</div>
-</div>
-<div className="video-notes">
-<h3>Production notes</h3>
-<p>All packages include AI-assisted video production using client-provided product references or assets. Prices cover one approved creative direction and the stated number of scenes. Revisions include minor text, edit, timing, or music changes. New concepts, major scene changes, additional AI generations, and product redesigns may incur extra charges.</p>
-<p>Accurate product labels, logos, packaging, and technical details require suitable reference files and manual quality checks. AI generation cannot guarantee exact visual consistency. All prices are starting rates, exclusive of applicable taxes.</p>
-</div>
-</div>
-  </div>
-)}
-<div className="grid g3 plans" id="seo">
-   <div className="card plan">
-<h3>Local SEO</h3>
-<p className="from">Starting at</p>
-<div className="price">₹12,999<small>/mo</small>
-</div>
-<p className="for">For businesses seeking stronger visibility in their local market.</p>
-    <ul>
-<li>Monthly service with agreed deliverables</li>
-<li>Initial website and Google Business Profile review</li>
-<li>Keyword and local visibility monitoring</li>
-<li>Monthly performance summary</li>
-<li>Additional content production and development work quoted separately</li>
-</ul>
-    <p className="more">Search rankings, traffic and enquiries cannot be guaranteed.</p>
-    <a href="#contact" className="btn btn-g">Get started</a>
-</div>
-   <div className="card plan pop">
-<span className="badge">Recommended</span>
-<h3>Growth SEO</h3>
-<p className="from">Pricing</p>
-<div className="price quote">Custom quote</div>
-<p className="for">A tailored plan to improve organic visibility steadily.</p>
-    <ul>
-<li>Monthly SEO activities and content deliverables as agreed</li>
-<li>Technical SEO fixes and speed checks</li>
-<li>Website backups and uptime monitoring</li>
-<li>Routine software and security updates</li>
-<li>A few small content edits each month, as agreed</li>
-<li>Monthly performance report</li>
-</ul>
-    <p className="more">Exact deliverables, edit limits and campaign duration are written in your agreed plan. Rankings, traffic and enquiries cannot be guaranteed, and backups cannot guarantee that no data is ever lost. Major redesigns, new functionality, hosting and domain charges and third-party subscriptions are excluded unless agreed in writing.</p>
-    <a href="#contact" className="btn btn-p">Get a quote</a>
-</div>
-  </div>
-</div>
-<p className="note">
-<b>Pricing &amp; billing information</b><br />All packages are subject to an agreed project scope, technical requirements and delivery timeline. Hosting, domains, third-party subscriptions and external service fees are charged separately unless included in the proposal. Applicable taxes, if any, are additional.<br /><br /><b>Content dashboard (optional add-on, charged extra):</b> every website package can be extended with a dashboard where your team (marketing, editors, managers) updates text, images, blogs and offers without a developer. Ask for it in your quote; the price depends on what you need to edit and how many people need access.
-</p>
-</section>
-<section id="trust" className="trust-section section-pad">
-<div className="section-heading">
-<div>
-<span className="micro">Why businesses trust Experibyte</span>
-<h2 data-reveal>Beyond Projects.<br />Built on Relationships.</h2>
-</div> <div>
-<p>We believe great work begins with strong relationships. We go beyond individual projects to become a trusted creative partner, growing alongside our clients and building lasting value together.</p>
-</div>
-</div>
-<div className="trust-grid">
-<article data-reveal>
-<div className="trust-icon" aria-hidden="true">◎</div>
-<h3>Fixed written quote</h3>
-<p>Scope, price, timeline and revision rounds are written down before we start. The price changes only if you ask for more and approve it.</p>
-</article>
-<article data-reveal>
-<div className="trust-icon" aria-hidden="true">↗</div>
-<h3>Clear milestones. Transparent payments.</h3>
-<p>For standard websites, payments are generally split into two stages: 50% to begin and 50% following final approval, before launch or handover. Web applications use milestones agreed in writing. Any different arrangement will be stated in your proposal.</p>
-</article>
-<article data-reveal>
-<div className="trust-icon" aria-hidden="true">⌘</div>
-<h3>Built for you. Owned by you.</h3>
-<p>Once the project is fully paid for, ownership of the original, custom-developed deliverables transfers to you as specified in our agreement. Third-party fonts, images, plugins, frameworks, software and licensed assets remain subject to their respective licences.</p>
-</article>
-<article data-reveal>
-<div className="trust-icon" aria-hidden="true">✳</div>
-<h3>Direct communication. Real progress.</h3>
-<p>Work directly with your developer, review progress through shared previews and receive clear updates at important milestones. No unnecessary layers between your ideas and the work being built.</p>
-</article>
-<article data-reveal>
-<div className="trust-icon" aria-hidden="true">◒</div>
-<h3>Your ideas stay private</h3>
-<p>Your business details and ideas stay confidential. We're happy to sign an NDA before you share anything.</p>
-</article>
-<article data-reveal>
-<div className="trust-icon" aria-hidden="true">↗</div>
-<h3>Clear billing. Reliable support.</h3>
-<p>Every project comes with transparent pricing, proper invoices, and dedicated support throughout development and after launch, as outlined in your project agreement.</p>
-</article>
-</div>
-<div className="promise">
-<svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
-<path d="M20 1v38M1 20h38M6.6 6.6l26.8 26.8M6.6 33.4L33.4 6.6" stroke="currentColor" strokeWidth="7"/>
-</svg>
-<p>
-<b>Our promise:</b> no hidden costs, no pressure and no surprises. If something isn't clear, we explain it in plain words before you pay a single rupee.</p>
-</div>
-</section>
-<section id="faq" className="faq-section section-pad">
-<div className="faq-heading">
-<span className="micro">FAQ</span>
-<h2 data-reveal>Questions,<br />
-<em>Answered</em>
-</h2>
-<a className="text-link" href="#contact">Contact</a>
-</div>
-<div className="faq-list">
-<details>
-<summary>
-<span className="micro">01</span>Why do some packages show &quot;Custom quote&quot;?<span className="faq-plus">+</span>
-</summary>
-<div className="faq-answer">
-<p>Bigger websites, animated experiences, web apps and ongoing SEO depend on your pages, features and goals, so one fixed price wouldn't be fair to you. After a free call, we send a fixed written quote. It changes only if you ask for more and approve it.</p>
-</div>
-</details>
-<details>
-<summary>
-<span className="micro">02</span>Why do animated websites cost more?<span className="faq-plus">+</span>
-</summary>
-<div className="faq-answer">
-<p>An animated website takes much more creative and design time. We plan the story and motion, design every scene and interaction, then build, time and test each scroll animation by hand on phones, tablets and desktops so it stays smooth and fast. It also uses premium animation, 3D and AI tools. That extra creative time, design effort, craft and tooling is included in the price.</p>
-</div>
-</details>
-<details>
-<summary>
-<span className="micro">03</span>Will animations slow down my website?<span className="faq-plus">+</span>
-</summary>
-<div className="faq-answer">
-<p>No. We optimise every animation for performance, keep it lighter on mobile and respect users who prefer reduced motion.</p>
-</div>
-</details>
-<details>
-<summary>
-<span className="micro">04</span>What if I need more pages than my package includes?<span className="faq-plus">+</span>
-</summary>
-<div className="faq-answer">
-<p>Each package has a clear page limit. Extra pages are quoted per page and always agreed in writing before work starts.</p>
-</div>
-</details>
-<details>
-<summary>
-<span className="micro">05</span>What if I don't like the design?<span className="faq-plus">+</span>
-</summary>
-<div className="faq-answer">
-<p>You see and approve the design before we build anything. Your package includes revision rounds to refine it together, and you pay the final 50% only after you approve your website.</p>
-</div>
-</details>
-<details>
-<summary>
-<span className="micro">06</span>Will you keep my business idea confidential?<span className="faq-plus">+</span>
-</summary>
-<div className="faq-answer">
-<p>Yes. Your idea, files and business details are strictly confidential. We protect them with restricted access, never share them with anyone outside your project, and never reuse them for other clients.</p>
-</div>
-</details>
-<details>
-<summary>
-<span className="micro">07</span>I'm starting a new business. Can you help me get online?<span className="faq-plus">+</span>
-</summary>
-<div className="faq-answer">
-<p>Yes: website, domain, business email, Google Business Profile and SEO setup. If you already have a logo, we'll design your website around it.</p>
-</div>
-</details>
-<details>
-<summary>
-<span className="micro">08</span>What does &quot;AI integration&quot; mean for my business?<span className="faq-plus">+</span>
-</summary>
-<div className="faq-answer">
-<p>Adding smart features to your website or business, like a chatbot that answers your customers 24/7, automatic replies to enquiries, or tools that save your team from repetitive work. We recommend AI only where it truly saves you time or money, and we build and set it up for you.</p>
-</div>
-</details>
-<details>
-<summary>
-<span className="micro">09</span>How does payment work?<span className="faq-plus">+</span>
-</summary>
-<div className="faq-answer">
-<p>
-<b style={{ color: "var(--txt)" }}>For websites:</b> pay 50% to start the project and the remaining 50% after you've seen and approved your website, just before it goes live.<br />
-<br />
-<b style={{ color: "var(--txt)" }}>For web applications:</b> the project is divided into stages (for example: design, development, testing and launch). You pay a part after each stage is completed, so you never pay for work you haven't seen.</p>
-</div>
-</details>
-<details>
-<summary>
-<span className="micro">10</span>Do we need to meet in person?<span className="faq-plus">+</span>
-</summary>
-<div className="faq-answer">
-<p>No. We work 100% online, so you can work with us from anywhere, without any office visits.<br />
-<br />
-<b style={{ color: "var(--txt)" }}>Meetings:</b> we schedule video calls on Google Meet or Zoom at a time that suits you.<br />
-<br />
-<b style={{ color: "var(--txt)" }}>Daily updates:</b> quick questions and updates on WhatsApp and email.<br />
-<br />
-<b style={{ color: "var(--txt)" }}>Progress:</b> you get a live preview link to see your website as it's being built.<br />
-<br />We guide you at every step, from the first discussion to launch.</p>
-</div>
-</details>
-<details>
-<summary>
-<span className="micro">11</span>Can I request changes during development?<span className="faq-plus">+</span>
-</summary>
-<div className="faq-answer">
-<p>Yes. Your package includes the stated number of revision rounds. Changes within the agreed scope can be requested during those rounds. New features or substantial changes may require an additional quote.</p>
-</div>
-</details>
-<details>
-<summary>
-<span className="micro">12</span>Will I receive an invoice?<span className="faq-plus">+</span>
-</summary>
-<div className="faq-answer">
-<p>Yes. We provide a proper invoice for every payment you make, with the project details, amount and date, so you always know exactly what you paid for.</p>
-</div>
-</details>
-<details>
-<summary>
-<span className="micro">13</span>Do you guarantee Google rankings or sales?<span className="faq-plus">+</span>
-</summary>
-<div className="faq-answer">
-<p>No. We follow established design, technical SEO and performance practices, but search rankings, traffic, leads and sales depend on many factors outside any developer's control.</p>
-</div>
-</details>
-<details>
-<summary>
-<span className="micro">14</span>What happens after the free support period?<span className="faq-plus">+</span>
-</summary>
-<div className="faq-answer">
-<p>After the free support period ends, you can request help whenever you need it, such as fixes, updates or new features. We will share the cost and scope with you first, and work begins only after you approve it.</p>
-</div>
-</details>
-<details>
-<summary>
-<span className="micro">15</span>Can Experibyte become our long-term technology partner?<span className="faq-plus">+</span>
-</summary>
-<div className="faq-answer">
-<p>Absolutely. We support businesses beyond their initial website launch through improvements, maintenance, new features and ongoing technical collaboration. Our aim is to understand your business and remain a dependable development partner as your needs evolve.</p>
-</div>
-</details>
-<details>
-<summary>
-<span className="micro">16</span>Can my team update the website without a developer?<span className="faq-plus">+</span>
-</summary>
-<div className="faq-answer">
-<p>Yes. Add a content dashboard to any website, including WordPress, React, Next.js and fully animated sites. Your team can edit text, images, blogs and offers with their own logins, while the animations and layout stay protected. Ask us about it in your quote.</p>
-</div>
-</details></div>
-</section>
-<section id="contact" className="contact-section section-pad">
-<div className="contact-top">
-<span className="micro">Contact</span>
-<h2 data-reveal>Let's build<br />something <em>great</em>
-<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-<path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.7"/>
-</svg>
-</h2>
-</div>
-<div className="contact-grid">
-<div className="contact-copy">
-<p>Tell us about your project and we'll reply within 24 hours with ideas and a quote.</p>
-<div className="contact-links">
-<p>📧 <a href="mailto:experibytetechnologies@gmail.com">experibytetechnologies@gmail.com</a>
-</p>
-{/* <p>💬 <a href="https://wa.me/910000000000">WhatsApp us</a>
-</p> */}
-<p>📍 Working with clients across India and worldwide</p>
-</div>
-<span className="contact-spark" aria-hidden="true">
-<svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
-<path d="M20 1v38M1 20h38M6.6 6.6l26.8 26.8M6.6 33.4L33.4 6.6" stroke="currentColor" strokeWidth="7"/>
-</svg>
-</span>
-</div>
-<ContactForm />
-</div>
-</section>
-</main>
-<SiteFooter />
-
+      <a className="skip-link" href="#main">Skip to content</a>
+      <div id="progress" aria-hidden="true" />
+      <SiteHeader />
+      <main id="main">
+        {SHOW_NEW_HERO && <HeroNow hero={hero} />}
+        <HeroStory hero={hero} />
+        <div className="page">
+          <Bands block={whatWeDo} id="what-we-do" />
+          <PushedTable block={featured} id="featured-services" links={serviceLinks} tint />
+          <Staircase block={approach} id="approach" />
+          <ColourFields block={who} id="who-we-work-with" />
+          <QuestionEdges block={final} />
+        </div>
+      </main>
+      <SiteFooter />
     </>
   );
 }

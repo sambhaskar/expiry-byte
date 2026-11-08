@@ -9,7 +9,7 @@
  function closeMenu(){nav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open menu')}
  $$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const target=$(a.getAttribute('href'));if(!target)return;e.preventDefault();closeMenu();if(lenis)lenis.scrollTo(target,{offset:-78,duration:1.25});else target.scrollIntoView({behavior:'auto'});history.replaceState(null,'',a.getAttribute('href'))}));
  // Keep all tab panels and form fields usable independently of animation.
- const tabs=$$('.tabs button'),panels=$$('.plans');$('.tabs').setAttribute('role','tablist');$('.tabs').setAttribute('aria-label','Service packages');
+ const tabs=$$('.tabs button'),panels=$$('.plans');$('.tabs')?.setAttribute('role','tablist');$('.tabs')?.setAttribute('aria-label','Service packages');
  function activateTab(button,focus=false){tabs.forEach(b=>{const on=b===button;b.classList.toggle('on',on);b.setAttribute('aria-selected',String(on));b.tabIndex=on?0:-1});panels.forEach(p=>{const on=p.id===button.dataset.t;p.classList.toggle('on',on);p.hidden=!on});if(focus)button.focus();window.ScrollTrigger?.refresh()}
  tabs.forEach((b,i)=>{b.id='tab-'+b.dataset.t;b.setAttribute('role','tab');b.setAttribute('aria-controls',b.dataset.t);b.setAttribute('aria-selected',String(i===0));b.tabIndex=i===0?0:-1;b.addEventListener('click',()=>activateTab(b));b.addEventListener('keydown',e=>{let next=i;if(e.key==='ArrowRight')next=(i+1)%tabs.length;else if(e.key==='ArrowLeft')next=(i-1+tabs.length)%tabs.length;else if(e.key==='Home')next=0;else if(e.key==='End')next=tabs.length-1;else return;e.preventDefault();activateTab(tabs[next],true)})});
  panels.forEach((p,i)=>{p.setAttribute('role','tabpanel');p.setAttribute('aria-labelledby','tab-'+p.id);p.hidden=i!==0});
@@ -56,27 +56,28 @@
   gsap.registerPlugin(ScrollTrigger);const mm=gsap.matchMedia();
   mm.add('(prefers-reduced-motion: no-preference) and (min-width: 901px)',()=>{
    if(window.Lenis){lenis=new Lenis({duration:1.1,smoothWheel:true,syncTouch:false,lerp:.095,wheelMultiplier:.85});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(tickLenis)}
-   const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:'.story',start:'top top',end:'bottom bottom',scrub:.7}});
+   // Each effect only runs on pages that contain its section.
+   if($('.story')){const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:'.story',start:'top top',end:'bottom bottom',scrub:.7}});
    tl.to(state,{p:1,duration:1,onUpdate:()=>draw()},0)
     .to('.hero-panel',{autoAlpha:0,y:-75,duration:.11},.30)
-    .fromTo('.story-promise',{autoAlpha:0,y:55},{autoAlpha:1,y:0,duration:.12},.52);
+    .fromTo('.story-promise',{autoAlpha:0,y:55},{autoAlpha:1,y:0,duration:.12},.52)}
    $$('.service-art').forEach(el=>gsap.fromTo(el.children,{y:20},{y:-18,ease:'none',scrollTrigger:{trigger:el,start:'top bottom',end:'bottom top',scrub:1}}));
-   const mt=gsap.timeline({scrollTrigger:{trigger:'.motion-story',start:'top top',end:'bottom bottom',scrub:.5}});
+   if($('.motion-story')){const mt=gsap.timeline({scrollTrigger:{trigger:'.motion-story',start:'top top',end:'bottom bottom',scrub:.5}});
    $$('.motion-line span').forEach((line,i)=>mt.fromTo(line,{opacity:.18,x:i%2?35:-35},{opacity:1,x:0,duration:.18,ease:'none'},i*.18));
-   mt.to('.motion-flower',{rotation:95,scale:1.15,duration:1,ease:'none'},0);
-   gsap.fromTo('.design-sheet',{rotationY:15,rotation:-10,y:35},{rotationY:-5,rotation:-3,y:-25,ease:'none',scrollTrigger:{trigger:'.design-visual',start:'top bottom',end:'bottom top',scrub:1}});
-   gsap.fromTo('.code-sheet',{rotationY:-15,rotation:10,y:45},{rotationY:7,rotation:2,y:-25,ease:'none',scrollTrigger:{trigger:'.design-visual',start:'top bottom',end:'bottom top',scrub:1}});
+   mt.to('.motion-flower',{rotation:95,scale:1.15,duration:1,ease:'none'},0)}
+   if($('.design-visual')){gsap.fromTo('.design-sheet',{rotationY:15,rotation:-10,y:35},{rotationY:-5,rotation:-3,y:-25,ease:'none',scrollTrigger:{trigger:'.design-visual',start:'top bottom',end:'bottom top',scrub:1}});
+   gsap.fromTo('.code-sheet',{rotationY:-15,rotation:10,y:45},{rotationY:7,rotation:2,y:-25,ease:'none',scrollTrigger:{trigger:'.design-visual',start:'top bottom',end:'bottom top',scrub:1}})}
    $$('.process-card').slice(0,-1).forEach(card=>gsap.to(card,{scale:.955,ease:'none',scrollTrigger:{trigger:card.nextElementSibling,start:'top 75%',end:'top 160px',scrub:true}}));
-   gsap.to('.contact-spark',{rotation:100,ease:'none',scrollTrigger:{trigger:'#contact',start:'top bottom',end:'bottom bottom',scrub:1}});
+   if($('.contact-spark'))gsap.to('.contact-spark',{rotation:100,ease:'none',scrollTrigger:{trigger:'#contact',start:'top bottom',end:'bottom bottom',scrub:1}});
    return()=>{gsap.ticker.remove(tickLenis);lenis?.destroy();lenis=null;state.p=0;draw()};
   });
   function tickLenis(t){lenis?.raf(t*1000)}
-  gsap.to('#progress',{scaleX:1,ease:'none',scrollTrigger:{start:0,end:'max',scrub:true}});
+  if($('#progress'))gsap.to('#progress',{scaleX:1,ease:'none',scrollTrigger:{start:0,end:'max',scrub:true}});
   document.fonts.ready.then(()=>ScrollTrigger.refresh());
  }
  function initThree(){
-  if(!window.THREE)return;
   const host=$('#three-stage'),stage=$('.story-stage');let renderer;
+  if(!window.THREE||!host||!stage)return;
   try{renderer=new THREE.WebGLRenderer({alpha:true,antialias:true,powerPreference:'low-power'})}catch{return}
   renderer.setPixelRatio(Math.min(devicePixelRatio,1.6));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.3;renderer.setClearColor(0x000000,0);host.append(renderer.domElement);
   const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(42,1,.1,100);camera.position.set(0,0,8);

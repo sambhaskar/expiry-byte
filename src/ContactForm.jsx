@@ -4,7 +4,12 @@ import './form-status.css';
 const recipient = 'experibytetechnologies@gmail.com';
 const endpoint = `https://formsubmit.co/ajax/${recipient}`;
 
-export function ContactForm() {
+const helpOptions = ['Website', 'Animated Website', 'Web Application', 'AI', 'UI/UX', 'SEO', 'Not Sure Yet'];
+const budgetOptions = ['Under ₹50,000', '₹50,000 – ₹1,50,000', '₹1,50,000 – ₹5,00,000', '₹5,00,000+', 'Not sure yet'];
+const timelineOptions = ['As soon as possible', 'Within 1 month', '1–3 months', '3+ months', 'Flexible'];
+
+// Visible labels for every field, as listed in the content document.
+export function ContactForm({ submitLabel = 'Send Project Enquiry' }) {
   const formRef = useRef(null);
   const [status, setStatus] = useState({ type: '', message: '' });
   const [sending, setSending] = useState(false);
@@ -24,11 +29,9 @@ export function ContactForm() {
       });
       if (!response.ok) throw new Error('Unable to send');
       const result = await response.json();
-      if (result.success !== true && result.success !== 'true') {
-        throw new Error('Unable to send');
-      }
+      if (result.success !== true && result.success !== 'true') throw new Error('Unable to send');
       form.reset();
-      setStatus({ type: 'success', message: 'Thanks! Your enquiry has been sent. We will get back to you within 24 hours.' });
+      setStatus({ type: 'success', message: 'Thanks! Your enquiry has been sent. We will get back to you soon.' });
     } catch {
       setStatus({ type: 'error', message: `Your enquiry could not be sent. Please email ${recipient} or try again.` });
     } finally {
@@ -37,45 +40,35 @@ export function ContactForm() {
   }
 
   return (
-    <form ref={formRef} id="form" className="enquiry-form" action={endpoint} method="POST" onSubmit={handleSubmit}>
+    <form ref={formRef} id="form" className="enquiry-form enquiry-form--labelled" action={endpoint} method="POST" onSubmit={handleSubmit}>
       <input type="hidden" name="_subject" value="New enquiry from Experibyte website" />
       <input type="hidden" name="_template" value="table" />
       <input type="text" name="_honey" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
       <div className="row">
-        <input name="name" placeholder="Your name" aria-label="Your name" autoComplete="name" required />
-        <input type="email" name="email" placeholder="Email" aria-label="Email" autoComplete="email" required />
+        <label className="field"><span>Your name*</span><input name="name" autoComplete="name" required /></label>
+        <label className="field"><span>Business / organisation</span><input name="business" autoComplete="organization" /></label>
       </div>
       <div className="row">
-        <input type="tel" name="phone" placeholder="Phone / WhatsApp" aria-label="Phone or WhatsApp" autoComplete="tel" />
-        <select name="service" aria-label="Service you are interested in">
-          <option>Website – Basic</option>
-          <option>Website – Advanced</option>
-          <option>Website – Premium</option>
-          <option>Animated / Scroll Website</option>
-          <option>Website with Content Dashboard</option>
-          <option>Web Application</option>
-          <option>SEO (Local / Growth)</option>
-          <option>Design to Code (Figma / XD / PSD)</option>
-          <option>Not sure yet</option>
-        </select>
+        <label className="field"><span>Work email*</span><input type="email" name="email" autoComplete="email" required /></label>
+        <label className="field"><span>Phone / WhatsApp</span><input type="tel" name="phone" autoComplete="tel" /></label>
       </div>
-      <select name="budget" aria-label="Project budget">
-        <option>Budget: under ₹50,000</option>
-        <option>₹50,000 – ₹1,50,000</option>
-        <option>₹1,50,000 – ₹5,00,000</option>
-        <option>₹5,00,000+</option>
-        <option>Not sure yet</option>
-      </select>
-      <textarea name="message" rows="5" placeholder="Tell us about your project" aria-label="Tell us about your project" required />
-      <button className="btn btn-p" type="submit" disabled={sending}>{sending ? 'Sending…' : 'Send enquiry'}</button>
-      <p className="privacy">
-        We use the details you provide to respond to your enquiry, discuss your project and communicate about requested services. For more information, please read our{' '}
-        <a href="/privacy-policy/">Privacy Policy</a>.
-      </p>
+      <label className="field"><span>I need help with</span>
+        <select name="service" defaultValue="Not Sure Yet">{helpOptions.map((o) => <option key={o}>{o}</option>)}</select>
+      </label>
+      <div className="row">
+        <label className="field"><span>Approximate budget (optional)</span>
+          <select name="budget" defaultValue=""><option value="">Select a range</option>{budgetOptions.map((o) => <option key={o}>{o}</option>)}</select>
+        </label>
+        <label className="field"><span>Preferred launch timeline (optional)</span>
+          <select name="timeline" defaultValue=""><option value="">Select a timeline</option>{timelineOptions.map((o) => <option key={o}>{o}</option>)}</select>
+        </label>
+      </div>
+      <label className="field"><span>Project description*</span><textarea name="message" rows="5" required /></label>
       <label className="privacy-consent">
         <input type="checkbox" name="privacyConsent" value="accepted" required />
-        <span>I have read the <a href="/privacy-policy/">Privacy Policy</a> and understand how my enquiry information will be processed.</span>
+        <span>I have read the <a href="/privacy-policy/">Privacy Policy</a> and understand how my enquiry information will be processed.*</span>
       </label>
+      <button className="btn btn-p" type="submit" disabled={sending}>{sending ? 'Sending…' : submitLabel}</button>
       <div id="msg" className={`form-status${status.type === 'success' ? ' form-status--success' : ''}`} role="status" aria-live="polite">
         {status.type === 'success' && (
           <span className="form-status__icon" aria-hidden="true">

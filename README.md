@@ -4,7 +4,7 @@ Run `npm install` and `npm run dev` for local development. Run `npm run build` t
 
 For Cloudflare Workers Builds, use repository root `/`, build command `npm run build`, and deploy command `npx wrangler deploy`. The Worker configuration serves the generated `dist/` directory.
 
-Page markup is in `src/PageContent.jsx`. The contact form is in `src/ContactForm.jsx`. Styles and animation libraries are in `src/styles.css` and `public/`.
+The home page is `src/PageContent.jsx`. The Services, Pricing, About, Contact and FAQ pages are `src/ServicesPage.jsx`, `src/PricingPage.jsx`, `src/AboutPage.jsx`, `src/ContactPage.jsx` and `src/FaqPage.jsx`. All six service detail pages share `src/ServicePage.jsx`. Pages are listed in `src/routes.jsx`, their titles and descriptions are in `scripts/seo.mjs`, and the wording for services, FAQ and pricing packages is in `src/content/`. Package prices appear on both the home page and in the comparison tables in `src/content/pricing.js`, so change them in both places. The contact form is in `src/ContactForm.jsx`. Styles and animation libraries are in `src/styles.css`, `src/pages.css` and `public/`.
 
 Contact submissions go to `experibytetechnologies@gmail.com` through FormSubmit. The inbox owner must confirm FormSubmit's one-time activation email after the first submission before messages are delivered. A deployed site needs to be served over HTTP or HTTPS.
 
