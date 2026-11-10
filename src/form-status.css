@@ -13,6 +13,11 @@
   line-height: 1.5;
 }
 
+/* site.css makes form-status text white for the error line on the blue form; keep success text dark on its pale panel. */
+.page #msg.form-status--success span:not(.form-status__icon) {
+  color: #14532d;
+}
+
 .form-status__icon {
   display: grid;
   flex: 0 0 28px;
