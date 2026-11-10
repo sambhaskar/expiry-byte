@@ -10,7 +10,7 @@ const sections = {
       ['Information you provide', 'The enquiry form may ask for your name, email address, phone number, service of interest, budget and project message.'],
       ['How it is used', 'We use these details to respond to your enquiry, discuss your project and communicate about services you requested. The form sends your submission to Experibyte via FormSubmit, the form delivery service configured on this website.'],
       ['Sharing and retention', 'We do not sell enquiry information. It is available to Experibyte and the service providers needed to deliver and protect the enquiry form and email. Messages may be retained in our business email for follow-up and record keeping.'],
-      ['Your choices', 'You can contact us to ask about, correct or request deletion of information you submitted, subject to records we must retain. You may also contact us at experibytetechnologies@gmail.com with privacy questions.'],
+      ['Your choices', 'You can contact us to ask about, correct or request deletion of information you submitted, subject to records we must retain. You may also contact us at hello@experibyte.com with privacy questions.'],
     ],
   },
   terms: {
@@ -22,7 +22,7 @@ const sections = {
       ['Changes and approvals', 'The proposal states the included review or revision rounds. New features or substantial scope changes may affect fees and timeline and will be agreed before that work begins.'],
       ['Ownership and third-party materials', 'After full payment, ownership of original custom deliverables transfers as stated in the project agreement. Third-party fonts, images, plugins, frameworks, software and other licensed materials remain subject to their respective licences.'],
       ['Support and outcomes', 'Post-launch support is limited to the duration and deliverables stated in the proposal. Search rankings, traffic, leads and sales depend on external factors and are not guaranteed.'],
-      ['Contact', 'For questions about these terms, contact experibytetechnologies@gmail.com.'],
+      ['Contact', 'For questions about these terms, contact hello@experibyte.com.'],
     ],
   },
 };

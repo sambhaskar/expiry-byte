@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import './form-status.css';
 
-const recipient = 'experibytetechnologies@gmail.com';
+const recipient = 'hello@experibyte.com';
 const endpoint = `https://formsubmit.co/ajax/${recipient}`;
 
 const helpOptions = ['Website', 'Animated Website', 'Web Application', 'AI', 'UI/UX', 'SEO', 'Not Sure Yet'];

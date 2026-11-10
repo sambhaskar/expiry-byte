@@ -565,7 +565,7 @@ export default function V2Page() {
             <div className="contact-copy">
               <p>Tell us about your project and we'll reply within 24 hours with ideas and a quote.</p>
               <div className="contact-links">
-                <p>📧 <a href="mailto:experibytetechnologies@gmail.com">experibytetechnologies@gmail.com</a></p>
+                <p>📧 <a href="mailto:hello@experibyte.com">hello@experibyte.com</a></p>
                 <p>💬 WhatsApp: +91 XXXXX XXXXX (Mon–Sat, 10am–7pm IST)</p>
                 <p>📍 Working with clients across India and worldwide</p>
               </div>

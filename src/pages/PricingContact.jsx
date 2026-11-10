@@ -78,7 +78,7 @@ export function ContactPage() {
   const [hero, details, form, next, reassurance, final] = pageByKey('contact').blocks;
   const [intro, ...fields] = form.items;
   const [, formHeading, formIntro] = intro.match(/^Form heading: (.+?) Intro: (.+)$/);
-  const email = 'experibytetechnologies@gmail.com';
+  const email = 'hello@experibyte.com';
   const where = details.text.split(`${email}.`)[1].trim();
   return (
     <PageShell active="contact">

@@ -100,7 +100,7 @@ export function SiteFooter({ activePage = 'home' }) {
               </>
             )}
           <div><b>Legal</b><a href="/privacy-policy/">Privacy Policy</a><a href="/terms/">Terms &amp; Conditions</a></div>
-          <div data-nosnippet><b>Contact</b><a href="mailto:experibytetechnologies@gmail.com">experibytetechnologies@gmail.com</a><span>Working with clients across India and worldwide.</span></div>
+          <div data-nosnippet><b>Contact</b><a href="mailto:hello@experibyte.com">hello@experibyte.com</a><span>Working with clients across India and worldwide.</span></div>
         </div>
       </div>
       <a href={topHref} className="back-top">BACK TO TOP ↑</a>

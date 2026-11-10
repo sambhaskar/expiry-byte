@@ -3,7 +3,7 @@
 import { sitePages } from '../src/content/site.js';
 import { articles } from '../src/content/articles.js';
 
-export const EMAIL = 'experibytetechnologies@gmail.com';
+export const EMAIL = 'hello@experibyte.com';
 
 export const home = {
   title: 'Experibyte – Animated Websites, React Templates & Web Apps',

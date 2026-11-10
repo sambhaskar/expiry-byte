@@ -1660,7 +1660,7 @@ export const sitePages = [
         "name": "Contact details",
         "eyebrow": "BUSINESS ENQUIRIES",
         "title": "Start with an email or a project brief.",
-        "text": "Email: experibytetechnologies@gmail.com. We work with clients across India and worldwide, and can discuss your project remotely.",
+        "text": "Email: hello@experibyte.com. We work with clients across India and worldwide, and can discuss your project remotely.",
         "items": [],
         "ctas": []
       },
